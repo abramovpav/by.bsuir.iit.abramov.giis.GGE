@@ -1,9 +1,11 @@
 package by.bsuir.iit.abramov.giis.GGE.view;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenu;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenuItem;
@@ -13,6 +15,9 @@ public class MainWindow {
 	private final String TITLE = "GGE";
 	private final int DEFAULT_WIDTH = 600;
 	private final int DEFAULT_HEIGHT = 800;
+	private JPanel contentPane;
+	private Desktop desktop;
+	private ToolPanel toolPanel;
 	
 	
 	public MainWindow() {
@@ -24,6 +29,20 @@ public class MainWindow {
 		window.setBounds(0, 0, DEFAULT_HEIGHT, DEFAULT_WIDTH);
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		initMenuBar();
+		initDesktop();
+		initToolPanel();
+	}
+	
+	private void initToolPanel() {
+		toolPanel = new ToolPanel();
+	}
+	
+	private void initDesktop() {
+		Desktop desktop = new Desktop(this);
+		contentPane = new JPanel();
+		window.setContentPane(contentPane);
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
+		contentPane.add(desktop);
 	}
 	
 	private void initMenuBar() {
