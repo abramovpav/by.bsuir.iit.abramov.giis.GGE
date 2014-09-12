@@ -1,6 +1,9 @@
 package by.bsuir.iit.abramov.giis.GGE.view;
 
+import java.awt.BorderLayout;
+
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -29,20 +32,29 @@ public class MainWindow {
 		window.setBounds(0, 0, DEFAULT_HEIGHT, DEFAULT_WIDTH);
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		initMenuBar();
-		initDesktop();
-		initToolPanel();
+		initContentPane();
+		initToolPanel(contentPane);
+		initDesktop(contentPane);
 	}
 	
-	private void initToolPanel() {
-		toolPanel = new ToolPanel();
-	}
-	
-	private void initDesktop() {
-		Desktop desktop = new Desktop(this);
+	private void initContentPane() {
 		contentPane = new JPanel();
 		window.setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
-		contentPane.add(desktop);
+		contentPane.setLayout(new BorderLayout(0,0));
+	}
+	
+	private void initToolPanel(JPanel contenPane) {
+		toolPanel = new ToolPanel(this);
+		contentPane.add(toolPanel, BorderLayout.EAST);
+	}
+	
+	private void initDesktop(JPanel contentPane) {
+		Desktop desktop = new Desktop(this);
+		contentPane.add(desktop, BorderLayout.CENTER);
+	}
+	
+	public void add(JComponent component) {
+		add(component);
 	}
 	
 	private void initMenuBar() {
