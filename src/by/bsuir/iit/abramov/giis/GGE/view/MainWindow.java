@@ -10,8 +10,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenu;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenuItem;
+import by.bsuir.iit.abramov.giis.GGE.utils.ListenerFactory;
 
 public class MainWindow {
 	private final JFrame window;
@@ -21,11 +23,17 @@ public class MainWindow {
 	private JPanel contentPane;
 	private Desktop desktop;
 	private ToolPanel toolPanel;
+	private final Controller controller;
 	
 	
-	public MainWindow() {
+	public MainWindow(final Controller controller) {
 		window = new JFrame(TITLE);
+		this.controller = controller;
 		init();
+	}
+	
+	public final Controller getController() {
+		return controller;
 	}
 	
 	private void init() {
@@ -63,6 +71,7 @@ public class MainWindow {
 			JMenu menu = new JMenu(emenu.getName());
 			for (EMenuItem eMenuItem: emenu.getItems()) {
 				JMenuItem item = new JMenuItem(eMenuItem.getName());
+				item.addActionListener(ListenerFactory.getActionListener(eMenuItem, controller));
 				menu.add(item);
 			}
 			menuBar.add(menu);
@@ -73,7 +82,7 @@ public class MainWindow {
 	}
 	
 	public void setVisible(boolean visible) {
-		window.setVisible(true);
+		window.setVisible(visible);
 	}
 
 }
