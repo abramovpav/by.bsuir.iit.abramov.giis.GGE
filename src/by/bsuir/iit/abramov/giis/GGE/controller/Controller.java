@@ -12,6 +12,10 @@ public class Controller {
 		this.window = window;
 	}
 	
+	public void newTab() {
+		window.createNewTab();
+	}
+	
 	public void exit() {
 		window.setVisible(false);
 	}

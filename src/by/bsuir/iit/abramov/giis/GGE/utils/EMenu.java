@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum EMenu {
-	FILE("File", EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), EDIT("Edit"), ACTIONS("Actions");
+	FILE("File", EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), 
+	EDIT("Edit"), 
+	ACTIONS("Actions", EMenuItem.EDGE, EMenuItem.NONE);
 	
 	private List<EMenuItem> items;
 	private String name = "DEFAULT";

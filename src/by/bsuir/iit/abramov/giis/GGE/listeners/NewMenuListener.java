@@ -15,7 +15,7 @@ public class NewMenuListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		controller.exit();
+		controller.newTab();
 
 	}
 

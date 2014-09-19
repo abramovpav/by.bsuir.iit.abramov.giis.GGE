@@ -36,13 +36,17 @@ public class MainWindow {
 		return controller;
 	}
 	
+	public void createNewTab() {
+		initDesktop(contentPane);
+	}
+	
 	private void init() {
 		window.setBounds(0, 0, DEFAULT_HEIGHT, DEFAULT_WIDTH);
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		initMenuBar();
 		initContentPane();
 		initToolPanel(contentPane);
-		initDesktop(contentPane);
+//		initDesktop(contentPane);
 	}
 	
 	private void initContentPane() {
