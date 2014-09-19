@@ -1,5 +1,6 @@
 package by.bsuir.iit.abramov.giis.GGE.controller;
 
+import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 import by.bsuir.iit.abramov.giis.GGE.view.MainWindow;
 
 public class Controller {
@@ -18,5 +19,13 @@ public class Controller {
 	
 	public void exit() {
 		window.setVisible(false);
+	}
+	
+	public void edge() {
+		window.setMode(Mode.EDGE);
+	}
+	
+	public void none() {
+		window.setMode(Mode.NONE);
 	}
 }

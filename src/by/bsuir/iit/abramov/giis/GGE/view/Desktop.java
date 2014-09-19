@@ -29,6 +29,14 @@ public class Desktop extends JPanel {
 		init();
 	}
 	
+	public void setMode(Mode mode) {
+		this.mode = mode;
+	}
+	
+	public final Mode getMode() {
+		return mode;
+	}
+	
 	private void init() {
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
 		addMouseListener(new DesktopMouseListener(controller, this));

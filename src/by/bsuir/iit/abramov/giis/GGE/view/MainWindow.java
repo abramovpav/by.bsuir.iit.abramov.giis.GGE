@@ -14,6 +14,7 @@ import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenu;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenuItem;
 import by.bsuir.iit.abramov.giis.GGE.utils.ListenerFactory;
+import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class MainWindow {
 	private final JFrame window;
@@ -34,6 +35,10 @@ public class MainWindow {
 	
 	public final Controller getController() {
 		return controller;
+	}
+	
+	public void setMode(Mode mode) {
+		desktop.setMode(mode);
 	}
 	
 	public void createNewTab() {
