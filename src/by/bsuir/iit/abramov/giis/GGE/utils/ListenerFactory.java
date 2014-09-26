@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.listeners.EdgeActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.EdgeDDAActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
@@ -25,6 +26,8 @@ public class ListenerFactory {
 			return null;
 		case EDGE:
 			return new EdgeActionListener(controller);
+		case EDGE_DDA:
+			return new EdgeDDAActionListener(controller);
 		case NONE:
 			return new NoneActionListener(controller);
 		default:

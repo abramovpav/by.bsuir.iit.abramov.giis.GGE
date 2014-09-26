@@ -6,7 +6,7 @@ import java.util.List;
 public enum EMenu {
 	FILE("File", EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), 
 	EDIT("Edit"), 
-	ACTIONS("Actions", EMenuItem.EDGE, EMenuItem.NONE);
+	ACTIONS("Actions", EMenuItem.EDGE, EMenuItem.EDGE_DDA, EMenuItem.NONE);
 	
 	private List<EMenuItem> items;
 	private String name = "DEFAULT";

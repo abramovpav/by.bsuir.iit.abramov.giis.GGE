@@ -68,7 +68,7 @@ public class Edge extends JComponent implements GraphicObject {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		System.out.println("Edge-paint");
 		Graphics2D g2d = (Graphics2D)g;
 		Point firstPoint = getFirstPointOnCanvas();
 		Point lastPoint = getLastPointOnCanvas();

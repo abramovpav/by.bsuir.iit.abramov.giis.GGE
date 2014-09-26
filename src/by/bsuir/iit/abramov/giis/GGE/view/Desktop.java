@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Edge;
+import by.bsuir.iit.abramov.giis.GGE.graphic.EdgeDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
@@ -48,6 +49,10 @@ public class Desktop extends JPanel {
 			addMouseListener(new EdgeDesktopMouseListener(controller, this));
 			addMouseMotionListener(new EdgeDesktopMouseListener(controller, this));
 			break;
+		case EDGE_DDA:
+			addMouseListener(new EdgeDesktopMouseListener(controller, this));
+			addMouseMotionListener(new EdgeDesktopMouseListener(controller, this));
+			break;
 		case NONE:
 			addMouseListener(new DesktopMouseListener(controller, this));
 			break;
@@ -59,7 +64,15 @@ public class Desktop extends JPanel {
 	public void setEdgePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
 			System.out.println("Create temp Edge. Frist point in (" + x + ", " + y + ")");
-			tempGraphicObject = new Edge(new Point(x, y));
+			switch(mode) {
+			case EDGE:
+				tempGraphicObject = new Edge(new Point(x, y));
+				break;
+			case EDGE_DDA:
+				tempGraphicObject = new EdgeDDA(new Point(x, y));
+				break;
+			}
+				
 		}
 		else {
 			((Edge)tempGraphicObject).setEndPoint(new Point(x, y));

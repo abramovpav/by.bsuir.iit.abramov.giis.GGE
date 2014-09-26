@@ -2,11 +2,21 @@ package by.bsuir.iit.abramov.giis.GGE.graphic;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class EdgeDDA extends Edge {
+	
+	public EdgeDDA() {
+		super();
+	}
+	
+	public EdgeDDA(final Point start) {
+		super(start);
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		System.out.println("EdgeDDA-paint");
 		Graphics2D g2d = (Graphics2D)g;
 		Point firstPoint = getFirstPointOnCanvas();
 		Point lastPoint = getLastPointOnCanvas();

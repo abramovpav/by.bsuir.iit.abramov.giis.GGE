@@ -25,6 +25,10 @@ public class Controller {
 		window.setMode(Mode.EDGE);
 	}
 	
+	public void edgeDDA() {
+		window.setMode(Mode.EDGE_DDA);
+	}
+	
 	public void none() {
 		window.setMode(Mode.NONE);
 	}

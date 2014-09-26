@@ -2,7 +2,8 @@ package by.bsuir.iit.abramov.giis.GGE.utils;
 
 public enum EMenuItem {
 	
-	NEW("New..."), OPEN("Open"), CLOSE("Close"), EXIT("Exit"), EDGE("Edge"), 
+	NEW("New..."), OPEN("Open"), CLOSE("Close"), EXIT("Exit"), 
+	EDGE("Edge"), EDGE_DDA("EdgeDDA"), 
 	NONE("Empty");
 	
 	private String name = "DEFAULT";
