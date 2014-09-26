@@ -53,12 +53,12 @@ public class Segment extends JComponent implements GraphicObject {
 	
 	@Override
 	public final int getWidth() {
-		return Math.max(startPoint.getX(), endPoint.getX());
+		return Math.abs(startPoint.getX() - endPoint.getX());
 	}
 	
 	@Override
 	public final int getHeight() {
-		return Math.max(startPoint.getY(), endPoint.getY());
+		return Math.abs(startPoint.getY() - endPoint.getY());
 	}
 
 	@Override

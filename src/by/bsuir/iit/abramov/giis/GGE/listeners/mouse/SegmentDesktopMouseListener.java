@@ -1,5 +1,6 @@
 package by.bsuir.iit.abramov.giis.GGE.listeners.mouse;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
@@ -28,8 +29,9 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("edge-click");
+		Point desktopCenter = desktop.getCenterPoint();
 		if (isLeftButtonPressed(e)) {
-			desktop.setEdgePoint(e.getX(), e.getY());
+			desktop.setEdgePoint(e.getX() - desktopCenter.x, e.getY() - desktopCenter.y);
 		}
 		else if (isRightButtonPressed(e)) {
 			desktop.cancelTempObject();
