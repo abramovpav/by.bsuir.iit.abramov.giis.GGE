@@ -9,24 +9,24 @@ import java.lang.Math;
 
 import javax.swing.JComponent;
 
-public class Edge extends JComponent implements GraphicObject {
+public class Segment extends JComponent implements GraphicObject {
 	private Point startPoint;
 	private Point endPoint;
 	private final List<Point> points;
 	
-	public Edge() {
+	public Segment() {
 		this.points = new ArrayList<>();
 		startPoint = new Point();
 		endPoint = new Point();
 	}
 	
-	public Edge(final Point start) {
+	public Segment(final Point start) {
 		this.points = new ArrayList<>();
 		this.startPoint = start;
 		this.points.add(start);
 	}
 	
-	public Edge(final Point start, final Point end, final List<Point> points) {
+	public Segment(final Point start, final Point end, final List<Point> points) {
 		this.points = new ArrayList<>();
 		this.startPoint = start;
 		this.endPoint = end;

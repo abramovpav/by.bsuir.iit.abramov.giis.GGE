@@ -5,17 +5,17 @@ import java.awt.event.ActionListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 
-public class EdgeDDAActionListener implements ActionListener {
+public class SegmentActionListener implements ActionListener {
 	
 	private final Controller controller;
 	
-	public EdgeDDAActionListener(Controller controller) {
+	public SegmentActionListener(Controller controller) {
 		this.controller = controller;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		controller.edgeDDA();
+		controller.edge();
 
 	}
 

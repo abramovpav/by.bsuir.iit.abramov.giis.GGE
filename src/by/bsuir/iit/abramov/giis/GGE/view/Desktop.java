@@ -14,12 +14,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
-import by.bsuir.iit.abramov.giis.GGE.graphic.Edge;
-import by.bsuir.iit.abramov.giis.GGE.graphic.EdgeDDA;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Segment;
+import by.bsuir.iit.abramov.giis.GGE.graphic.SegmentDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.EdgeDesktopMouseListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.SegmentDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 
@@ -46,12 +46,12 @@ public class Desktop extends JPanel {
 		this.mode = mode;
 		switch(this.mode) {
 		case EDGE:
-			addMouseListener(new EdgeDesktopMouseListener(controller, this));
-			addMouseMotionListener(new EdgeDesktopMouseListener(controller, this));
+			addMouseListener(new SegmentDesktopMouseListener(controller, this));
+			addMouseMotionListener(new SegmentDesktopMouseListener(controller, this));
 			break;
 		case EDGE_DDA:
-			addMouseListener(new EdgeDesktopMouseListener(controller, this));
-			addMouseMotionListener(new EdgeDesktopMouseListener(controller, this));
+			addMouseListener(new SegmentDesktopMouseListener(controller, this));
+			addMouseMotionListener(new SegmentDesktopMouseListener(controller, this));
 			break;
 		case NONE:
 			addMouseListener(new DesktopMouseListener(controller, this));
@@ -66,16 +66,16 @@ public class Desktop extends JPanel {
 			System.out.println("Create temp Edge. Frist point in (" + x + ", " + y + ")");
 			switch(mode) {
 			case EDGE:
-				tempGraphicObject = new Edge(new Point(x, y));
+				tempGraphicObject = new Segment(new Point(x, y));
 				break;
 			case EDGE_DDA:
-				tempGraphicObject = new EdgeDDA(new Point(x, y));
+				tempGraphicObject = new SegmentDDA(new Point(x, y));
 				break;
 			}
 				
 		}
 		else {
-			((Edge)tempGraphicObject).setEndPoint(new Point(x, y));
+			((Segment)tempGraphicObject).setEndPoint(new Point(x, y));
 			graphicObjects.add(tempGraphicObject);
 			System.out.println("Set last point of temp Edge: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);

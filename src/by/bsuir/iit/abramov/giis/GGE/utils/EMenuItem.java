@@ -3,7 +3,7 @@ package by.bsuir.iit.abramov.giis.GGE.utils;
 public enum EMenuItem {
 	
 	NEW("New..."), OPEN("Open"), CLOSE("Close"), EXIT("Exit"), 
-	EDGE("Edge"), EDGE_DDA("EdgeDDA"), 
+	SEGMENT("Segment"), SEGMENT_DDA("SegmentDDA"), 
 	NONE("Empty");
 	
 	private String name = "DEFAULT";

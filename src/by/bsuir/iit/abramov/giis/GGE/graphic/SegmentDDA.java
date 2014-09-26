@@ -4,13 +4,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-public class EdgeDDA extends Edge {
+public class SegmentDDA extends Segment {
 	
-	public EdgeDDA() {
+	public SegmentDDA() {
 		super();
 	}
 	
-	public EdgeDDA(final Point start) {
+	public SegmentDDA(final Point start) {
 		super(start);
 	}
 	

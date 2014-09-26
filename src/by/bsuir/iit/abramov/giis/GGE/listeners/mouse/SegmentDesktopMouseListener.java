@@ -6,7 +6,7 @@ import javax.swing.event.MouseInputListener;
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
-public class EdgeDesktopMouseListener implements MouseInputListener {
+public class SegmentDesktopMouseListener implements MouseInputListener {
 	
 	private final Controller controller;
 	private final Desktop desktop;
@@ -20,7 +20,7 @@ public class EdgeDesktopMouseListener implements MouseInputListener {
 		}
 	}
 	
-	public EdgeDesktopMouseListener(Controller controller, Desktop desktop) {
+	public SegmentDesktopMouseListener(Controller controller, Desktop desktop) {
 		this.controller = controller;
 		this.desktop = desktop;
 	}
