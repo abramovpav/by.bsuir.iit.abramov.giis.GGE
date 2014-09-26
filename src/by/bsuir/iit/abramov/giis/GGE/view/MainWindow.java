@@ -52,10 +52,10 @@ public class MainWindow {
 		window.setBounds(0, 0, DEFAULT_HEIGHT, DEFAULT_WIDTH);
 		window.setExtendedState(Frame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setMinimumSize(new Dimension(DEFAULT_HEIGHT, DEFAULT_WIDTH));
 		initMenuBar();
 		initContentPane();
 		initToolPanel(contentPane);
-		// initDesktop(contentPane);
 	}
 
 	private void initContentPane() {
@@ -116,5 +116,4 @@ public class MainWindow {
 			window.dispose();
 		}
 	}
-
 }

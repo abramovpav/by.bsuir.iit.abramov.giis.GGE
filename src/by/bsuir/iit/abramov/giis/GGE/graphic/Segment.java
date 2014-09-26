@@ -38,8 +38,9 @@ public class Segment extends JComponent implements GraphicObject {
 		generated = true;
 	}
 	
+	@Override
 	public void generate() {
-		
+		this.points.clear();
 	}
 
 	public Segment(final Point start, final Point end, final List<Point> points) {
@@ -103,8 +104,8 @@ public class Segment extends JComponent implements GraphicObject {
 	}
 	
 	private void drawPoint(final Graphics2D g2d, final Point point) {
-		g2d.drawLine((int) point.getX(), (int) point.getY(), 
-				(int) point.getX(), (int) point.getY());
+		g2d.drawLine(point.getX(), point.getY(), 
+				point.getX(), point.getY());
 	}
 
 	protected Point getLastPointOnCanvas() {

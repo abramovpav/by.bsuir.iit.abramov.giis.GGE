@@ -1,8 +1,5 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 public class Segment_Brezenhem extends Segment {
 
 	/**
@@ -20,6 +17,7 @@ public class Segment_Brezenhem extends Segment {
 	
 	@Override
 	public void generate() {
+		super.generate();
 		Point firstPoint = getFirstPointOnCanvas();
 		Point lastPoint = getLastPointOnCanvas();
 		int x1 = firstPoint.getX();
