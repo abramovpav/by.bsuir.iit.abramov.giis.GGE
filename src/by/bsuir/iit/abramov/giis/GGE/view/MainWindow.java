@@ -1,6 +1,7 @@
 package by.bsuir.iit.abramov.giis.GGE.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -9,6 +10,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenu;
@@ -67,9 +69,20 @@ public class MainWindow {
 	}
 	
 	private void initDesktop(JPanel contentPane) {
+		
 		this.desktop = new Desktop(this);
+		JScrollPane scroll = new JScrollPane(this.desktop);
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		scroll.setViewportView(panel);
+
+		panel.add(desktop);
 		this.desktop.setLayout(null);
-		contentPane.add(desktop, BorderLayout.CENTER);
+		contentPane.add(scroll, BorderLayout.CENTER);
+		window.pack();
+		desktop.setMinimumSize(desktop.getSize());
+		panel.setPreferredSize(new Dimension(panel.getSize()));
 	}
 	
 	public void add(JComponent component) {
