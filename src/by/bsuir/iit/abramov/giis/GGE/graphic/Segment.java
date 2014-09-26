@@ -5,40 +5,42 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.Math;
 
 import javax.swing.JComponent;
 
 public class Segment extends JComponent implements GraphicObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Point startPoint;
 	private Point endPoint;
 	private final List<Point> points;
-	
+
 	public Segment() {
-		this.points = new ArrayList<>();
+		points = new ArrayList<>();
 		startPoint = new Point();
 		endPoint = new Point();
 	}
-	
+
 	public Segment(final Point start) {
-		this.points = new ArrayList<>();
-		this.startPoint = start;
-		this.points.add(start);
+		points = new ArrayList<>();
+		startPoint = start;
+		points.add(start);
 	}
-	
+
 	public Segment(final Point start, final Point end, final List<Point> points) {
 		this.points = new ArrayList<>();
-		this.startPoint = start;
-		this.endPoint = end;
+		startPoint = start;
+		endPoint = end;
 		this.points.addAll(points);
 	}
-	
 
 	public Point getStartPoint() {
 		return startPoint;
 	}
 
-	public void setStartPoint(Point startPoint) {
+	public void setStartPoint(final Point startPoint) {
 		this.startPoint = startPoint;
 	}
 
@@ -46,16 +48,16 @@ public class Segment extends JComponent implements GraphicObject {
 		return endPoint;
 	}
 
-	public void setEndPoint(Point endPoint) {
+	public void setEndPoint(final Point endPoint) {
 		this.endPoint = endPoint;
-		this.setPreferredSize(new Dimension(getWidth(), getHeight()));
+		setPreferredSize(new Dimension(getWidth(), getHeight()));
 	}
-	
+
 	@Override
 	public final int getWidth() {
 		return Math.abs(startPoint.getX() - endPoint.getX());
 	}
-	
+
 	@Override
 	public final int getHeight() {
 		return Math.abs(startPoint.getY() - endPoint.getY());
@@ -63,18 +65,19 @@ public class Segment extends JComponent implements GraphicObject {
 
 	@Override
 	public final List<Point> getPoints() {
-		return this.points;
+		return points;
 	}
-	
+
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected void paintComponent(final Graphics g) {
 		System.out.println("Segment-paint");
-		Graphics2D g2d = (Graphics2D)g;
+		Graphics2D g2d = (Graphics2D) g;
 		Point firstPoint = getFirstPointOnCanvas();
 		Point lastPoint = getLastPointOnCanvas();
-		g2d.drawLine(firstPoint.getX(), firstPoint.getY(), lastPoint.getX(), lastPoint.getY());
+		g2d.drawLine(firstPoint.getX(), firstPoint.getY(), lastPoint.getX(),
+				lastPoint.getY());
 	}
-	
+
 	protected Point getLastPointOnCanvas() {
 		Point point = new Point();
 		Point refPoint = getRefferencepoint();
@@ -82,7 +85,7 @@ public class Segment extends JComponent implements GraphicObject {
 		point.setY(endPoint.getY() - refPoint.getY());
 		return point;
 	}
-	
+
 	protected Point getFirstPointOnCanvas() {
 		Point point = new Point();
 		Point refPoint = getRefferencepoint();
@@ -96,7 +99,8 @@ public class Segment extends JComponent implements GraphicObject {
 		if (startPoint == null || endPoint == null) {
 			return null;
 		}
-		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(), endPoint.getY()));
+		return new Point(Math.min(startPoint.getX(), endPoint.getX()),
+				Math.min(startPoint.getY(), endPoint.getY()));
 	}
 
 }

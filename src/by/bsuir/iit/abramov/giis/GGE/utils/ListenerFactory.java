@@ -3,20 +3,19 @@ package by.bsuir.iit.abramov.giis.GGE.utils;
 import java.awt.event.ActionListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
-import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentActionListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentBrezenhemActionListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentDDAActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentBrezenhemActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentDDAActionListener;
 
 public class ListenerFactory {
 
-	
-	public static ActionListener getActionListener(EMenuItem item , 
-			Controller controller) {
-		
-		switch(item)  {
+	public static ActionListener getActionListener(final EMenuItem item,
+			final Controller controller) {
+
+		switch (item) {
 		case NEW:
 			return new NewMenuListener(controller);
 		case CLOSE:
@@ -36,7 +35,6 @@ public class ListenerFactory {
 		default:
 			return null;
 		}
-		
-		
+
 	}
 }

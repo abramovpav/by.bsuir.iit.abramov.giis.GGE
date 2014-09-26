@@ -5,40 +5,40 @@ public class Point {
 	private int y;
 	private int z;
 	private double dist;
-	
-	public Point(int x, int y,int z, double dist) {
+
+	public Point(final int x, final int y, final int z, final double dist) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.dist = dist;
 	}
-	
-	public Point(int x, int y, int z) {
+
+	public Point(final int x, final int y, final int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.dist = 1.0;
+		dist = 1.0;
 	}
-	
-	public Point(int x, int y) {
+
+	public Point(final int x, final int y) {
 		this.x = x;
 		this.y = y;
-		this.z = 0;
-		this.dist = 1.0;
+		z = 0;
+		dist = 1.0;
 	}
-	
+
 	public Point() {
-		this.x = 0;
-		this.y = 0;
-		this.z = 0;
-		this.dist = 1.0;
+		x = 0;
+		y = 0;
+		z = 0;
+		dist = 1.0;
 	}
 
 	public int getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(final int x) {
 		this.x = x;
 	}
 
@@ -46,7 +46,7 @@ public class Point {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(final int y) {
 		this.y = y;
 	}
 
@@ -54,7 +54,7 @@ public class Point {
 		return z;
 	}
 
-	public void setZ(int z) {
+	public void setZ(final int z) {
 		this.z = z;
 	}
 
@@ -62,9 +62,8 @@ public class Point {
 		return dist;
 	}
 
-	public void setDist(double dist) {
+	public void setDist(final double dist) {
 		this.dist = dist;
 	}
-	
-	
+
 }

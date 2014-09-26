@@ -6,15 +6,15 @@ import java.awt.event.ActionListener;
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 
 public class SegmentActionListener implements ActionListener {
-	
+
 	private final Controller controller;
-	
-	public SegmentActionListener(Controller controller) {
+
+	public SegmentActionListener(final Controller controller) {
 		this.controller = controller;
 	}
-	
+
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(final ActionEvent arg0) {
 		controller.segment();
 	}
 
