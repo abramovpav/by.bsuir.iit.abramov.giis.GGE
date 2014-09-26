@@ -27,6 +27,7 @@ public class MainWindow {
 	private Desktop desktop;
 	private ToolPanel toolPanel;
 	private final Controller controller;
+	private final Dimension desktopSize = new Dimension(1024, 768);
 	
 	
 	public MainWindow(final Controller controller) {
@@ -81,8 +82,12 @@ public class MainWindow {
 		this.desktop.setLayout(null);
 		contentPane.add(scroll, BorderLayout.CENTER);
 		window.pack();
-		desktop.setMinimumSize(desktop.getSize());
-		panel.setPreferredSize(new Dimension(panel.getSize()));
+		
+		desktop.setMinimumSize(desktopSize);
+		desktop.setMaximumSize(desktopSize);
+		desktop.setSize(desktopSize);
+		panel.setMinimumSize(desktopSize);
+		panel.setPreferredSize(desktopSize);
 	}
 	
 	public void add(JComponent component) {

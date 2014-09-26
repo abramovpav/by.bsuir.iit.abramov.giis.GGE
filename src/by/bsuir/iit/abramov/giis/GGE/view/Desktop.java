@@ -2,6 +2,9 @@ package by.bsuir.iit.abramov.giis.GGE.view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
@@ -30,13 +33,21 @@ public class Desktop extends JPanel {
 	private final List<GraphicObject> graphicObjects;
 	private GraphicObject tempGraphicObject;
 	private Mode mode;
+	private java.awt.Point centerPoint;
 	
 	public Desktop(MainWindow parent) {
 		this.parent = parent;
 		this.controller = parent.getController();
 		this.graphicObjects = new ArrayList<>();
 		this.mode = Mode.NONE;
+		centerPoint = new java.awt.Point(0, 0);
 		init();
+	}
+	
+	@Override
+	public void setMinimumSize(Dimension minimumSize) {
+		super.setMinimumSize(minimumSize);
+		centerPoint.setLocation(minimumSize.getWidth() / 2, minimumSize.getHeight() / 2);
 	}
 	
 	public void setMode(final Mode mode) {
@@ -62,6 +73,10 @@ public class Desktop extends JPanel {
 		}
 	}
 	
+	public java.awt.Point getCenterPoint() {
+		return centerPoint;
+	}
+	
 	public void setEdgePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
 			System.out.println("Create temp Edge. Frist point in (" + x + ", " + y + ")");
@@ -81,7 +96,7 @@ public class Desktop extends JPanel {
 			System.out.println("Set last point of temp Edge: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
 			Point refPoint = tempGraphicObject.getRefferencepoint();
-			tempGraphicObject.setBounds(refPoint.getX(), refPoint.getY(), tempGraphicObject.getWidth(), tempGraphicObject.getHeight());
+			tempGraphicObject.setBounds(refPoint.getX() + centerPoint.x, refPoint.getY() + centerPoint.y, tempGraphicObject.getWidth(), tempGraphicObject.getHeight());
 			tempGraphicObject = null;
 			System.out.println("delete tempEdge");
 			
@@ -112,6 +127,14 @@ public class Desktop extends JPanel {
 		System.out.println("Desktop - init");
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
 		addMouseListener(new DesktopMouseListener(controller, this));
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
 	}
 	
 	
