@@ -65,7 +65,7 @@ public class MainWindow {
 	}
 	
 	private void initToolPanel(JPanel contenPane) {
-		toolPanel = new ToolPanel(this);
+		toolPanel = new ToolPanel(this, controller);
 		contentPane.add(toolPanel, BorderLayout.EAST);
 	}
 	
