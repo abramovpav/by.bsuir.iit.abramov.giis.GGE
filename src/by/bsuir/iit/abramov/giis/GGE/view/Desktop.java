@@ -18,6 +18,7 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.Segment;
 import by.bsuir.iit.abramov.giis.GGE.graphic.SegmentDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Brezenhem;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.SegmentDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
@@ -69,7 +70,7 @@ public class Desktop extends JPanel {
 				tempGraphicObject = new Segment(new Point(x, y));
 				break;
 			case EDGE_DDA:
-				tempGraphicObject = new SegmentDDA(new Point(x, y));
+				tempGraphicObject = new Segment_Brezenhem(new Point(x, y));
 				break;
 			}
 				

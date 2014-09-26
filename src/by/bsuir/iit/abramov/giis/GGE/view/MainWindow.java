@@ -48,6 +48,7 @@ public class MainWindow {
 	private void init() {
 		window.setBounds(0, 0, DEFAULT_HEIGHT, DEFAULT_WIDTH);
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initMenuBar();
 		initContentPane();
 		initToolPanel(contentPane);
@@ -87,12 +88,13 @@ public class MainWindow {
 			menuBar.add(menu);
 		}
 		window.setJMenuBar(menuBar);
-		
-		
 	}
 	
 	public void setVisible(boolean visible) {
 		window.setVisible(visible);
+		if (!visible) {
+			window.dispose();
+		}
 	}
 
 }
