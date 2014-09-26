@@ -38,7 +38,7 @@ public class Desktop extends JPanel {
 	public Desktop(final MainWindow parent) {
 		this.parent = parent;
 		controller = parent.getController();
-		graphicObjects = new ArrayList<>();
+		graphicObjects = new ArrayList<GraphicObject>();
 		mode = Mode.NONE;
 		centerPoint = new java.awt.Point(0, 0);
 		init();
@@ -58,9 +58,6 @@ public class Desktop extends JPanel {
 		System.out.println("Set new mode: " + mode);
 		this.mode = mode;
 		switch (this.mode) {
-		case SEGMENT:
-			addSegmentMouseListeners();
-			break;
 		case SEGMENT_DDA:
 			addSegmentMouseListeners();
 			break;
@@ -89,9 +86,6 @@ public class Desktop extends JPanel {
 			System.out.println("Create temp Segment. Frist point in (" + x
 					+ ", " + y + ")");
 			switch (mode) {
-			case SEGMENT:
-				tempGraphicObject = new Segment(new Point(x, y));
-				break;
 			case SEGMENT_DDA:
 				tempGraphicObject = new SegmentDDA(new Point(x, y));
 				break;
@@ -105,6 +99,7 @@ public class Desktop extends JPanel {
 			System.out.println("Set last point of temp Segment: (" + x + ", "
 					+ y + ")");
 			add((JComponent) tempGraphicObject);
+			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencepoint();
 			tempGraphicObject
 					.setBounds(refPoint.getX() + centerPoint.x, refPoint.getY()

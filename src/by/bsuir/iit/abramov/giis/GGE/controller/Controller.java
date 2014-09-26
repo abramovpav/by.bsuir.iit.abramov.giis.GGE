@@ -21,10 +21,6 @@ public class Controller {
 		window.setVisible(false);
 	}
 
-	public void segment() {
-		window.setMode(Mode.SEGMENT);
-	}
-
 	public void segmentDDA() {
 		window.setMode(Mode.SEGMENT_DDA);
 	}

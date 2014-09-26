@@ -17,19 +17,15 @@ public class Segment_Brezenhem extends Segment {
 	public Segment_Brezenhem(final Point start) {
 		super(start);
 	}
-
+	
 	@Override
-	protected void paintComponent(final Graphics g) {
-		System.out.println("Segment_Brezenhem-paint");
-		Graphics2D g2d = (Graphics2D) g;
+	public void generate() {
 		Point firstPoint = getFirstPointOnCanvas();
 		Point lastPoint = getLastPointOnCanvas();
-		drawLine(g2d, firstPoint.getX(), firstPoint.getY(), lastPoint.getX(),
-				lastPoint.getY());
-	}
-
-	private void drawLine(final Graphics2D g2d, final int x1, final int y1,
-			final int x2, final int y2) {
+		int x1 = firstPoint.getX();
+		int y1 = firstPoint.getY();
+		int x2 = lastPoint.getX();
+		int y2 = lastPoint.getY();
 		int a = 1;
 		int b = 1;
 		if (x1 < x2) {
@@ -48,7 +44,8 @@ public class Segment_Brezenhem extends Segment {
 		int e = 2 * dy - dx;
 		double x = x1;
 		double y = y1;
-		drawPoint(g2d, x, y);
+		Point curPoint = new Point((int)x, (int)y);
+		addPoint(curPoint);
 		int i = 1;
 		if (dx > dy) {
 			while (i < dx) {
@@ -59,7 +56,8 @@ public class Segment_Brezenhem extends Segment {
 				x += a;
 				e += 2 * dy;
 				i++;
-				drawPoint(g2d, x, y);
+				curPoint = new Point((int)x, (int)y);
+				addPoint(curPoint);
 			}
 		} else {
 			e = 2 * dx - dy;
@@ -71,22 +69,10 @@ public class Segment_Brezenhem extends Segment {
 				y += b;
 				e += 2 * dx;
 				i++;
-				drawPoint(g2d, x, y);
+				curPoint = new Point((int)x, (int)y);
+				addPoint(curPoint);
 			}
 		}
-	}
-
-	private void drawPoint(final Graphics2D g2d, final double x, final double y) {
-		g2d.drawLine((int) x, (int) y, (int) x, (int) y);
-	}
-
-	private int sign(final double x) {
-		if (x == 0) {
-			return 0;
-		} else if (x > 0) {
-			return 1;
-		} else {
-			return -1;
-		}
+		generated();
 	}
 }

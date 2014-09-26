@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum EMenu {
-	FILE("File", EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), EDIT(
-			"Edit"), ACTIONS("Actions", EMenuItem.SEGMENT,
+	FILE("File", 
+			EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), 
+	EDIT("Edit"), 
+	ACTIONS("Actions",
 			EMenuItem.SEGMENT_DDA, EMenuItem.SEGMENT_BREZENHEM, EMenuItem.NONE);
 
 	private List<EMenuItem> items;
@@ -13,7 +15,7 @@ public enum EMenu {
 
 	EMenu(final String name, final EMenuItem... items) {
 		this.name = name;
-		this.items = new ArrayList<>();
+		this.items = new ArrayList<EMenuItem>();
 		for (EMenuItem item : items) {
 			this.items.add(item);
 		}

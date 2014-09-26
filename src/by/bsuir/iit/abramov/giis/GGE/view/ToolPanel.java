@@ -43,7 +43,7 @@ public class ToolPanel extends JToolBar {
 	}
 
 	private void init() {
-		buttons = new HashMap<>();
+		buttons = new HashMap<String, JButton>();
 		// setFloatable(false);
 		setOrientation(SwingConstants.VERTICAL);
 

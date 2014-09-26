@@ -16,21 +16,34 @@ public class Segment extends JComponent implements GraphicObject {
 	private Point startPoint;
 	private Point endPoint;
 	private final List<Point> points;
+	private boolean generated = false;
 
 	public Segment() {
-		points = new ArrayList<>();
+		points = new ArrayList<Point>();
 		startPoint = new Point();
 		endPoint = new Point();
 	}
 
 	public Segment(final Point start) {
-		points = new ArrayList<>();
+		points = new ArrayList<Point>();
 		startPoint = start;
 		points.add(start);
 	}
+	
+	public boolean isGenerated() {
+		return generated;
+	}
+	
+	protected void generated() {
+		generated = true;
+	}
+	
+	public void generate() {
+		
+	}
 
 	public Segment(final Point start, final Point end, final List<Point> points) {
-		this.points = new ArrayList<>();
+		this.points = new ArrayList<Point>();
 		startPoint = start;
 		endPoint = end;
 		this.points.addAll(points);
@@ -67,15 +80,31 @@ public class Segment extends JComponent implements GraphicObject {
 	public final List<Point> getPoints() {
 		return points;
 	}
+	
+	public void addPoint(final Point point) {
+		points.add(point);
+	}
 
 	@Override
 	protected void paintComponent(final Graphics g) {
-		System.out.println("Segment-paint");
+		System.out.println(this.getClass().getSimpleName() + "-paint");
+		if (!isGenerated()) {
+			super.paintComponent(g);
+			return;
+		}
 		Graphics2D g2d = (Graphics2D) g;
-		Point firstPoint = getFirstPointOnCanvas();
-		Point lastPoint = getLastPointOnCanvas();
-		g2d.drawLine(firstPoint.getX(), firstPoint.getY(), lastPoint.getX(),
-				lastPoint.getY());
+		draw(g2d);
+	}
+	
+	private void draw(final Graphics2D g2d) {
+		for (Point point: getPoints()) {
+			drawPoint(g2d, point);
+		}
+	}
+	
+	private void drawPoint(final Graphics2D g2d, final Point point) {
+		g2d.drawLine((int) point.getX(), (int) point.getY(), 
+				(int) point.getX(), (int) point.getY());
 	}
 
 	protected Point getLastPointOnCanvas() {
@@ -101,6 +130,16 @@ public class Segment extends JComponent implements GraphicObject {
 		}
 		return new Point(Math.min(startPoint.getX(), endPoint.getX()),
 				Math.min(startPoint.getY(), endPoint.getY()));
+	}
+	
+	protected int sign(final double x) {
+		if (x == 0) {
+			return 0;
+		} else if (x > 0) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 
 }
