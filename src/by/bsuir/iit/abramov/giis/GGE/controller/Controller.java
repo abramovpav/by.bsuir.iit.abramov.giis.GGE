@@ -21,16 +21,16 @@ public class Controller {
 		window.setVisible(false);
 	}
 	
-	public void edge() {
-		window.setMode(Mode.EDGE);
+	public void segment() {
+		window.setMode(Mode.SEGMENT);
 	}
 	
-	public void edgeDDA() {
-		window.setMode(Mode.EDGE_DDA);
+	public void segmentDDA() {
+		window.setMode(Mode.SEGMENT_DDA);
 	}
 	
-	public void edgeBrezenhem() {
-		window.setMode(Mode.EDGE_BREZENHEM);
+	public void segmentBrezenhem() {
+		window.setMode(Mode.SEGMENT_BREZENHEM);
 	}
 	
 	public void none() {

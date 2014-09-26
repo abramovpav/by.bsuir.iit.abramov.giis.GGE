@@ -28,10 +28,10 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("edge-click");
+		System.out.println("segment-click");
 		Point desktopCenter = desktop.getCenterPoint();
 		if (isLeftButtonPressed(e)) {
-			desktop.setEdgePoint(e.getX() - desktopCenter.x, e.getY() - desktopCenter.y);
+			desktop.setSegmentPoint(e.getX() - desktopCenter.x, e.getY() - desktopCenter.y);
 		}
 		else if (isRightButtonPressed(e)) {
 			desktop.cancelTempObject();
@@ -76,7 +76,7 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		System.out.println("edge-drug");
+		System.out.println("segment-drug");
 		
 	}
 

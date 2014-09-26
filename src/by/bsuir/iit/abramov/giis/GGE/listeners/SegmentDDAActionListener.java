@@ -15,8 +15,7 @@ public class SegmentDDAActionListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		controller.edgeDDA();
-
+		controller.segmentDDA();
 	}
 
 }

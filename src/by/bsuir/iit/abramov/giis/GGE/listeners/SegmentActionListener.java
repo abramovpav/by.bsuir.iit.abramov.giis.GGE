@@ -15,8 +15,7 @@ public class SegmentActionListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		controller.edge();
-
+		controller.segment();
 	}
 
 }

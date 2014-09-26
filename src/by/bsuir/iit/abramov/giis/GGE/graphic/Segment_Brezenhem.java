@@ -16,7 +16,7 @@ public class Segment_Brezenhem extends Segment {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		System.out.println("Edge_Brezenhem-paint");
+		System.out.println("Segment_Brezenhem-paint");
 		Graphics2D g2d = (Graphics2D)g;
 		Point firstPoint = getFirstPointOnCanvas();
 		Point lastPoint = getLastPointOnCanvas();

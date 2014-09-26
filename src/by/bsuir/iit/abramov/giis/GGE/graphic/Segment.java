@@ -68,7 +68,7 @@ public class Segment extends JComponent implements GraphicObject {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		System.out.println("Edge-paint");
+		System.out.println("Segment-paint");
 		Graphics2D g2d = (Graphics2D)g;
 		Point firstPoint = getFirstPointOnCanvas();
 		Point lastPoint = getLastPointOnCanvas();

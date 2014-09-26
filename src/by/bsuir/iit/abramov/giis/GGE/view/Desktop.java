@@ -1,7 +1,6 @@
 package by.bsuir.iit.abramov.giis.GGE.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
@@ -57,13 +54,13 @@ public class Desktop extends JPanel {
 		System.out.println("Set new mode: " + mode);
 		this.mode = mode;
 		switch(this.mode) {
-		case EDGE:
+		case SEGMENT:
 			addSegmentMouseListeners();
 			break;
-		case EDGE_DDA:
+		case SEGMENT_DDA:
 			addSegmentMouseListeners();
 			break;
-		case EDGE_BREZENHEM:
+		case SEGMENT_BREZENHEM:
 			addSegmentMouseListeners();
 			break;
 		case NONE:
@@ -83,17 +80,17 @@ public class Desktop extends JPanel {
 		return centerPoint;
 	}
 	
-	public void setEdgePoint(final int x, final int y) {
+	public void setSegmentPoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
-			System.out.println("Create temp Edge. Frist point in (" + x + ", " + y + ")");
+			System.out.println("Create temp Segment. Frist point in (" + x + ", " + y + ")");
 			switch(mode) {
-			case EDGE:
+			case SEGMENT:
 				tempGraphicObject = new Segment(new Point(x, y));
 				break;
-			case EDGE_DDA:
+			case SEGMENT_DDA:
 				tempGraphicObject = new SegmentDDA(new Point(x, y));
 				break;
-			case EDGE_BREZENHEM:
+			case SEGMENT_BREZENHEM:
 				tempGraphicObject = new Segment_Brezenhem(new Point(x, y));
 			}
 				
@@ -101,12 +98,12 @@ public class Desktop extends JPanel {
 		else {
 			((Segment)tempGraphicObject).setEndPoint(new Point(x, y));
 			graphicObjects.add(tempGraphicObject);
-			System.out.println("Set last point of temp Edge: (" + x + ", " + y + ")");
+			System.out.println("Set last point of temp Segment: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
 			Point refPoint = tempGraphicObject.getRefferencepoint();
 			tempGraphicObject.setBounds(refPoint.getX() + centerPoint.x, refPoint.getY() + centerPoint.y, tempGraphicObject.getWidth(), tempGraphicObject.getHeight());
 			tempGraphicObject = null;
-			System.out.println("delete tempEdge");
+			System.out.println("delete tempSegment");
 			
 			setMode(Mode.NONE);
 		}

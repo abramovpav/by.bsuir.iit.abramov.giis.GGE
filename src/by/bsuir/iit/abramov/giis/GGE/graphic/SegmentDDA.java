@@ -16,7 +16,7 @@ public class SegmentDDA extends Segment {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		System.out.println("EdgeDDA-paint");
+		System.out.println("SegmentDDA-paint");
 		Graphics2D g2d = (Graphics2D)g;
 		Point firstPoint = getFirstPointOnCanvas();
 		Point lastPoint = getLastPointOnCanvas();
