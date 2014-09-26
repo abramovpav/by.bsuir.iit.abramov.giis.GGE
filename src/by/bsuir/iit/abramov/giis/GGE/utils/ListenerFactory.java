@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.listeners.EdgeActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
 
 public class ListenerFactory {
@@ -15,7 +16,7 @@ public class ListenerFactory {
 		
 		switch(item)  {
 		case NEW:
-			return null;
+			return new NewMenuListener(controller);
 		case CLOSE:
 			return null;
 		case EXIT:

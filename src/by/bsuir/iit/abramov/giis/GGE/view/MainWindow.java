@@ -66,7 +66,8 @@ public class MainWindow {
 	}
 	
 	private void initDesktop(JPanel contentPane) {
-		Desktop desktop = new Desktop(this);
+		this.desktop = new Desktop(this);
+		this.desktop.setLayout(null);
 		contentPane.add(desktop, BorderLayout.CENTER);
 	}
 	

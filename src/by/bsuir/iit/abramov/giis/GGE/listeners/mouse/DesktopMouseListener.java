@@ -1,4 +1,4 @@
-package by.bsuir.iit.abramov.giis.GGE.listeners;
+package by.bsuir.iit.abramov.giis.GGE.listeners.mouse;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -18,7 +18,7 @@ public class DesktopMouseListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		
+		System.out.println("tuck");
 	}
 
 	@Override
