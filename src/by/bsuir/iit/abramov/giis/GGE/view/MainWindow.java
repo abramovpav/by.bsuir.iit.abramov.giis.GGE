@@ -82,6 +82,7 @@ public class MainWindow {
 		desktop.setLayout(null);
 		contentPane.add(scroll, BorderLayout.CENTER);
 		window.pack();
+		window.setExtendedState(Frame.MAXIMIZED_BOTH);
 
 		desktop.setMinimumSize(desktopSize);
 		desktop.setMaximumSize(desktopSize);
