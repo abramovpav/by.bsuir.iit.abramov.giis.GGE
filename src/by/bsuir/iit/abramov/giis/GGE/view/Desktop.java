@@ -58,12 +58,13 @@ public class Desktop extends JPanel {
 		this.mode = mode;
 		switch(this.mode) {
 		case EDGE:
-			addMouseListener(new SegmentDesktopMouseListener(controller, this));
-			addMouseMotionListener(new SegmentDesktopMouseListener(controller, this));
+			addSegmentMouseListeners();
 			break;
 		case EDGE_DDA:
-			addMouseListener(new SegmentDesktopMouseListener(controller, this));
-			addMouseMotionListener(new SegmentDesktopMouseListener(controller, this));
+			addSegmentMouseListeners();
+			break;
+		case EDGE_BREZENHEM:
+			addSegmentMouseListeners();
 			break;
 		case NONE:
 			addMouseListener(new DesktopMouseListener(controller, this));
@@ -71,6 +72,11 @@ public class Desktop extends JPanel {
 		default:
 			
 		}
+	}
+
+	private void addSegmentMouseListeners() {
+		addMouseListener(new SegmentDesktopMouseListener(controller, this));
+		addMouseMotionListener(new SegmentDesktopMouseListener(controller, this));
 	}
 	
 	public java.awt.Point getCenterPoint() {
@@ -85,8 +91,10 @@ public class Desktop extends JPanel {
 				tempGraphicObject = new Segment(new Point(x, y));
 				break;
 			case EDGE_DDA:
-				tempGraphicObject = new Segment_Brezenhem(new Point(x, y));
+				tempGraphicObject = new SegmentDDA(new Point(x, y));
 				break;
+			case EDGE_BREZENHEM:
+				tempGraphicObject = new Segment_Brezenhem(new Point(x, y));
 			}
 				
 		}

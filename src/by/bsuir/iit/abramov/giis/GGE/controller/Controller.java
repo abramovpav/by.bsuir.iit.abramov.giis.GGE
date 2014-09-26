@@ -29,6 +29,10 @@ public class Controller {
 		window.setMode(Mode.EDGE_DDA);
 	}
 	
+	public void edgeBrezenhem() {
+		window.setMode(Mode.EDGE_BREZENHEM);
+	}
+	
 	public void none() {
 		window.setMode(Mode.NONE);
 	}

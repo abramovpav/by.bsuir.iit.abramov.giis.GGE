@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentBrezenhemActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentDDAActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
@@ -28,6 +29,8 @@ public class ListenerFactory {
 			return new SegmentActionListener(controller);
 		case SEGMENT_DDA:
 			return new SegmentDDAActionListener(controller);
+		case SEGMENT_BREZENHEM:
+			return new SegmentBrezenhemActionListener(controller);
 		case NONE:
 			return new NoneActionListener(controller);
 		default:

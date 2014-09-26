@@ -1,5 +1,5 @@
 package by.bsuir.iit.abramov.giis.GGE.utils;
 
 public enum Mode {
-	EDGE, EDGE_DDA, NONE;
+	EDGE, EDGE_DDA, EDGE_BREZENHEM, NONE;
 }
