@@ -8,6 +8,7 @@ import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentBrezenhemActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentDDAActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentVyActionListener;
 
 public class ListenerFactory {
 
@@ -27,6 +28,8 @@ public class ListenerFactory {
 			return new SegmentDDAActionListener(controller);
 		case SEGMENT_BREZENHEM:
 			return new SegmentBrezenhemActionListener(controller);
+		case SEGMENT_VY:
+			return new SegmentVyActionListener(controller);
 		case NONE:
 			return new NoneActionListener(controller);
 		default:

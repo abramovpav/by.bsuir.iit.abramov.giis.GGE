@@ -8,7 +8,7 @@ public enum EMenu {
 			EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), 
 	EDIT("Edit"), 
 	ACTIONS("Actions",
-			EMenuItem.SEGMENT_DDA, EMenuItem.SEGMENT_BREZENHEM, EMenuItem.NONE);
+			EMenuItem.SEGMENT_DDA, EMenuItem.SEGMENT_BREZENHEM, EMenuItem.SEGMENT_VY, EMenuItem.NONE);
 
 	private List<EMenuItem> items;
 	private String name = "DEFAULT";

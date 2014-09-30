@@ -1,17 +1,19 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
-public class Segment_Brezenhem extends Segment {
+import java.awt.Color;
+
+public class Segment_Vy extends Segment {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Segment_Brezenhem() {
+	public Segment_Vy() {
 		super();
 	}
 
-	public Segment_Brezenhem(final Point start) {
+	public Segment_Vy(final Point start) {
 		super(start);
 	}
 	
@@ -43,10 +45,13 @@ public class Segment_Brezenhem extends Segment {
 		double x = x1;
 		double y = y1;
 		Point curPoint = new Point((int)x, (int)y);
+		double segmentAngle = 0;
+		double distance = 0;
 		addPoint(curPoint);
-		log("e = ", e);
+		log("e = ", e);log("distance = ", distance);
 		int i = 1;
 		if (dx > dy) {
+			segmentAngle = Math.atan2(dy, dx); 
 			while (i < dx) {
 				if (e >= 0) {
 					y += b;
@@ -56,10 +61,20 @@ public class Segment_Brezenhem extends Segment {
 				e += 2 * dy;
 				i++;
 				curPoint = new Point((int)x, (int)y);
-				addPoint(curPoint);log("e = ", e);
+				double pixel_y = y;
+				if ((x1 == 0 && y1 != 0) || (x2 == 0 && y2 != 0)) {
+					pixel_y = (double)dy - y;
+				}
+				double hypot = Math.hypot(x, pixel_y);
+				double angle = Math.abs(segmentAngle - Math.asin((double)pixel_y / hypot));
+				
+				distance = Math.sin(angle) * hypot;
+				setColor(getColor((float)distance));
+				addPoint(curPoint);log("e = ", e);log("distance = ", distance);
 			}
 		} else {
 			e = 2 * dx - dy;
+			segmentAngle = Math.atan2(dy, dx); 
 			while (i < dy) {
 				if (e >= 0) {
 					x += a;
@@ -69,7 +84,16 @@ public class Segment_Brezenhem extends Segment {
 				e += 2 * dx;
 				i++;
 				curPoint = new Point((int)x, (int)y);
-				addPoint(curPoint);log("e = ", e);
+				double pixel_y = y;
+				if ((x1 == 0 && y1 != 0) || (x2 == 0 && y2 != 0)) {
+					pixel_y = (double)dy - y;
+				}
+				double hypot = Math.hypot(x, pixel_y);
+				double angle = Math.abs(segmentAngle - Math.asin((double)pixel_y / hypot));
+				
+				distance = Math.sin(angle) * hypot;
+				setColor(getColor((float)distance));
+				addPoint(curPoint);log("e = ", e);log("distance = ", distance);
 			}
 		}
 		generated();

@@ -19,6 +19,7 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Segment;
 import by.bsuir.iit.abramov.giis.GGE.graphic.SegmentDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Brezenhem;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Vy;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.SegmentDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
@@ -64,6 +65,8 @@ public class Desktop extends JPanel {
 		case SEGMENT_BREZENHEM:
 			addSegmentMouseListeners();
 			break;
+		case SEGMENT_VY:
+			addSegmentMouseListeners();
 		case NONE:
 			addMouseListener(new DesktopMouseListener(controller, this));
 			break;
@@ -91,6 +94,10 @@ public class Desktop extends JPanel {
 				break;
 			case SEGMENT_BREZENHEM:
 				tempGraphicObject = new Segment_Brezenhem(new Point(x, y));
+				break;
+			case SEGMENT_VY:
+				tempGraphicObject = new Segment_Vy(new Point(x, y));
+				break;
 			}
 
 		} else {

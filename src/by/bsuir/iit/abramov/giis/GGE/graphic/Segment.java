@@ -1,5 +1,6 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,6 +18,7 @@ public class Segment extends JComponent implements GraphicObject {
 	private Point endPoint;
 	private final List<Point> points;
 	private boolean generated = false;
+	private Color color = Color.BLACK;
 
 	public Segment() {
 		points = new ArrayList<Point>();
@@ -108,7 +110,12 @@ public class Segment extends JComponent implements GraphicObject {
 		}
 	}
 	
+	protected void setColor(Color color) {
+		this.color = color;
+	}
+	
 	private void drawPoint(final Graphics2D g2d, final Point point) {
+		g2d.setColor(this.color);
 		g2d.drawLine(point.getX(), point.getY(), 
 				point.getX(), point.getY());
 	}
@@ -146,6 +153,11 @@ public class Segment extends JComponent implements GraphicObject {
 		} else {
 			return -1;
 		}
+	}
+	
+	protected Color getColor(float intensity) {
+
+		return new Color((int)(255 * intensity), (int)(255 * intensity), (int)(255 * intensity));
 	}
 
 }
