@@ -34,6 +34,10 @@ public class Segment extends JComponent implements GraphicObject {
 		return generated;
 	}
 	
+	private void log(Point point) {
+		System.out.println(point.getX() + " " + point.getY());
+	}
+	
 	protected void generated() {
 		generated = true;
 	}
@@ -84,6 +88,7 @@ public class Segment extends JComponent implements GraphicObject {
 	
 	public void addPoint(final Point point) {
 		points.add(point);
+		log(point);
 	}
 
 	@Override

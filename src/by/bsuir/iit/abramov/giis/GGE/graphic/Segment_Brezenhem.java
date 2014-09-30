@@ -43,9 +43,13 @@ public class Segment_Brezenhem extends Segment {
 		double x = x1;
 		double y = y1;
 		Point curPoint = new Point((int)x, (int)y);
+		double segmentAngle = 0;
+		double distance = 0;
 		addPoint(curPoint);
+		log("e = ", e);log("distance = ", distance);
 		int i = 1;
 		if (dx > dy) {
+			segmentAngle = Math.abs(Math.atan2(dy, dx));
 			while (i < dx) {
 				if (e >= 0) {
 					y += b;
@@ -55,7 +59,9 @@ public class Segment_Brezenhem extends Segment {
 				e += 2 * dy;
 				i++;
 				curPoint = new Point((int)x, (int)y);
-				addPoint(curPoint);
+				double angle = Math.abs(Math.atan2(y, x));
+				distance = (x / Math.cos(angle)) * Math.sin(Math.abs(segmentAngle - angle));
+				addPoint(curPoint);log("e = ", e);log("distance = ", distance);
 			}
 		} else {
 			e = 2 * dx - dy;
@@ -68,9 +74,13 @@ public class Segment_Brezenhem extends Segment {
 				e += 2 * dx;
 				i++;
 				curPoint = new Point((int)x, (int)y);
-				addPoint(curPoint);
+				addPoint(curPoint);log("e = ", e);log("distance = ", distance);
 			}
 		}
 		generated();
+	}
+	
+	private void log(String str, double e) {
+		System.out.println(str + e);
 	}
 }

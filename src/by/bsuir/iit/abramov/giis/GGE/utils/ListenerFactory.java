@@ -32,6 +32,5 @@ public class ListenerFactory {
 		default:
 			return null;
 		}
-
 	}
 }
