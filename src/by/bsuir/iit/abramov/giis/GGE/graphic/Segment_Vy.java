@@ -61,14 +61,14 @@ public class Segment_Vy extends Segment {
 				e += 2 * dy;
 				i++;
 				curPoint = new Point((int)x, (int)y);
-				double pixel_y = y;
-				if ((x1 == 0 && y1 != 0) || (x2 == 0 && y2 != 0)) {
-					pixel_y = (double)dy - y;
+				distance = getDistance(x1, y1, x2, y2, dy, x, y, segmentAngle);
+				setColor(getColor((float)distance));
+				addPoint(curPoint);log("e = ", e);log("distance = ", distance);
+				System.out.println("second");
+				distance = getDistance(x1, y1, x2, y2, dy, x, y + 1, segmentAngle);
+				if (distance > 1) {
+					distance = getDistance(x1, y1, x2, y2, dy, x, y - 1, segmentAngle);
 				}
-				double hypot = Math.hypot(x, pixel_y);
-				double angle = Math.abs(segmentAngle - Math.asin((double)pixel_y / hypot));
-				
-				distance = Math.sin(angle) * hypot;
 				setColor(getColor((float)distance));
 				addPoint(curPoint);log("e = ", e);log("distance = ", distance);
 			}
@@ -84,19 +84,33 @@ public class Segment_Vy extends Segment {
 				e += 2 * dx;
 				i++;
 				curPoint = new Point((int)x, (int)y);
-				double pixel_y = y;
-				if ((x1 == 0 && y1 != 0) || (x2 == 0 && y2 != 0)) {
-					pixel_y = (double)dy - y;
+				distance = getDistance(x1, y1, x2, y2, dy, x, y, segmentAngle);
+				setColor(getColor((float)distance));
+				addPoint(curPoint);log("e = ", e);log("distance = ", distance);
+				distance = getDistance(x1, y1, x2, y2, dy, x + 1, y, segmentAngle);
+				System.out.println("second");
+				if (distance > 1) {
+					distance = getDistance(x1, y1, x2, y2, dy, x - 1, y, segmentAngle);
 				}
-				double hypot = Math.hypot(x, pixel_y);
-				double angle = Math.abs(segmentAngle - Math.asin((double)pixel_y / hypot));
-				
-				distance = Math.sin(angle) * hypot;
 				setColor(getColor((float)distance));
 				addPoint(curPoint);log("e = ", e);log("distance = ", distance);
 			}
 		}
 		generated();
+	}
+
+	private double getDistance(int x1, int y1, int x2, int y2, int dy,
+			double x, double y, double segmentAngle) {
+		double distance;
+		double pixel_y = y;
+		if ((x1 == 0 && y1 != 0) || (x2 == 0 && y2 != 0)) {
+			pixel_y = (double)dy - y;
+		}
+		double hypot = Math.hypot(x, pixel_y);
+		double angle = Math.abs(segmentAngle - Math.asin((double)pixel_y / hypot));
+		
+		distance = Math.sin(angle) * hypot;
+		return distance;
 	}
 	
 	private void log(String str, double e) {
