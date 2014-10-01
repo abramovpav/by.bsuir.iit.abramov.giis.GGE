@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum EMenu {
-	FILE("File", 
-			EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), 
+	FILE("File", EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), 
 	EDIT("Edit"), 
-	ACTIONS("Actions",
-			EMenuItem.SEGMENT_DDA, EMenuItem.SEGMENT_BREZENHEM, EMenuItem.SEGMENT_VY, EMenuItem.NONE);
+	ACTIONS("Actions", EMenuItem.SEGMENT_DDA, EMenuItem.SEGMENT_BREZENHEM, 
+			EMenuItem.SEGMENT_VY, EMenuItem.NONE);
 
 	private List<EMenuItem> items;
 	private String name = "DEFAULT";

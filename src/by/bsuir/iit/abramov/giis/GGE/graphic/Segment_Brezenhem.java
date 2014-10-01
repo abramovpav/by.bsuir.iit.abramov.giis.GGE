@@ -14,7 +14,7 @@ public class Segment_Brezenhem extends Segment {
 	public Segment_Brezenhem(final Point start) {
 		super(start);
 	}
-	
+
 	@Override
 	public void generate() {
 		super.generate();
@@ -42,7 +42,7 @@ public class Segment_Brezenhem extends Segment {
 		int e = 2 * dy - dx;
 		double x = x1;
 		double y = y1;
-		Point curPoint = new Point((int)x, (int)y);
+		Point curPoint = new Point((int) x, (int) y);
 		addPoint(curPoint);
 		log("e = ", e);
 		int i = 1;
@@ -55,8 +55,9 @@ public class Segment_Brezenhem extends Segment {
 				x += a;
 				e += 2 * dy;
 				i++;
-				curPoint = new Point((int)x, (int)y);
-				addPoint(curPoint);log("e = ", e);
+				curPoint = new Point((int) x, (int) y);
+				addPoint(curPoint);
+				log("e = ", e);
 			}
 		} else {
 			e = 2 * dx - dy;
@@ -68,14 +69,15 @@ public class Segment_Brezenhem extends Segment {
 				y += b;
 				e += 2 * dx;
 				i++;
-				curPoint = new Point((int)x, (int)y);
-				addPoint(curPoint);log("e = ", e);
+				curPoint = new Point((int) x, (int) y);
+				addPoint(curPoint);
+				log("e = ", e);
 			}
 		}
 		generated();
 	}
-	
-	private void log(String str, double e) {
+
+	private void log(final String str, final double e) {
 		System.out.println(str + e);
 	}
 }

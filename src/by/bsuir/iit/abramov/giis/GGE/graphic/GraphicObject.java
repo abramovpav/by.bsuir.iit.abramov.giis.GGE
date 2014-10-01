@@ -6,7 +6,7 @@ public interface GraphicObject {
 	public List<Point> getPoints();
 
 	public Point getRefferencepoint();
-	
+
 	public void generate();
 
 	public void setBounds(int x, int y, int width, int height);

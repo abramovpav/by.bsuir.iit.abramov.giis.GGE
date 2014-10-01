@@ -31,22 +31,22 @@ public class Segment extends JComponent implements GraphicObject {
 		startPoint = start;
 		points.add(start);
 	}
-	
+
 	public boolean isGenerated() {
 		return generated;
 	}
-	
-	private void log(Point point) {
+
+	private void log(final Point point) {
 		System.out.println(point.getX() + " " + point.getY());
 	}
-	
+
 	protected void generated() {
 		generated = true;
 	}
-	
+
 	@Override
 	public void generate() {
-		this.points.clear();
+		points.clear();
 	}
 
 	public Segment(final Point start, final Point end, final List<Point> points) {
@@ -87,7 +87,7 @@ public class Segment extends JComponent implements GraphicObject {
 	public final List<Point> getPoints() {
 		return points;
 	}
-	
+
 	public void addPoint(final Point point) {
 		points.add(point);
 		log(point);
@@ -103,21 +103,20 @@ public class Segment extends JComponent implements GraphicObject {
 		Graphics2D g2d = (Graphics2D) g;
 		draw(g2d);
 	}
-	
+
 	private void draw(final Graphics2D g2d) {
-		for (Point point: getPoints()) {
+		for (Point point : getPoints()) {
 			drawPoint(g2d, point);
 		}
 	}
-	
-	protected void setColor(Color color) {
+
+	protected void setColor(final Color color) {
 		this.color = color;
 	}
-	
+
 	private void drawPoint(final Graphics2D g2d, final Point point) {
-		g2d.setColor(this.color);
-		g2d.drawLine(point.getX(), point.getY(), 
-				point.getX(), point.getY());
+		g2d.setColor(color);
+		g2d.drawLine(point.getX(), point.getY(), point.getX(), point.getY());
 	}
 
 	protected Point getLastPointOnCanvas() {
@@ -144,7 +143,7 @@ public class Segment extends JComponent implements GraphicObject {
 		return new Point(Math.min(startPoint.getX(), endPoint.getX()),
 				Math.min(startPoint.getY(), endPoint.getY()));
 	}
-	
+
 	protected int sign(final double x) {
 		if (x == 0) {
 			return 0;
@@ -154,10 +153,11 @@ public class Segment extends JComponent implements GraphicObject {
 			return -1;
 		}
 	}
-	
-	protected Color getColor(float intensity) {
 
-		return new Color((int)(255 * intensity), (int)(255 * intensity), (int)(255 * intensity));
+	protected Color getColor(final float intensity) {
+
+		return new Color((int) (255 * intensity), (int) (255 * intensity),
+				(int) (255 * intensity));
 	}
 
 }

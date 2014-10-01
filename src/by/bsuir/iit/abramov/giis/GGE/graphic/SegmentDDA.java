@@ -29,18 +29,17 @@ public class SegmentDDA extends Segment {
 		double dy = (double) (y2 - y1) / length;
 		double x = x1 + 0.5 * sign(dx);
 		double y = y1 + 0.5 * sign(dy);
-		Point curPoint = new Point((int)x, (int)y);
+		Point curPoint = new Point((int) x, (int) y);
 		addPoint(curPoint);
 		int i = 0;
 		while (i < length) {
 			x = x + dx;
 			y = y + dy;
-			curPoint = new Point((int)x, (int)y);
+			curPoint = new Point((int) x, (int) y);
 			addPoint(curPoint);
 			i += 1;
 		}
 		generated();
 	}
-	
-	
+
 }

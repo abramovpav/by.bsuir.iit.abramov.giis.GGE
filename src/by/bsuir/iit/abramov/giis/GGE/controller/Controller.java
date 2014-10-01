@@ -28,7 +28,7 @@ public class Controller {
 	public void segmentBrezenhem() {
 		window.setMode(Mode.SEGMENT_BREZENHEM);
 	}
-	
+
 	public void segmentVy() {
 		window.setMode(Mode.SEGMENT_VY);
 	}
