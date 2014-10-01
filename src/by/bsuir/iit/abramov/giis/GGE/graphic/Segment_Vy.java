@@ -1,5 +1,7 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
+import java.awt.Color;
+
 
 public class Segment_Vy extends Segment {
 
@@ -43,7 +45,7 @@ public class Segment_Vy extends Segment {
 		int e = 2 * dy - dx;
 		double x = x1;
 		double y = y1;
-		Point curPoint = new Point((int) x, (int) y);
+		Point curPoint = new Point((int) x, (int) y, Color.BLACK);
 		double segmentAngle = 0;
 		double distance = 0;
 		addPoint(curPoint);
@@ -60,9 +62,8 @@ public class Segment_Vy extends Segment {
 				x += a;
 				e += 2 * dy;
 				i++;
-				curPoint = new Point((int) x, (int) y);
 				distance = getDistance(x1, y1, x2, y2, dy, x, y, segmentAngle);
-				setColor(getColor((float) distance));
+				curPoint = new Point((int) x, (int) y, getColor((float) distance));
 				addPoint(curPoint);
 				log("e = ", e);
 				log("distance = ", distance);
@@ -72,8 +73,10 @@ public class Segment_Vy extends Segment {
 				if (distance > 1) {
 					distance = getDistance(x1, y1, x2, y2, dy, x, y - 1,
 							segmentAngle);
+					curPoint = new Point((int) x, (int) y - 1, getColor((float) distance));
+				} else {
+					curPoint = new Point((int) x, (int) y + 1, getColor((float) distance));
 				}
-				setColor(getColor((float) distance));
 				addPoint(curPoint);
 				log("e = ", e);
 				log("distance = ", distance);
@@ -89,9 +92,8 @@ public class Segment_Vy extends Segment {
 				y += b;
 				e += 2 * dx;
 				i++;
-				curPoint = new Point((int) x, (int) y);
 				distance = getDistance(x1, y1, x2, y2, dy, x, y, segmentAngle);
-				setColor(getColor((float) distance));
+				curPoint = new Point((int) x, (int) y, getColor((float) distance));
 				addPoint(curPoint);
 				log("e = ", e);
 				log("distance = ", distance);
@@ -101,8 +103,10 @@ public class Segment_Vy extends Segment {
 				if (distance > 1) {
 					distance = getDistance(x1, y1, x2, y2, dy, x - 1, y,
 							segmentAngle);
+					curPoint = new Point((int) x - 1, (int) y, getColor((float) distance));
+				} else {
+					curPoint = new Point((int) x + 1, (int) y, getColor((float) distance));
 				}
-				setColor(getColor((float) distance));
 				addPoint(curPoint);
 				log("e = ", e);
 				log("distance = ", distance);

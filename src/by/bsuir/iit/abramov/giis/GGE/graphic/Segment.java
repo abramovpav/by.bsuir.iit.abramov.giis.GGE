@@ -20,7 +20,6 @@ public class Segment extends JComponent implements GraphicObject {
 	private Point endPoint;
 	private final List<Point> points;
 	private boolean generated = false;
-	private Color color = Color.BLACK;
 
 	public Segment() {
 		points = new ArrayList<Point>();
@@ -81,7 +80,7 @@ public class Segment extends JComponent implements GraphicObject {
 		while (width % Config.DEFAULT_SCALE != 0) {
 			width++;
 		}
-		return width;// * Config.DEFAULT_SCALE;
+		return width;
 	}
 
 	@Override
@@ -90,7 +89,7 @@ public class Segment extends JComponent implements GraphicObject {
 		while (heigth % Config.DEFAULT_SCALE != 0) {
 			heigth++;
 		}
-		return heigth;// * Config.DEFAULT_SCALE;
+		return heigth;
 	}
 
 	@Override
@@ -120,12 +119,8 @@ public class Segment extends JComponent implements GraphicObject {
 		}
 	}
 
-	protected void setColor(final Color color) {
-		this.color = color;
-	}
-
 	private void drawPoint(final Graphics2D g2d, final Point point) {
-		g2d.setColor(color);
+		g2d.setColor(point.getColor());
 		int x = point.getX() * Config.DEFAULT_SCALE;
 		if (x == 0) {
 			x = Config.DEFAULT_SCALE / 2;
@@ -139,7 +134,6 @@ public class Segment extends JComponent implements GraphicObject {
 				g2d.drawLine(i, j, i, j);
 			}
 		}
-		
 	}
 
 	protected Point getLastPointOnCanvas() {
@@ -195,7 +189,6 @@ public class Segment extends JComponent implements GraphicObject {
 	}
 
 	protected Color getColor(final float intensity) {
-
 		return new Color((int) (255 * intensity), (int) (255 * intensity),
 				(int) (255 * intensity));
 	}
