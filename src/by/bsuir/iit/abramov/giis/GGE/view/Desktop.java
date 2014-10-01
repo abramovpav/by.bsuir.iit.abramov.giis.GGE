@@ -22,6 +22,7 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Brezenhem;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Vy;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.SegmentDesktopMouseListener;
+import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class Desktop extends JPanel {
@@ -69,6 +70,7 @@ public class Desktop extends JPanel {
 			addSegmentMouseListeners();
 		case NONE:
 			addMouseListener(new DesktopMouseListener(controller, this));
+			addMouseMotionListener(new DesktopMouseListener(controller, this));
 			break;
 		default:
 
@@ -103,15 +105,16 @@ public class Desktop extends JPanel {
 		} else {
 			((Segment) tempGraphicObject).setEndPoint(new Point(x, y));
 			graphicObjects.add(tempGraphicObject);
-			System.out.println("Set last point of temp Segment: (" + x + ", "
-					+ y + ")");
+			System.out.println("Set last point of temp Segment: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
-			Point refPoint = tempGraphicObject.getRefferencepoint();
-			tempGraphicObject
-					.setBounds(refPoint.getX() + centerPoint.x, refPoint.getY()
-							+ centerPoint.y, tempGraphicObject.getWidth(),
-							tempGraphicObject.getHeight());
+			Point refPoint = tempGraphicObject.getRefferencePoint();
+			tempGraphicObject.setBounds(
+					refPoint.getX() + centerPoint.x, 
+					refPoint.getY() + centerPoint.y, 
+					tempGraphicObject.getWidth(),
+					tempGraphicObject.getHeight()
+					);
 			tempGraphicObject = null;
 			System.out.println("delete tempSegment");
 

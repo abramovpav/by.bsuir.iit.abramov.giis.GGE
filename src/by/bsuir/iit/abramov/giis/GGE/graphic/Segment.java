@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import by.bsuir.iit.abramov.giis.GGE.main.Config;
+
 public class Segment extends JComponent implements GraphicObject {
 	/**
 	 * 
@@ -75,12 +77,20 @@ public class Segment extends JComponent implements GraphicObject {
 
 	@Override
 	public final int getWidth() {
-		return Math.abs(startPoint.getX() - endPoint.getX());
+		int width = Math.abs(startPoint.getX() - endPoint.getX());
+		while (width % Config.DEFAULT_SCALE != 0) {
+			width++;
+		}
+		return width;// * Config.DEFAULT_SCALE;
 	}
 
 	@Override
 	public final int getHeight() {
-		return Math.abs(startPoint.getY() - endPoint.getY());
+		int heigth = Math.abs(startPoint.getY() - endPoint.getY());
+		while (heigth % Config.DEFAULT_SCALE != 0) {
+			heigth++;
+		}
+		return heigth;// * Config.DEFAULT_SCALE;
 	}
 
 	@Override
@@ -116,27 +126,57 @@ public class Segment extends JComponent implements GraphicObject {
 
 	private void drawPoint(final Graphics2D g2d, final Point point) {
 		g2d.setColor(color);
-		g2d.drawLine(point.getX(), point.getY(), point.getX(), point.getY());
+		int x = point.getX() * Config.DEFAULT_SCALE;
+		if (x == 0) {
+			x = Config.DEFAULT_SCALE / 2;
+		}
+		int y = point.getY() * Config.DEFAULT_SCALE;
+		if (y == 0) {
+			y = Config.DEFAULT_SCALE / 2;
+		}
+		for(int i = x - Config.DEFAULT_SCALE + 1; i <= x; i++) {
+			for(int j = y - Config.DEFAULT_SCALE + 1; j <= y; j++) {
+				g2d.drawLine(i, j, i, j);
+			}
+		}
+		
 	}
 
 	protected Point getLastPointOnCanvas() {
 		Point point = new Point();
-		Point refPoint = getRefferencepoint();
-		point.setX(endPoint.getX() - refPoint.getX());
-		point.setY(endPoint.getY() - refPoint.getY());
+		Point refPoint = getRefferencePoint();
+		int x = endPoint.getX() - refPoint.getX();
+		x = getScaledCoord(x);
+		int y = endPoint.getY() - refPoint.getY();
+		y = getScaledCoord(y);
+		point.setX(x);
+		point.setY(y);
 		return point;
 	}
 
 	protected Point getFirstPointOnCanvas() {
 		Point point = new Point();
-		Point refPoint = getRefferencepoint();
-		point.setX(startPoint.getX() - refPoint.getX());
-		point.setY(startPoint.getY() - refPoint.getY());
+		Point refPoint = getRefferencePoint();
+		int x = startPoint.getX() - refPoint.getX();
+		x = getScaledCoord(x);
+		int y = startPoint.getY() - refPoint.getY();
+		y = getScaledCoord(y);
+		point.setX(x);
+		point.setY(y);
 		return point;
 	}
 
+	private int getScaledCoord(int coord) {
+		if (coord % Config.DEFAULT_SCALE > 0) {
+			coord = coord / Config.DEFAULT_SCALE  + 1;
+		} else {
+			coord /= Config.DEFAULT_SCALE;
+		}
+		return coord;
+	}
+
 	@Override
-	public Point getRefferencepoint() {
+	public Point getRefferencePoint() {
 		if (startPoint == null || endPoint == null) {
 			return null;
 		}

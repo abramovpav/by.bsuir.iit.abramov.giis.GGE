@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
+import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
 public class SegmentDesktopMouseListener implements MouseInputListener {
@@ -85,8 +86,9 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 
 	@Override
 	public void mouseMoved(final MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		Point centerDesktop = desktop.getCenterPoint();
+		System.out.println(((e.getX() - centerDesktop.x) / Config.DEFAULT_SCALE) + " "
+				+ ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public interface GraphicObject {
 	public List<Point> getPoints();
 
-	public Point getRefferencepoint();
+	public Point getRefferencePoint();
 
 	public void generate();
 
