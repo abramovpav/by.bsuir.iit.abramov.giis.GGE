@@ -35,6 +35,12 @@ public class MainWindow {
 		this.controller = controller;
 		init();
 	}
+	
+	public void updateDesktop() {
+		if (desktop != null) {
+			desktop.updateGraphics();
+		}
+	}
 
 	public final Controller getController() {
 		return controller;

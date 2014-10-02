@@ -14,4 +14,6 @@ public interface GraphicObject {
 	public int getWidth();
 
 	public int getHeight();
+	
+	public void updateBounds(java.awt.Point point);
 }

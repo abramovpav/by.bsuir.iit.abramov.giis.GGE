@@ -193,4 +193,17 @@ public class Segment extends JComponent implements GraphicObject {
 				(int) (255 * intensity));
 	}
 
+	@Override
+	public void updateBounds(java.awt.Point point) {
+		Point refPoint = getRefferencePoint();
+		setBounds(
+				refPoint.getX() + point.x, 
+				refPoint.getY() + point.y, 
+				getWidth(),
+				getHeight()
+				);
+		
+		
+	}
+
 }

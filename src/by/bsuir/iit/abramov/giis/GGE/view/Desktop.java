@@ -21,6 +21,7 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.SegmentDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Brezenhem;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Vy;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.SegmentDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
@@ -44,6 +45,13 @@ public class Desktop extends JPanel {
 		mode = Mode.NONE;
 		centerPoint = new java.awt.Point(0, 0);
 		init();
+	}
+	
+	public void updateGraphics() {
+		java.awt.Point centerPoint = getCenterPoint();
+		for (GraphicObject object: graphicObjects) {
+			object.updateBounds(centerPoint);
+		}
 	}
 
 	@Override
@@ -145,6 +153,7 @@ public class Desktop extends JPanel {
 		System.out.println("Desktop - init");
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
 		addMouseListener(new DesktopMouseListener(controller, this));
+		addMouseWheelListener(new DesktopWheelMouseListener(controller, this));
 	}
 
 	@Override

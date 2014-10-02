@@ -1,5 +1,6 @@
 package by.bsuir.iit.abramov.giis.GGE.controller;
 
+import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 import by.bsuir.iit.abramov.giis.GGE.view.MainWindow;
 
@@ -15,6 +16,16 @@ public class Controller {
 
 	public void newTab() {
 		window.createNewTab();
+	}
+	
+	public void incScale() {
+		Config.incScale();
+		window.updateDesktop();
+	}
+	
+	public void decScale() {
+		Config.decScale();
+		window.updateDesktop();
 	}
 
 	public void exit() {
