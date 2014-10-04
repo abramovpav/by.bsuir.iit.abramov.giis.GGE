@@ -24,8 +24,8 @@ public class DesktopMouseListener implements MouseListener, MouseMotionListener 
 	public void mouseClicked(final MouseEvent arg0) {
 		System.out.println("tuck");
 		Point centerDesktop = desktop.getCenterPoint();
-		System.out.println(((arg0.getX() - centerDesktop.x) / Config.DEFAULT_SCALE) + " "
-				+ ((arg0.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
+		System.out.println(((arg0.getX() - centerDesktop.x) / Config.CURRENT_SCALE) + " "
+				+ ((arg0.getY() - centerDesktop.y) / Config.CURRENT_SCALE));
 	}
 
 	@Override
@@ -55,9 +55,9 @@ public class DesktopMouseListener implements MouseListener, MouseMotionListener 
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		Point centerDesktop = desktop.getCenterPoint();
-		System.out.println(((e.getX() - centerDesktop.x) / Config.DEFAULT_SCALE) + " "
-				+ ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
+//		Point centerDesktop = desktop.getCenterPoint();
+//		System.out.println(((e.getX() - centerDesktop.x) / Config.DEFAULT_SCALE) + " "
+//				+ ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
 		
 	}
 

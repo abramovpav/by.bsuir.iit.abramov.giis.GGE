@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,22 +72,30 @@ public class Segment extends JComponent implements GraphicObject {
 
 	public void setEndPoint(final Point endPoint) {
 		this.endPoint = endPoint;
-		setPreferredSize(new Dimension(getWidth(), getHeight()));
+		setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
+	}
+	
+	@Override
+	public final  int getScaledWidth() {
+		return getBaseWidth() * Config.CURRENT_SCALE;
 	}
 
-	@Override
-	public final int getWidth() {
+	public final int getBaseWidth() {
 		int width = Math.abs(startPoint.getX() - endPoint.getX());
-		while (width % Config.DEFAULT_SCALE != 0) {
+		while (width % Config.CURRENT_SCALE != 0 || width == 0) {
 			width++;
 		}
 		return width;
 	}
-
+	
 	@Override
-	public final int getHeight() {
+	public int getScaledHeight() {
+		return getBaseHeight() * Config.CURRENT_SCALE;
+	}
+
+	public final int getBaseHeight() {
 		int heigth = Math.abs(startPoint.getY() - endPoint.getY());
-		while (heigth % Config.DEFAULT_SCALE != 0) {
+		while (heigth % Config.CURRENT_SCALE != 0 || heigth == 0) {
 			heigth++;
 		}
 		return heigth;
@@ -99,7 +108,7 @@ public class Segment extends JComponent implements GraphicObject {
 
 	public void addPoint(final Point point) {
 		points.add(point);
-		log(point);
+//		log(point);
 	}
 
 	@Override
@@ -110,6 +119,7 @@ public class Segment extends JComponent implements GraphicObject {
 			return;
 		}
 		Graphics2D g2d = (Graphics2D) g;
+//		g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
 		draw(g2d);
 	}
 
@@ -121,16 +131,16 @@ public class Segment extends JComponent implements GraphicObject {
 
 	private void drawPoint(final Graphics2D g2d, final Point point) {
 		g2d.setColor(point.getColor());
-		int x = point.getX() * Config.DEFAULT_SCALE;
+		int x = point.getX() * Config.CURRENT_SCALE;
 		if (x == 0) {
-			x = Config.DEFAULT_SCALE / 2;
+			x = Config.CURRENT_SCALE / 2;
 		}
-		int y = point.getY() * Config.DEFAULT_SCALE;
+		int y = point.getY() * Config.CURRENT_SCALE;
 		if (y == 0) {
-			y = Config.DEFAULT_SCALE / 2;
+			y = Config.CURRENT_SCALE / 2;
 		}
-		for(int i = x - Config.DEFAULT_SCALE + 1; i <= x; i++) {
-			for(int j = y - Config.DEFAULT_SCALE + 1; j <= y; j++) {
+		for(int i = x - Config.CURRENT_SCALE + 1; i <= x; i++) {
+			for(int j = y - Config.CURRENT_SCALE + 1; j <= y; j++) {
 				g2d.drawLine(i, j, i, j);
 			}
 		}
@@ -140,9 +150,7 @@ public class Segment extends JComponent implements GraphicObject {
 		Point point = new Point();
 		Point refPoint = getRefferencePoint();
 		int x = endPoint.getX() - refPoint.getX();
-		x = getScaledCoord(x);
 		int y = endPoint.getY() - refPoint.getY();
-		y = getScaledCoord(y);
 		point.setX(x);
 		point.setY(y);
 		return point;
@@ -152,19 +160,17 @@ public class Segment extends JComponent implements GraphicObject {
 		Point point = new Point();
 		Point refPoint = getRefferencePoint();
 		int x = startPoint.getX() - refPoint.getX();
-		x = getScaledCoord(x);
 		int y = startPoint.getY() - refPoint.getY();
-		y = getScaledCoord(y);
 		point.setX(x);
 		point.setY(y);
 		return point;
 	}
 
 	private int getScaledCoord(int coord) {
-		if (coord % Config.DEFAULT_SCALE > 0) {
-			coord = coord / Config.DEFAULT_SCALE  + 1;
+		if (coord % Config.CURRENT_SCALE > 0) {
+			coord = coord / Config.CURRENT_SCALE  + 1;
 		} else {
-			coord /= Config.DEFAULT_SCALE;
+			coord /= Config.CURRENT_SCALE;
 		}
 		return coord;
 	}
@@ -193,4 +199,14 @@ public class Segment extends JComponent implements GraphicObject {
 				(int) (255 * intensity));
 	}
 
+	@Override
+	public void updateBounds(java.awt.Point point) {
+		Point refPoint = getRefferencePoint();
+		setBounds(
+				refPoint.getX() * Config.CURRENT_SCALE + point.x, 
+				refPoint.getY() * Config.CURRENT_SCALE + point.y, 
+				getScaledWidth(),
+				getScaledHeight()
+				);		
+	}
 }

@@ -11,7 +11,13 @@ public interface GraphicObject {
 
 	public void setBounds(int x, int y, int width, int height);
 
-	public int getWidth();
+	public int getBaseWidth();
+	
+	public int getScaledWidth();
 
-	public int getHeight();
+	public int getBaseHeight();
+	
+	public int getScaledHeight();
+	
+	public void updateBounds(java.awt.Point point);
 }

@@ -21,6 +21,7 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.SegmentDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Brezenhem;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Vy;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.SegmentDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
@@ -44,6 +45,13 @@ public class Desktop extends JPanel {
 		mode = Mode.NONE;
 		centerPoint = new java.awt.Point(0, 0);
 		init();
+	}
+	
+	public void updateGraphics() {
+		java.awt.Point centerPoint = getCenterPoint();
+		for (GraphicObject object: graphicObjects) {
+			object.updateBounds(centerPoint);
+		}
 	}
 
 	@Override
@@ -92,34 +100,38 @@ public class Desktop extends JPanel {
 					+ ", " + y + ")");
 			switch (mode) {
 			case SEGMENT_DDA:
-				tempGraphicObject = new SegmentDDA(new Point(x, y));
+				tempGraphicObject = new SegmentDDA(new Point(getScaleCoord(x), getScaleCoord(y)));
 				break;
 			case SEGMENT_BREZENHEM:
-				tempGraphicObject = new Segment_Brezenhem(new Point(x, y));
+				tempGraphicObject = new Segment_Brezenhem(new Point(getScaleCoord(x), getScaleCoord(y)));
 				break;
 			case SEGMENT_VY:
-				tempGraphicObject = new Segment_Vy(new Point(x, y));
+				tempGraphicObject = new Segment_Vy(new Point(getScaleCoord(x), getScaleCoord(y)));
 				break;
 			}
 
 		} else {
-			((Segment) tempGraphicObject).setEndPoint(new Point(x, y));
+			((Segment) tempGraphicObject).setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
 			graphicObjects.add(tempGraphicObject);
 			System.out.println("Set last point of temp Segment: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
 			tempGraphicObject.setBounds(
-					refPoint.getX() + centerPoint.x, 
-					refPoint.getY() + centerPoint.y, 
-					tempGraphicObject.getWidth(),
-					tempGraphicObject.getHeight()
+					(refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x) /** Config.DEFAULT_SCALE*/, 
+					(refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y) /** Config.DEFAULT_SCALE*/, 
+					tempGraphicObject.getScaledWidth(),
+					tempGraphicObject.getScaledHeight()
 					);
 			tempGraphicObject = null;
 			System.out.println("delete tempSegment");
 
 			setMode(Mode.NONE);
 		}
+	}
+
+	private int getScaleCoord(final int x) {
+		return x / Config.CURRENT_SCALE;
 	}
 
 	public void cancelTempObject() {
@@ -145,6 +157,7 @@ public class Desktop extends JPanel {
 		System.out.println("Desktop - init");
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
 		addMouseListener(new DesktopMouseListener(controller, this));
+		addMouseWheelListener(new DesktopWheelMouseListener(controller, this));
 	}
 
 	@Override
