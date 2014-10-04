@@ -20,12 +20,12 @@ public class Controller {
 	
 	public void incScale() {
 		Config.incScale();
-		window.updateDesktop();
+		window.updateDesktopContent();
 	}
 	
 	public void decScale() {
 		Config.decScale();
-		window.updateDesktop();
+		window.updateDesktopContent();
 	}
 
 	public void exit() {

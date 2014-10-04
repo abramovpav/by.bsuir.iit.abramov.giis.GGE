@@ -86,9 +86,9 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 
 	@Override
 	public void mouseMoved(final MouseEvent e) {
-		Point centerDesktop = desktop.getCenterPoint();
-		System.out.println(((e.getX() - centerDesktop.x) / Config.DEFAULT_SCALE) + " "
-				+ ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
+//		Point centerDesktop = desktop.getCenterPoint();
+//		System.out.println(((e.getX() - centerDesktop.x) / Config.DEFAULT_SCALE) + " "
+//				+ ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
 	}
 
 }

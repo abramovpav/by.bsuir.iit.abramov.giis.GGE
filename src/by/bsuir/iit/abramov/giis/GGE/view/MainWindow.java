@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
+import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenu;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenuItem;
 import by.bsuir.iit.abramov.giis.GGE.utils.ListenerFactory;
@@ -22,13 +23,15 @@ import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 public class MainWindow {
 	private final JFrame window;
 	private final String TITLE = "GGE";
-	private final int DEFAULT_WIDTH = 600;
-	private final int DEFAULT_HEIGHT = 800;
+	private final int DEFAULT_WIDTH = 1024;
+	private final int DEFAULT_HEIGHT = 768;
 	private JPanel contentPane;
 	private Desktop desktop;
 	private ToolPanel toolPanel;
 	private final Controller controller;
-	private final Dimension desktopSize = new Dimension(1024, 768);
+	private Dimension desktopSize = new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	private JScrollPane scroll;
+	private JPanel panel;
 
 	public MainWindow(final Controller controller) {
 		window = new JFrame(TITLE);
@@ -36,7 +39,11 @@ public class MainWindow {
 		init();
 	}
 	
-	public void updateDesktop() {
+	public void updateDesktopContent() {
+		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE, 
+				DEFAULT_HEIGHT * Config.CURRENT_SCALE);
+		updateDesktop();
+		System.out.println("New center = " + desktop.getCenterPoint().getX() + " " + desktop.getCenterPoint().getY());
 		if (desktop != null) {
 			desktop.updateGraphics();
 		}
@@ -78,23 +85,32 @@ public class MainWindow {
 	private void initDesktop(final JPanel contentPane) {
 
 		desktop = new Desktop(this);
-		JScrollPane scroll = new JScrollPane(desktop);
-		JPanel panel = new JPanel();
+		desktop.setLayout(null);
+		scroll = new JScrollPane(desktop);
+		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(desktop);
+		contentPane.add(scroll, BorderLayout.CENTER);
+		window.setExtendedState(Frame.MAXIMIZED_BOTH);
+//		window.pack();
 
 		scroll.setViewportView(panel);
-
-		panel.add(desktop);
-		desktop.setLayout(null);
-		contentPane.add(scroll, BorderLayout.CENTER);
-		window.pack();
-		window.setExtendedState(Frame.MAXIMIZED_BOTH);
-
+		
+		updateDesktop();
+		
+	}
+	
+	private void updateDesktop() {
+		
+		
 		desktop.setMinimumSize(desktopSize);
 		desktop.setMaximumSize(desktopSize);
 		desktop.setSize(desktopSize);
 		panel.setMinimumSize(desktopSize);
 		panel.setPreferredSize(desktopSize);
+		window.validate();
+		scroll.validate();
+		window.repaint();
 	}
 
 	public void add(final JComponent component) {

@@ -24,13 +24,10 @@ public class DesktopWheelMouseListener implements MouseWheelListener {
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("rotation= " + e.getWheelRotation());
-		System.out.println("modifiers - " + e.getModifiers());
 		if (e.getModifiers() == 2) {
-			if (e.getWheelRotation() > 0) {
+			if (e.getWheelRotation() < 0) {
 				controller.incScale();
-			} else if (e.getWheelRotation() < 0) {
+			} else if (e.getWheelRotation() > 0) {
 				controller.decScale();
 			}
 		}
