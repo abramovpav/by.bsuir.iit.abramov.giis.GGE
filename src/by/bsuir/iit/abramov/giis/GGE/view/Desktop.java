@@ -46,10 +46,10 @@ public class Desktop extends JPanel {
 		centerPoint = new java.awt.Point(0, 0);
 		init();
 	}
-	
+
 	public void updateGraphics() {
 		java.awt.Point centerPoint = getCenterPoint();
-		for (GraphicObject object: graphicObjects) {
+		for (GraphicObject object : graphicObjects) {
 			object.updateBounds(centerPoint);
 		}
 	}
@@ -57,8 +57,7 @@ public class Desktop extends JPanel {
 	@Override
 	public void setMinimumSize(final Dimension minimumSize) {
 		super.setMinimumSize(minimumSize);
-		centerPoint.setLocation(minimumSize.getWidth() / 2,
-				minimumSize.getHeight() / 2);
+		centerPoint.setLocation(minimumSize.getWidth() / 2, minimumSize.getHeight() / 2);
 	}
 
 	public void setMode(final Mode mode) {
@@ -96,14 +95,14 @@ public class Desktop extends JPanel {
 
 	public void setSegmentPoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
-			System.out.println("Create temp Segment. Frist point in (" + x
-					+ ", " + y + ")");
+			System.out.println("Create temp Segment. Frist point in (" + x + ", " + y + ")");
 			switch (mode) {
 			case SEGMENT_DDA:
 				tempGraphicObject = new SegmentDDA(new Point(getScaleCoord(x), getScaleCoord(y)));
 				break;
 			case SEGMENT_BREZENHEM:
-				tempGraphicObject = new Segment_Brezenhem(new Point(getScaleCoord(x), getScaleCoord(y)));
+				tempGraphicObject = new Segment_Brezenhem(new Point(getScaleCoord(x),
+						getScaleCoord(y)));
 				break;
 			case SEGMENT_VY:
 				tempGraphicObject = new Segment_Vy(new Point(getScaleCoord(x), getScaleCoord(y)));
@@ -111,18 +110,16 @@ public class Desktop extends JPanel {
 			}
 
 		} else {
-			((Segment) tempGraphicObject).setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
+			((Segment) tempGraphicObject)
+					.setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
 			graphicObjects.add(tempGraphicObject);
 			System.out.println("Set last point of temp Segment: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
-			tempGraphicObject.setBounds(
-					(refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x) /** Config.DEFAULT_SCALE*/, 
-					(refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y) /** Config.DEFAULT_SCALE*/, 
-					tempGraphicObject.getScaledWidth(),
-					tempGraphicObject.getScaledHeight()
-					);
+			tempGraphicObject.setBounds((refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x),
+					(refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y),
+					tempGraphicObject.getScaledWidth(), tempGraphicObject.getScaledHeight());
 			tempGraphicObject = null;
 			System.out.println("delete tempSegment");
 

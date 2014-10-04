@@ -29,8 +29,8 @@ public class Point {
 		z = 0;
 		dist = 1.0;
 	}
-	
-	public Point(final int x, final int y, Color color) {
+
+	public Point(final int x, final int y, final Color color) {
 		this.x = x;
 		this.y = y;
 		z = 0;
@@ -44,12 +44,12 @@ public class Point {
 		z = 0;
 		dist = 1.0;
 	}
-	
+
 	public Color getColor() {
 		return color;
 	}
-	
-	public void setColor(Color color) {
+
+	public void setColor(final Color color) {
 		this.color = color;
 	}
 

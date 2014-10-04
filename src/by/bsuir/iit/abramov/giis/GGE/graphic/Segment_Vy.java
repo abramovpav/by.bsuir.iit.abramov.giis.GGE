@@ -2,7 +2,6 @@ package by.bsuir.iit.abramov.giis.GGE.graphic;
 
 import java.awt.Color;
 
-
 public class Segment_Vy extends Segment {
 
 	/**
@@ -68,11 +67,9 @@ public class Segment_Vy extends Segment {
 				log("e = ", e);
 				log("distance = ", distance);
 				System.out.println("second");
-				distance = getDistance(x1, y1, x2, y2, dy, x, y + 1,
-						segmentAngle);
+				distance = getDistance(x1, y1, x2, y2, dy, x, y + 1, segmentAngle);
 				if (distance > 1) {
-					distance = getDistance(x1, y1, x2, y2, dy, x, y - 1,
-							segmentAngle);
+					distance = getDistance(x1, y1, x2, y2, dy, x, y - 1, segmentAngle);
 					curPoint = new Point((int) x, (int) y - 1, getColor((float) distance));
 				} else {
 					curPoint = new Point((int) x, (int) y + 1, getColor((float) distance));
@@ -97,12 +94,10 @@ public class Segment_Vy extends Segment {
 				addPoint(curPoint);
 				log("e = ", e);
 				log("distance = ", distance);
-				distance = getDistance(x1, y1, x2, y2, dy, x + 1, y,
-						segmentAngle);
+				distance = getDistance(x1, y1, x2, y2, dy, x + 1, y, segmentAngle);
 				System.out.println("second");
 				if (distance > 1) {
-					distance = getDistance(x1, y1, x2, y2, dy, x - 1, y,
-							segmentAngle);
+					distance = getDistance(x1, y1, x2, y2, dy, x - 1, y, segmentAngle);
 					curPoint = new Point((int) x - 1, (int) y, getColor((float) distance));
 				} else {
 					curPoint = new Point((int) x + 1, (int) y, getColor((float) distance));
@@ -115,9 +110,8 @@ public class Segment_Vy extends Segment {
 		generated();
 	}
 
-	private double getDistance(final int x1, final int y1, final int x2,
-			final int y2, final int dy, final double x, final double y,
-			final double segmentAngle) {
+	private double getDistance(final int x1, final int y1, final int x2, final int y2,
+			final int dy, final double x, final double y, final double segmentAngle) {
 		double distance;
 		double pixel_y = y;
 		if (x1 == 0 && y1 != 0 || x2 == 0 && y2 != 0) {

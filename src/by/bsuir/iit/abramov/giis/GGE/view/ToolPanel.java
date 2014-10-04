@@ -35,8 +35,7 @@ public class ToolPanel extends JToolBar {
 				continue;
 			}
 			JButton button = new JButton(tool.getName());
-			button.addActionListener(ListenerFactory.getActionListener(tool,
-					controller));
+			button.addActionListener(ListenerFactory.getActionListener(tool, controller));
 			buttons.put(tool.getName(), button);
 			add(button);
 		}

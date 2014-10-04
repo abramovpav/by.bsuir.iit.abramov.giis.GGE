@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
-import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
 public class SegmentDesktopMouseListener implements MouseInputListener {
@@ -24,8 +23,7 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 		}
 	}
 
-	public SegmentDesktopMouseListener(final Controller controller,
-			final Desktop desktop) {
+	public SegmentDesktopMouseListener(final Controller controller, final Desktop desktop) {
 		this.controller = controller;
 		this.desktop = desktop;
 	}
@@ -35,8 +33,7 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 		System.out.println("segment-click");
 		Point desktopCenter = desktop.getCenterPoint();
 		if (isLeftButtonPressed(e)) {
-			desktop.setSegmentPoint(e.getX() - desktopCenter.x, e.getY()
-					- desktopCenter.y);
+			desktop.setSegmentPoint(e.getX() - desktopCenter.x, e.getY() - desktopCenter.y);
 		} else if (isRightButtonPressed(e)) {
 			desktop.cancelTempObject();
 		}
@@ -86,9 +83,10 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 
 	@Override
 	public void mouseMoved(final MouseEvent e) {
-//		Point centerDesktop = desktop.getCenterPoint();
-//		System.out.println(((e.getX() - centerDesktop.x) / Config.DEFAULT_SCALE) + " "
-//				+ ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
+		// Point centerDesktop = desktop.getCenterPoint();
+		// System.out.println(((e.getX() - centerDesktop.x) /
+		// Config.DEFAULT_SCALE) + " "
+		// + ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
 	}
 
 }
