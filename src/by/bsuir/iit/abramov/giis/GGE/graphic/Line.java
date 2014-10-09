@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JComponent;
 
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
+import by.bsuir.iit.abramov.giis.GGE.utils.Logger;
 
 public class Line extends JComponent implements GraphicObject {
 	/**
@@ -35,10 +36,6 @@ public class Line extends JComponent implements GraphicObject {
 
 	public boolean isGenerated() {
 		return generated;
-	}
-
-	private void log(final Point point) {
-		System.out.println(point.getX() + " " + point.getY());
 	}
 
 	protected void generated() {
@@ -109,7 +106,7 @@ public class Line extends JComponent implements GraphicObject {
 
 	public void addPoint(final Point point) {
 		points.add(point);
-		// log(point);
+		Logger.log(point);
 	}
 
 	@Override

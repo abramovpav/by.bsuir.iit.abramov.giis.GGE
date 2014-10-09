@@ -24,6 +24,7 @@ import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.LineDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
+import by.bsuir.iit.abramov.giis.GGE.utils.Logger;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class Desktop extends JPanel {
@@ -94,7 +95,7 @@ public class Desktop extends JPanel {
 
 	public void setLinePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
-			System.out.println("Create temp Line. Frist point in (" + x + ", " + y + ")");
+			Logger.log("Create temp Line. Frist point in (" + x + ", " + y + ")");
 			switch (mode) {
 			case LINE_DDA:
 				tempGraphicObject = new LineDDA(new Point(getScaleCoord(x), getScaleCoord(y)));
@@ -112,7 +113,7 @@ public class Desktop extends JPanel {
 			((Line) tempGraphicObject)
 					.setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
 			graphicObjects.add(tempGraphicObject);
-			System.out.println("Set last point of temp Line: (" + x + ", " + y + ")");
+			Logger.log("Set last point of temp Line: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
@@ -120,7 +121,7 @@ public class Desktop extends JPanel {
 					(refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y),
 					tempGraphicObject.getScaledWidth(), tempGraphicObject.getScaledHeight());
 			tempGraphicObject = null;
-			System.out.println("delete tempLine");
+			Logger.log("delete tempLine");
 
 			setMode(Mode.NONE);
 		}

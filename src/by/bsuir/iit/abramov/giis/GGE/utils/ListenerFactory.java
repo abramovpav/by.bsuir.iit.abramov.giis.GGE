@@ -9,6 +9,7 @@ import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineBrezenhemActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineDDAActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineWyActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.ShowLogListener;
 
 public class ListenerFactory {
 
@@ -32,6 +33,8 @@ public class ListenerFactory {
 			return new LineWyActionListener(controller);
 		case NONE:
 			return new NoneActionListener(controller);
+		case LOG:
+			return new ShowLogListener(controller);
 		default:
 			return null;
 		}
