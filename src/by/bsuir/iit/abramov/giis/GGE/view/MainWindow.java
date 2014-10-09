@@ -38,12 +38,13 @@ public class MainWindow {
 		this.controller = controller;
 		init();
 	}
-	
+
 	public void updateDesktopContent() {
-		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE, 
-				DEFAULT_HEIGHT * Config.CURRENT_SCALE);
+		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE, DEFAULT_HEIGHT
+				* Config.CURRENT_SCALE);
 		updateDesktop();
-		System.out.println("New center = " + desktop.getCenterPoint().getX() + " " + desktop.getCenterPoint().getY());
+		System.out.println("New center = " + desktop.getCenterPoint().getX() + " "
+				+ desktop.getCenterPoint().getY());
 		if (desktop != null) {
 			desktop.updateGraphics();
 		}
@@ -92,17 +93,16 @@ public class MainWindow {
 		panel.add(desktop);
 		contentPane.add(scroll, BorderLayout.CENTER);
 		window.setExtendedState(Frame.MAXIMIZED_BOTH);
-//		window.pack();
+		// window.pack();
 
 		scroll.setViewportView(panel);
-		
+
 		updateDesktop();
-		
+
 	}
-	
+
 	private void updateDesktop() {
-		
-		
+
 		desktop.setMinimumSize(desktopSize);
 		desktop.setMaximumSize(desktopSize);
 		desktop.setSize(desktopSize);
@@ -123,8 +123,7 @@ public class MainWindow {
 			JMenu menu = new JMenu(emenu.getName());
 			for (EMenuItem eMenuItem : emenu.getItems()) {
 				JMenuItem item = new JMenuItem(eMenuItem.getName());
-				item.addActionListener(ListenerFactory.getActionListener(
-						eMenuItem, controller));
+				item.addActionListener(ListenerFactory.getActionListener(eMenuItem, controller));
 				menu.add(item);
 			}
 			menuBar.add(menu);

@@ -17,12 +17,12 @@ public class Controller {
 	public void newTab() {
 		window.createNewTab();
 	}
-	
+
 	public void incScale() {
 		Config.incScale();
 		window.updateDesktopContent();
 	}
-	
+
 	public void decScale() {
 		Config.decScale();
 		window.updateDesktopContent();
