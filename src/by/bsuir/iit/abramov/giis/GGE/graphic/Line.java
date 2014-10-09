@@ -11,7 +11,7 @@ import javax.swing.JComponent;
 
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
-public class Segment extends JComponent implements GraphicObject {
+public class Line extends JComponent implements GraphicObject {
 	/**
 	 * 
 	 */
@@ -21,13 +21,13 @@ public class Segment extends JComponent implements GraphicObject {
 	private final List<Point> points;
 	private boolean generated = false;
 
-	public Segment() {
+	public Line() {
 		points = new ArrayList<Point>();
 		startPoint = new Point();
 		endPoint = new Point();
 	}
 
-	public Segment(final Point start) {
+	public Line(final Point start) {
 		points = new ArrayList<Point>();
 		startPoint = start;
 		points.add(start);
@@ -50,7 +50,7 @@ public class Segment extends JComponent implements GraphicObject {
 		points.clear();
 	}
 
-	public Segment(final Point start, final Point end, final List<Point> points) {
+	public Line(final Point start, final Point end, final List<Point> points) {
 		this.points = new ArrayList<Point>();
 		startPoint = start;
 		endPoint = end;

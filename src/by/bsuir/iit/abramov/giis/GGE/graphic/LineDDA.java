@@ -1,17 +1,17 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
-public class SegmentDDA extends Segment {
+public class LineDDA extends Line {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public SegmentDDA() {
+	public LineDDA() {
 		super();
 	}
 
-	public SegmentDDA(final Point start) {
+	public LineDDA(final Point start) {
 		super(start);
 	}
 

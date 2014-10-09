@@ -2,13 +2,11 @@ package by.bsuir.iit.abramov.giis.GGE.listeners.mouse;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-
-import javax.swing.event.MouseInputListener;
-
+import java.awt.event.MouseListener;
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
-public class SegmentDesktopMouseListener implements MouseInputListener {
+public class LineDesktopMouseListener implements MouseListener {
 
 	private final Controller controller;
 	private final Desktop desktop;
@@ -23,17 +21,17 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 		}
 	}
 
-	public SegmentDesktopMouseListener(final Controller controller, final Desktop desktop) {
+	public LineDesktopMouseListener(final Controller controller, final Desktop desktop) {
 		this.controller = controller;
 		this.desktop = desktop;
 	}
 
 	@Override
 	public void mouseClicked(final MouseEvent e) {
-		System.out.println("segment-click");
+		System.out.println("line-click");
 		Point desktopCenter = desktop.getCenterPoint();
 		if (isLeftButtonPressed(e)) {
-			desktop.setSegmentPoint(e.getX() - desktopCenter.x, e.getY() - desktopCenter.y);
+			desktop.setLinePoint(e.getX() - desktopCenter.x, e.getY() - desktopCenter.y);
 		} else if (isRightButtonPressed(e)) {
 			desktop.cancelTempObject();
 		}
@@ -74,19 +72,4 @@ public class SegmentDesktopMouseListener implements MouseInputListener {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void mouseDragged(final MouseEvent e) {
-		System.out.println("segment-drug");
-
-	}
-
-	@Override
-	public void mouseMoved(final MouseEvent e) {
-		// Point centerDesktop = desktop.getCenterPoint();
-		// System.out.println(((e.getX() - centerDesktop.x) /
-		// Config.DEFAULT_SCALE) + " "
-		// + ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
-	}
-
 }

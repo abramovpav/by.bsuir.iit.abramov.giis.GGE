@@ -2,18 +2,18 @@ package by.bsuir.iit.abramov.giis.GGE.graphic;
 
 import java.awt.Color;
 
-public class Segment_Vy extends Segment {
+public class Line_Wy extends Line {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Segment_Vy() {
+	public Line_Wy() {
 		super();
 	}
 
-	public Segment_Vy(final Point start) {
+	public Line_Wy(final Point start) {
 		super(start);
 	}
 
