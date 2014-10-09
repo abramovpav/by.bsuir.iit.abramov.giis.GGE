@@ -17,12 +17,12 @@ public class Controller {
 	public void newTab() {
 		window.createNewTab();
 	}
-	
+
 	public void incScale() {
 		Config.incScale();
 		window.updateDesktopContent();
 	}
-	
+
 	public void decScale() {
 		Config.decScale();
 		window.updateDesktopContent();
@@ -32,16 +32,16 @@ public class Controller {
 		window.setVisible(false);
 	}
 
-	public void segmentDDA() {
-		window.setMode(Mode.SEGMENT_DDA);
+	public void lineDDA() {
+		window.setMode(Mode.LINE_DDA);
 	}
 
-	public void segmentBrezenhem() {
-		window.setMode(Mode.SEGMENT_BREZENHEM);
+	public void lineBrezenhem() {
+		window.setMode(Mode.LINE_BREZENHEM);
 	}
 
-	public void segmentVy() {
-		window.setMode(Mode.SEGMENT_VY);
+	public void lineWy() {
+		window.setMode(Mode.LINE_WY);
 	}
 
 	public void none() {

@@ -3,8 +3,8 @@ package by.bsuir.iit.abramov.giis.GGE.utils;
 public enum EMenuItem {
 
 	NEW("New...", true), OPEN("Open"), CLOSE("Close"), EXIT("Exit"), 
-	SEGMENT_DDA("SegmentDDA", true), SEGMENT_VY("SegmentVy", true), 
-	SEGMENT_BREZENHEM("SegmentBrezenhem", true), NONE("Empty", true);
+	LINE_DDA("LineDDA", true), LINE_WY("LineWy", true), 
+	LINE_BREZENHEM("LineBrezenhem", true), NONE("Empty", true), LOG("Show log", true);
 
 	private String name = "DEFAULT";
 	private boolean tool = false;

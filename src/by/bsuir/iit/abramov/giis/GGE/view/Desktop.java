@@ -16,14 +16,15 @@ import javax.swing.JPanel;
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
-import by.bsuir.iit.abramov.giis.GGE.graphic.Segment;
-import by.bsuir.iit.abramov.giis.GGE.graphic.SegmentDDA;
-import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Brezenhem;
-import by.bsuir.iit.abramov.giis.GGE.graphic.Segment_Vy;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Line;
+import by.bsuir.iit.abramov.giis.GGE.graphic.LineDDA;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Line_Brezenhem;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Line_Wy;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.SegmentDesktopMouseListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.LineDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
+import by.bsuir.iit.abramov.giis.GGE.utils.Logger;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class Desktop extends JPanel {
@@ -46,10 +47,10 @@ public class Desktop extends JPanel {
 		centerPoint = new java.awt.Point(0, 0);
 		init();
 	}
-	
+
 	public void updateGraphics() {
 		java.awt.Point centerPoint = getCenterPoint();
-		for (GraphicObject object: graphicObjects) {
+		for (GraphicObject object : graphicObjects) {
 			object.updateBounds(centerPoint);
 		}
 	}
@@ -57,8 +58,7 @@ public class Desktop extends JPanel {
 	@Override
 	public void setMinimumSize(final Dimension minimumSize) {
 		super.setMinimumSize(minimumSize);
-		centerPoint.setLocation(minimumSize.getWidth() / 2,
-				minimumSize.getHeight() / 2);
+		centerPoint.setLocation(minimumSize.getWidth() / 2, minimumSize.getHeight() / 2);
 	}
 
 	public void setMode(final Mode mode) {
@@ -68,14 +68,14 @@ public class Desktop extends JPanel {
 		System.out.println("Set new mode: " + mode);
 		this.mode = mode;
 		switch (this.mode) {
-		case SEGMENT_DDA:
-			addSegmentMouseListeners();
+		case LINE_DDA:
+			addLineMouseListeners();
 			break;
-		case SEGMENT_BREZENHEM:
-			addSegmentMouseListeners();
+		case LINE_BREZENHEM:
+			addLineMouseListeners();
 			break;
-		case SEGMENT_VY:
-			addSegmentMouseListeners();
+		case LINE_WY:
+			addLineMouseListeners();
 		case NONE:
 			addMouseListener(new DesktopMouseListener(controller, this));
 			addMouseMotionListener(new DesktopMouseListener(controller, this));
@@ -85,46 +85,43 @@ public class Desktop extends JPanel {
 		}
 	}
 
-	private void addSegmentMouseListeners() {
-		addMouseListener(new SegmentDesktopMouseListener(controller, this));
-		addMouseMotionListener(new SegmentDesktopMouseListener(controller, this));
+	private void addLineMouseListeners() {
+		addMouseListener(new LineDesktopMouseListener(controller, this));
 	}
 
 	public java.awt.Point getCenterPoint() {
 		return centerPoint;
 	}
 
-	public void setSegmentPoint(final int x, final int y) {
+	public void setLinePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
-			System.out.println("Create temp Segment. Frist point in (" + x
-					+ ", " + y + ")");
+			Logger.log("Create temp Line. Frist point in (" + x + ", " + y + ")");
 			switch (mode) {
-			case SEGMENT_DDA:
-				tempGraphicObject = new SegmentDDA(new Point(getScaleCoord(x), getScaleCoord(y)));
+			case LINE_DDA:
+				tempGraphicObject = new LineDDA(new Point(getScaleCoord(x), getScaleCoord(y)));
 				break;
-			case SEGMENT_BREZENHEM:
-				tempGraphicObject = new Segment_Brezenhem(new Point(getScaleCoord(x), getScaleCoord(y)));
+			case LINE_BREZENHEM:
+				tempGraphicObject = new Line_Brezenhem(new Point(getScaleCoord(x),
+						getScaleCoord(y)));
 				break;
-			case SEGMENT_VY:
-				tempGraphicObject = new Segment_Vy(new Point(getScaleCoord(x), getScaleCoord(y)));
+			case LINE_WY:
+				tempGraphicObject = new Line_Wy(new Point(getScaleCoord(x), getScaleCoord(y)));
 				break;
 			}
 
 		} else {
-			((Segment) tempGraphicObject).setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
+			((Line) tempGraphicObject)
+					.setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
 			graphicObjects.add(tempGraphicObject);
-			System.out.println("Set last point of temp Segment: (" + x + ", " + y + ")");
+			Logger.log("Set last point of temp Line: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
-			tempGraphicObject.setBounds(
-					(refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x) /** Config.DEFAULT_SCALE*/, 
-					(refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y) /** Config.DEFAULT_SCALE*/, 
-					tempGraphicObject.getScaledWidth(),
-					tempGraphicObject.getScaledHeight()
-					);
+			tempGraphicObject.setBounds((refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x),
+					(refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y),
+					tempGraphicObject.getScaledWidth(), tempGraphicObject.getScaledHeight());
 			tempGraphicObject = null;
-			System.out.println("delete tempSegment");
+			Logger.log("delete tempLine");
 
 			setMode(Mode.NONE);
 		}

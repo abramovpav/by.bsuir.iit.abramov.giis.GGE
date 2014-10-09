@@ -1,17 +1,17 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
-public class Segment_Brezenhem extends Segment {
+public class Line_Brezenhem extends Line {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Segment_Brezenhem() {
+	public Line_Brezenhem() {
 		super();
 	}
 
-	public Segment_Brezenhem(final Point start) {
+	public Line_Brezenhem(final Point start) {
 		super(start);
 	}
 

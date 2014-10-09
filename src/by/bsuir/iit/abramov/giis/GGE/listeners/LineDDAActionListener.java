@@ -5,17 +5,17 @@ import java.awt.event.ActionListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 
-public class SegmentVyActionListener implements ActionListener {
+public class LineDDAActionListener implements ActionListener {
 
 	private final Controller controller;
 
-	public SegmentVyActionListener(final Controller controller) {
+	public LineDDAActionListener(final Controller controller) {
 		this.controller = controller;
 	}
 
 	@Override
 	public void actionPerformed(final ActionEvent arg0) {
-		controller.segmentVy();
+		controller.lineDDA();
 	}
 
 }

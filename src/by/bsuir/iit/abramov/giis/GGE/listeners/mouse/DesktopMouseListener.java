@@ -14,8 +14,7 @@ public class DesktopMouseListener implements MouseListener, MouseMotionListener 
 	private final Controller controller;
 	private final Desktop desktop;
 
-	public DesktopMouseListener(final Controller controller,
-			final Desktop desktop) {
+	public DesktopMouseListener(final Controller controller, final Desktop desktop) {
 		this.controller = controller;
 		this.desktop = desktop;
 	}
@@ -48,17 +47,18 @@ public class DesktopMouseListener implements MouseListener, MouseMotionListener 
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
+	public void mouseDragged(final MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-//		Point centerDesktop = desktop.getCenterPoint();
-//		System.out.println(((e.getX() - centerDesktop.x) / Config.DEFAULT_SCALE) + " "
-//				+ ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
-		
+	public void mouseMoved(final MouseEvent e) {
+		// Point centerDesktop = desktop.getCenterPoint();
+		// System.out.println(((e.getX() - centerDesktop.x) /
+		// Config.DEFAULT_SCALE) + " "
+		// + ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
+
 	}
 
 }

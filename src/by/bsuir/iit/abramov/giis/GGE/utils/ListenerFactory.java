@@ -6,9 +6,10 @@ import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentBrezenhemActionListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentDDAActionListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.SegmentVyActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.LineBrezenhemActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.LineDDAActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.LineWyActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.ShowLogListener;
 
 public class ListenerFactory {
 
@@ -24,14 +25,16 @@ public class ListenerFactory {
 			return new ExitMenuListener(controller);
 		case OPEN:
 			return null;
-		case SEGMENT_DDA:
-			return new SegmentDDAActionListener(controller);
-		case SEGMENT_BREZENHEM:
-			return new SegmentBrezenhemActionListener(controller);
-		case SEGMENT_VY:
-			return new SegmentVyActionListener(controller);
+		case LINE_DDA:
+			return new LineDDAActionListener(controller);
+		case LINE_BREZENHEM:
+			return new LineBrezenhemActionListener(controller);
+		case LINE_WY:
+			return new LineWyActionListener(controller);
 		case NONE:
 			return new NoneActionListener(controller);
+		case LOG:
+			return new ShowLogListener(controller);
 		default:
 			return null;
 		}

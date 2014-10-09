@@ -19,7 +19,6 @@ public class ToolPanel extends JToolBar {
 	private static final long serialVersionUID = 1L;
 	private final MainWindow parent;
 	private final Controller controller;
-	public static final String TAB = "New tab";
 	private Map<String, JButton> buttons;
 
 	public ToolPanel(final MainWindow parent, final Controller controller) {
@@ -35,8 +34,7 @@ public class ToolPanel extends JToolBar {
 				continue;
 			}
 			JButton button = new JButton(tool.getName());
-			button.addActionListener(ListenerFactory.getActionListener(tool,
-					controller));
+			button.addActionListener(ListenerFactory.getActionListener(tool, controller));
 			buttons.put(tool.getName(), button);
 			add(button);
 		}
