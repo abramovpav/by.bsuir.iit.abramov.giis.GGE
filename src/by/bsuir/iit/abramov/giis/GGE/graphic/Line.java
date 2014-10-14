@@ -130,15 +130,9 @@ public class Line extends JComponent implements GraphicObject {
 	private void drawPoint(final Graphics2D g2d, final Point point) {
 		g2d.setColor(point.getColor());
 		int x = point.getX() * Config.CURRENT_SCALE;
-		if (x == 0) {
-			x = Config.CURRENT_SCALE / 2;
-		}
 		int y = point.getY() * Config.CURRENT_SCALE;
-		if (y == 0) {
-			y = Config.CURRENT_SCALE / 2;
-		}
-		for (int i = x - Config.CURRENT_SCALE + 1; i <= x; i++) {
-			for (int j = y - Config.CURRENT_SCALE + 1; j <= y; j++) {
+		for (int i = x; i < x + Config.CURRENT_SCALE; i++) {
+			for (int j = y; j < y + Config.CURRENT_SCALE; j++) {
 				g2d.drawLine(i, j, i, j);
 			}
 		}
