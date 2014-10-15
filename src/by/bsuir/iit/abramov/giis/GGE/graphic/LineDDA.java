@@ -3,9 +3,9 @@ package by.bsuir.iit.abramov.giis.GGE.graphic;
 public class LineDDA extends Line {
 
 	/**
-	 * 
+	 *
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public LineDDA() {
 		super();

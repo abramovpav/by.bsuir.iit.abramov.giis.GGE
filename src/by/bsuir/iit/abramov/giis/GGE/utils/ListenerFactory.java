@@ -1,20 +1,18 @@
 package by.bsuir.iit.abramov.giis.GGE.utils;
 
 import java.awt.event.ActionListener;
-
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineBrezenhemActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineDDAActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineWyActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ShowLogListener;
 
 public class ListenerFactory {
 
-	public static ActionListener getActionListener(final EMenuItem item,
-			final Controller controller) {
+	public static ActionListener getActionListener(final EMenuItem item, final Controller controller) {
 
 		switch (item) {
 		case NEW:

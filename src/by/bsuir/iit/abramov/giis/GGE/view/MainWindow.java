@@ -3,7 +3,6 @@ package by.bsuir.iit.abramov.giis.GGE.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
-
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -12,7 +11,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenu;
@@ -21,17 +19,17 @@ import by.bsuir.iit.abramov.giis.GGE.utils.ListenerFactory;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class MainWindow {
-	private final JFrame window;
-	private final String TITLE = "GGE";
-	private final int DEFAULT_WIDTH = 1024;
-	private final int DEFAULT_HEIGHT = 768;
-	private JPanel contentPane;
-	private Desktop desktop;
-	private ToolPanel toolPanel;
-	private final Controller controller;
-	private Dimension desktopSize = new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	private JScrollPane scroll;
-	private JPanel panel;
+	private final JFrame		window;
+	private final String		TITLE			= "GGE";
+	private final int			DEFAULT_WIDTH	= 1024;
+	private final int			DEFAULT_HEIGHT	= 768;
+	private JPanel				contentPane;
+	private Desktop				desktop;
+	private ToolPanel			toolPanel;
+	private final Controller	controller;
+	private Dimension			desktopSize		= new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	private JScrollPane			scroll;
+	private JPanel				panel;
 
 	public MainWindow(final Controller controller) {
 		window = new JFrame(TITLE);
@@ -39,27 +37,16 @@ public class MainWindow {
 		init();
 	}
 
-	public void updateDesktopContent() {
-		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE, DEFAULT_HEIGHT
-				* Config.CURRENT_SCALE);
-		updateDesktop();
-		System.out.println("New center = " + desktop.getCenterPoint().getX() + " "
-				+ desktop.getCenterPoint().getY());
-		if (desktop != null) {
-			desktop.updateGraphics();
-		}
-	}
-
-	public final Controller getController() {
-		return controller;
-	}
-
-	public void setMode(final Mode mode) {
-		desktop.setMode(mode);
+	public void add(final JComponent component) {
+		add(component);
 	}
 
 	public void createNewTab() {
 		initDesktop(contentPane);
+	}
+
+	public final Controller getController() {
+		return controller;
 	}
 
 	private void init() {
@@ -76,11 +63,6 @@ public class MainWindow {
 		contentPane = new JPanel();
 		window.setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-	}
-
-	private void initToolPanel(final JPanel contenPane) {
-		toolPanel = new ToolPanel(this, controller);
-		contentPane.add(toolPanel, BorderLayout.EAST);
 	}
 
 	private void initDesktop(final JPanel contentPane) {
@@ -101,22 +83,6 @@ public class MainWindow {
 
 	}
 
-	private void updateDesktop() {
-
-		desktop.setMinimumSize(desktopSize);
-		desktop.setMaximumSize(desktopSize);
-		desktop.setSize(desktopSize);
-		panel.setMinimumSize(desktopSize);
-		panel.setPreferredSize(desktopSize);
-		window.validate();
-		scroll.validate();
-		window.repaint();
-	}
-
-	public void add(final JComponent component) {
-		add(component);
-	}
-
 	private void initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		for (EMenu emenu : EMenu.values()) {
@@ -131,10 +97,42 @@ public class MainWindow {
 		window.setJMenuBar(menuBar);
 	}
 
+	private void initToolPanel(final JPanel contenPane) {
+		toolPanel = new ToolPanel(this, controller);
+		contentPane.add(toolPanel, BorderLayout.EAST);
+	}
+
+	public void setMode(final Mode mode) {
+		desktop.setMode(mode);
+	}
+
 	public void setVisible(final boolean visible) {
 		window.setVisible(visible);
 		if (!visible) {
 			window.dispose();
+		}
+	}
+
+	private void updateDesktop() {
+
+		desktop.setMinimumSize(desktopSize);
+		desktop.setMaximumSize(desktopSize);
+		desktop.setSize(desktopSize);
+		panel.setMinimumSize(desktopSize);
+		panel.setPreferredSize(desktopSize);
+		window.validate();
+		scroll.validate();
+		window.repaint();
+	}
+
+	public void updateDesktopContent() {
+		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE, DEFAULT_HEIGHT
+				* Config.CURRENT_SCALE);
+		updateDesktop();
+		System.out.println("New center = " + desktop.getCenterPoint().getX() + " "
+				+ desktop.getCenterPoint().getY());
+		if (desktop != null) {
+			desktop.updateGraphics();
 		}
 	}
 }

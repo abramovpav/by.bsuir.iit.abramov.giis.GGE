@@ -5,9 +5,9 @@ import java.awt.Color;
 public class Line_Wy extends Line {
 
 	/**
-	 * 
+	 *
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public Line_Wy() {
 		super();
