@@ -1,6 +1,7 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
 import java.awt.Color;
+import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
 public class Point {
 	private int		x;
@@ -83,6 +84,24 @@ public class Point {
 
 	public void setZ(final int z) {
 		this.z = z;
+	}
+	
+	public int getScaledX() {
+		return getScaledCoord(x);
+	}
+	
+	public int getScaledY() {
+		return getScaledCoord(y);
+	}
+	
+	public static int getScaledCoord(final int input_coord) {
+		int coord = input_coord;
+		if (coord % Config.CURRENT_SCALE > 0) {
+			coord = coord / Config.CURRENT_SCALE + 1;
+		} else {
+			coord /= Config.CURRENT_SCALE;
+		}
+		return coord;
 	}
 
 }

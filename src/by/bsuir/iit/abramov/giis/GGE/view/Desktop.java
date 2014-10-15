@@ -89,28 +89,41 @@ public class Desktop extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
 		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+//		for (int i = 0; i < getWidth(); i += Config.CURRENT_SCALE * 10) {
+//			g2d.drawLine(i, 0, i, getHeight());
+//		}
+//		for (int i = 0; i < getHeight(); i += Config.CURRENT_SCALE * 10) {
+//			g2d.drawLine(0, i, getWidth(), i);
+//		}
+		
+//		g2d.drawLine(0, getHeight() / 2-1, getWidth(), getHeight() / 2-1);
+//		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+//		g2d.drawLine(0, getHeight() / 2+1, getWidth(), getHeight() / 2+1);
+//		g2d.drawLine(getWidth() / 2 - 1, 0, getWidth() / 2 - 1, getHeight());
+//		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+//		g2d.drawLine(getWidth() / 2 + 1, 0, getWidth() / 2 + 1, getHeight());
 	}
 
 	public void setLinePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
-			controller.log("Create temp Line. Frist point in (" + x + ", " + y + ")");
+			controller.log("Create temp Line. First point in (" + x + ", " + y + ")");
 			switch (mode) {
 			case LINE_DDA:
-				tempGraphicObject = new LineDDA(new Point(getScaleCoord(x), getScaleCoord(y)),
+				tempGraphicObject = new LineDDA(new Point(Point.getScaledCoord(x), Point.getScaledCoord(y)),
 						controller);
 				break;
 			case LINE_BREZENHEM:
 				tempGraphicObject = new Line_Brezenhem(
-						new Point(getScaleCoord(x), getScaleCoord(y)), controller);
+						new Point(Point.getScaledCoord(x), Point.getScaledCoord(y)), controller);
 				break;
 			case LINE_WY:
-				tempGraphicObject = new Line_Wy(new Point(getScaleCoord(x), getScaleCoord(y)),
+				tempGraphicObject = new Line_Wy(new Point(Point.getScaledCoord(x), Point.getScaledCoord(y)),
 						controller);
 				break;
 			}
 
 		} else {
-			((Line) tempGraphicObject).setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
+			((Line) tempGraphicObject).setEndPoint(new Point(Point.getScaledCoord(x), Point.getScaledCoord(y)));
 			graphicObjects.add(tempGraphicObject);
 			controller.log("Set last point of temp Line: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
