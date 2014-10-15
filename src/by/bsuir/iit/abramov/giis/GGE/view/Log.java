@@ -3,12 +3,14 @@ package by.bsuir.iit.abramov.giis.GGE.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 
 public class Log {
@@ -54,8 +56,14 @@ public class Log {
 
 	public void log(final Point point) {
 		String message = POINT_OFFSET + "Point: x = " + point.getX() + ", y = " + point.getY();
-		textArea.append(message + System.lineSeparator());
-		textArea.setCaretPosition(textArea.getText().length());
+		log(message);
+	}
+
+	public void log(final Point point, final Point correctivePoint) {
+		int x = point.getX() + correctivePoint.getX();
+		int y = point.getY() + correctivePoint.getY();
+		String message = POINT_OFFSET + "Point: x = " + x + ", y = " + y;
+		log(message);
 	}
 
 	public void log(final String message) {

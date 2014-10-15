@@ -8,9 +8,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Line;
@@ -29,7 +31,7 @@ public class Desktop extends JPanel {
 	 *
 	 */
 	private static final long			serialVersionUID	= 1L;
-	final MainWindow					parent;
+	private final MainWindow			parent;
 	private final DesktopController		controller;
 	private final List<GraphicObject>	graphicObjects;
 	private GraphicObject				tempGraphicObject;
@@ -89,43 +91,45 @@ public class Desktop extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
 		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
-//		for (int i = 0; i < getWidth(); i += Config.CURRENT_SCALE * 10) {
-//			g2d.drawLine(i, 0, i, getHeight());
-//		}
-//		for (int i = 0; i < getHeight(); i += Config.CURRENT_SCALE * 10) {
-//			g2d.drawLine(0, i, getWidth(), i);
-//		}
-		
-//		g2d.drawLine(0, getHeight() / 2-1, getWidth(), getHeight() / 2-1);
-//		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
-//		g2d.drawLine(0, getHeight() / 2+1, getWidth(), getHeight() / 2+1);
-//		g2d.drawLine(getWidth() / 2 - 1, 0, getWidth() / 2 - 1, getHeight());
-//		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
-//		g2d.drawLine(getWidth() / 2 + 1, 0, getWidth() / 2 + 1, getHeight());
+		// for (int i = 0; i < getWidth(); i += Config.CURRENT_SCALE * 10) {
+		// g2d.drawLine(i, 0, i, getHeight());
+		// }
+		// for (int i = 0; i < getHeight(); i += Config.CURRENT_SCALE * 10) {
+		// g2d.drawLine(0, i, getWidth(), i);
+		// }
+
+		// g2d.drawLine(0, getHeight() / 2-1, getWidth(), getHeight() / 2-1);
+		// g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+		// g2d.drawLine(0, getHeight() / 2+1, getWidth(), getHeight() / 2+1);
+		// g2d.drawLine(getWidth() / 2 - 1, 0, getWidth() / 2 - 1, getHeight());
+		// g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+		// g2d.drawLine(getWidth() / 2 + 1, 0, getWidth() / 2 + 1, getHeight());
 	}
 
 	public void setLinePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
-			controller.log("Create temp Line. First point in (" + x + ", " + y + ")");
+			controller.log("Create temp Line. First point in (" + Point.getUnscaledCoord(x) + ", "
+					+ Point.getUnscaledCoord(y) + ")");
 			switch (mode) {
 			case LINE_DDA:
-				tempGraphicObject = new LineDDA(new Point(Point.getScaledCoord(x), Point.getScaledCoord(y)),
-						controller);
+				tempGraphicObject = new LineDDA(new Point(Point.getUnscaledCoord(x),
+						Point.getUnscaledCoord(y)), controller);
 				break;
 			case LINE_BREZENHEM:
-				tempGraphicObject = new Line_Brezenhem(
-						new Point(Point.getScaledCoord(x), Point.getScaledCoord(y)), controller);
+				tempGraphicObject = new Line_Brezenhem(new Point(Point.getUnscaledCoord(x),
+						Point.getUnscaledCoord(y)), controller);
 				break;
 			case LINE_WY:
-				tempGraphicObject = new Line_Wy(new Point(Point.getScaledCoord(x), Point.getScaledCoord(y)),
-						controller);
+				tempGraphicObject = new Line_Wy(new Point(Point.getUnscaledCoord(x),
+						Point.getUnscaledCoord(y)), controller);
 				break;
 			}
-
 		} else {
-			((Line) tempGraphicObject).setEndPoint(new Point(Point.getScaledCoord(x), Point.getScaledCoord(y)));
+			((Line) tempGraphicObject).setEndPoint(new Point(Point.getUnscaledCoord(x), Point
+					.getUnscaledCoord(y)));
 			graphicObjects.add(tempGraphicObject);
-			controller.log("Set last point of temp Line: (" + x + ", " + y + ")");
+			controller.log("Set last point of temp Line: (" + Point.getUnscaledCoord(x) + ", "
+					+ Point.getUnscaledCoord(y) + ")");
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
@@ -134,7 +138,6 @@ public class Desktop extends JPanel {
 					tempGraphicObject.getScaledWidth(), tempGraphicObject.getScaledHeight());
 			tempGraphicObject = null;
 			controller.log("delete tempLine");
-
 			setMode(Mode.NONE);
 		}
 	}
@@ -164,8 +167,6 @@ public class Desktop extends JPanel {
 			addMouseListener(new DesktopMouseListener(controller, this));
 			addMouseMotionListener(new DesktopMouseListener(controller, this));
 			break;
-		default:
-
 		}
 	}
 

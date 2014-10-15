@@ -87,14 +87,14 @@ public class Point {
 	}
 	
 	public int getScaledX() {
-		return getScaledCoord(x);
+		return getUnscaledCoord(x);
 	}
 	
 	public int getScaledY() {
-		return getScaledCoord(y);
+		return getUnscaledCoord(y);
 	}
 	
-	public static int getScaledCoord(final int input_coord) {
+	public static int getUnscaledCoord(final int input_coord) {
 		int coord = input_coord;
 		if (coord % Config.CURRENT_SCALE > 0) {
 			coord = coord / Config.CURRENT_SCALE + 1;

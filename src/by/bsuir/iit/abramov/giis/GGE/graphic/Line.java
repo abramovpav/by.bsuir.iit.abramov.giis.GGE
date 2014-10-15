@@ -32,7 +32,6 @@ public class Line extends JComponent implements GraphicObject {
 		this.controller = controller;
 		points = new ArrayList<Point>();
 		startPoint = start;
-		points.add(start);
 	}
 
 	public Line(final Point start, final Point end, final List<Point> points,
@@ -46,7 +45,7 @@ public class Line extends JComponent implements GraphicObject {
 
 	public void addPoint(final Point point) {
 		points.add(point);
-		controller.log(point);
+		controller.log(point, startPoint);
 	}
 
 	private void draw(final Graphics2D g2d) {
