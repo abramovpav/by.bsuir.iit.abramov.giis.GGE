@@ -42,9 +42,9 @@ public class Desktop extends JPanel {
 		this.parent = parent;
 		this.controller = controller;
 		graphicObjects = new ArrayList<GraphicObject>();
-		mode = Mode.NONE;
 		centerPoint = new java.awt.Point(0, 0);
 		init();
+		setMode(Mode.NONE);
 	}
 
 	private void addLineMouseListeners() {
@@ -61,9 +61,9 @@ public class Desktop extends JPanel {
 		for (MouseListener listener : getMouseListeners()) {
 			removeMouseListener(listener);
 		}
-		for (MouseMotionListener listener : getMouseMotionListeners()) {
-			removeMouseMotionListener(listener);
-		}
+//		for (MouseMotionListener listener : getMouseMotionListeners()) {
+//			removeMouseMotionListener(listener);
+//		}
 	}
 
 	public java.awt.Point getCenterPoint() {
@@ -165,7 +165,9 @@ public class Desktop extends JPanel {
 			addLineMouseListeners();
 		case NONE:
 			addMouseListener(new DesktopMouseListener(controller, this));
-			addMouseMotionListener(new DesktopMouseListener(controller, this));
+			if (getMouseMotionListeners().length == 0) {
+				addMouseMotionListener(new DesktopMouseListener(controller, this));
+			}
 			break;
 		}
 	}

@@ -31,6 +31,7 @@ public class MainWindow {
 	private Dimension			desktopSize		= new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	private JScrollPane			scroll;
 	private JPanel				panel;
+	private StatusBar 			statusBar;
 
 	public MainWindow(final Controller controller) {
 		window = new JFrame(TITLE);
@@ -64,6 +65,8 @@ public class MainWindow {
 		contentPane = new JPanel();
 		window.setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		statusBar = new StatusBar(controller);
+		contentPane.add(statusBar, BorderLayout.SOUTH);
 	}
 
 	private void initDesktop(final JPanel contentPane) {
@@ -144,5 +147,9 @@ public class MainWindow {
 		if (desktop != null) {
 			desktop.updateGraphics();
 		}
+	}
+	
+	public void updateStatusBar(int x, int y) {
+		statusBar.updateCoordinates(x, y);
 	}
 }

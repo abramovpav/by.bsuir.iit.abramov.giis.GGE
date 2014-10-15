@@ -44,4 +44,8 @@ public class Controller {
 	public void updateDesktopContent() {
 		window.updateDesktopContent();
 	}
+	
+	public void updateStatusBar(int x, int y) {
+		window.updateStatusBar(x, y);
+	}
 }

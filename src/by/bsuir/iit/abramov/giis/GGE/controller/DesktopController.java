@@ -50,4 +50,8 @@ public class DesktopController {
 	public void showLog() {
 		log.setVisible(true);
 	}
+	
+	public void updateStatusBar(int x, int y) {
+		controller.updateStatusBar(x, y); 
+	}
 }
