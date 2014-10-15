@@ -7,32 +7,37 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
-import by.bsuir.iit.abramov.giis.GGE.utils.Logger;
 
 public class Line extends JComponent implements GraphicObject {
 	/**
 	 *
 	 */
-	private static final long	serialVersionUID	= 1L;
-	private Point				startPoint;
-	private Point				endPoint;
-	private final List<Point>	points;
-	private boolean				generated			= false;
+	private static final long		serialVersionUID	= 1L;
+	private Point					startPoint;
+	private Point					endPoint;
+	private final List<Point>		points;
+	private boolean					generated			= false;
+	private final DesktopController	controller;
 
-	public Line() {
+	public Line(final DesktopController controller) {
+		this.controller = controller;
 		points = new ArrayList<Point>();
 		startPoint = new Point();
 		endPoint = new Point();
 	}
 
-	public Line(final Point start) {
+	public Line(final Point start, final DesktopController controller) {
+		this.controller = controller;
 		points = new ArrayList<Point>();
 		startPoint = start;
 		points.add(start);
 	}
 
-	public Line(final Point start, final Point end, final List<Point> points) {
+	public Line(final Point start, final Point end, final List<Point> points,
+			final DesktopController controller) {
+		this.controller = controller;
 		this.points = new ArrayList<Point>();
 		startPoint = start;
 		endPoint = end;
@@ -41,7 +46,7 @@ public class Line extends JComponent implements GraphicObject {
 
 	public void addPoint(final Point point) {
 		points.add(point);
-		Logger.log(point);
+		controller.log(point);
 	}
 
 	private void draw(final Graphics2D g2d) {

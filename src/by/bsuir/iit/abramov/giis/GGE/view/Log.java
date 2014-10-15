@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 
 public class Log {
 	class CloseButtonActionListener implements ActionListener {
@@ -18,6 +19,8 @@ public class Log {
 			dialog.setVisible(false);
 		}
 	}
+
+	private static final String	POINT_OFFSET	= "    ";
 
 	private static final int	DEFAULT_HEIGHT	= 300;
 	private static final int	DEFAULT_WIDTH	= 400;
@@ -47,6 +50,12 @@ public class Log {
 		JButton button = new JButton(BUTTON_CAPTION);
 		button.addActionListener(new CloseButtonActionListener());
 		contentPane.add(button, BorderLayout.SOUTH);
+	}
+
+	public void log(final Point point) {
+		String message = POINT_OFFSET + "Point: x = " + point.getX() + ", y = " + point.getY();
+		textArea.append(message + System.lineSeparator());
+		textArea.setCaretPosition(textArea.getText().length());
 	}
 
 	public void log(final String message) {

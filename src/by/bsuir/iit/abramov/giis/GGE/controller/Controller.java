@@ -1,6 +1,5 @@
 package by.bsuir.iit.abramov.giis.GGE.controller;
 
-import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 import by.bsuir.iit.abramov.giis.GGE.view.MainWindow;
 
@@ -10,18 +9,8 @@ public class Controller {
 	public Controller() {
 	}
 
-	public void decScale() {
-		Config.decScale();
-		window.updateDesktopContent();
-	}
-
 	public void exit() {
 		window.setVisible(false);
-	}
-
-	public void incScale() {
-		Config.incScale();
-		window.updateDesktopContent();
 	}
 
 	public void lineBrezenhem() {
@@ -46,5 +35,13 @@ public class Controller {
 
 	public void setMainWindow(final MainWindow window) {
 		this.window = window;
+	}
+
+	public void showLog() {
+		window.showLog();
+	}
+
+	public void updateDesktopContent() {
+		window.updateDesktopContent();
 	}
 }

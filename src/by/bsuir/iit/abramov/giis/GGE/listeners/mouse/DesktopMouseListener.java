@@ -4,16 +4,16 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
 public class DesktopMouseListener implements MouseListener, MouseMotionListener {
 
-	private final Controller	controller;
-	private final Desktop		desktop;
+	private final DesktopController	controller;
+	private final Desktop			desktop;
 
-	public DesktopMouseListener(final Controller controller, final Desktop desktop) {
+	public DesktopMouseListener(final DesktopController controller, final Desktop desktop) {
 		this.controller = controller;
 		this.desktop = desktop;
 	}

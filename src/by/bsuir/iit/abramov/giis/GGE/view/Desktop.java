@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Line;
 import by.bsuir.iit.abramov.giis.GGE.graphic.LineDDA;
@@ -22,7 +22,6 @@ import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.LineDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
-import by.bsuir.iit.abramov.giis.GGE.utils.Logger;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class Desktop extends JPanel {
@@ -31,15 +30,15 @@ public class Desktop extends JPanel {
 	 */
 	private static final long			serialVersionUID	= 1L;
 	final MainWindow					parent;
-	private final Controller			controller;
+	private final DesktopController		controller;
 	private final List<GraphicObject>	graphicObjects;
 	private GraphicObject				tempGraphicObject;
 	private Mode						mode;
 	private final java.awt.Point		centerPoint;
 
-	public Desktop(final MainWindow parent) {
+	public Desktop(final MainWindow parent, final DesktopController controller) {
 		this.parent = parent;
-		controller = parent.getController();
+		this.controller = controller;
 		graphicObjects = new ArrayList<GraphicObject>();
 		mode = Mode.NONE;
 		centerPoint = new java.awt.Point(0, 0);
@@ -94,24 +93,26 @@ public class Desktop extends JPanel {
 
 	public void setLinePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
-			Logger.log("Create temp Line. Frist point in (" + x + ", " + y + ")");
+			controller.log("Create temp Line. Frist point in (" + x + ", " + y + ")");
 			switch (mode) {
 			case LINE_DDA:
-				tempGraphicObject = new LineDDA(new Point(getScaleCoord(x), getScaleCoord(y)));
+				tempGraphicObject = new LineDDA(new Point(getScaleCoord(x), getScaleCoord(y)),
+						controller);
 				break;
 			case LINE_BREZENHEM:
 				tempGraphicObject = new Line_Brezenhem(
-						new Point(getScaleCoord(x), getScaleCoord(y)));
+						new Point(getScaleCoord(x), getScaleCoord(y)), controller);
 				break;
 			case LINE_WY:
-				tempGraphicObject = new Line_Wy(new Point(getScaleCoord(x), getScaleCoord(y)));
+				tempGraphicObject = new Line_Wy(new Point(getScaleCoord(x), getScaleCoord(y)),
+						controller);
 				break;
 			}
 
 		} else {
 			((Line) tempGraphicObject).setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
 			graphicObjects.add(tempGraphicObject);
-			Logger.log("Set last point of temp Line: (" + x + ", " + y + ")");
+			controller.log("Set last point of temp Line: (" + x + ", " + y + ")");
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
@@ -119,7 +120,7 @@ public class Desktop extends JPanel {
 					refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y,
 					tempGraphicObject.getScaledWidth(), tempGraphicObject.getScaledHeight());
 			tempGraphicObject = null;
-			Logger.log("delete tempLine");
+			controller.log("delete tempLine");
 
 			setMode(Mode.NONE);
 		}
@@ -153,6 +154,10 @@ public class Desktop extends JPanel {
 		default:
 
 		}
+	}
+
+	public void showLog() {
+		controller.showLog();
 	}
 
 	public void updateGraphics() {

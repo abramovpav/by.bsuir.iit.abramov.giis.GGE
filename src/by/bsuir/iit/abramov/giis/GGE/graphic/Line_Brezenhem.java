@@ -1,5 +1,7 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+
 public class Line_Brezenhem extends Line {
 
 	/**
@@ -7,12 +9,12 @@ public class Line_Brezenhem extends Line {
 	 */
 	private static final long	serialVersionUID	= 1L;
 
-	public Line_Brezenhem() {
-		super();
+	public Line_Brezenhem(final DesktopController controller) {
+		super(controller);
 	}
 
-	public Line_Brezenhem(final Point start) {
-		super(start);
+	public Line_Brezenhem(final Point start, final DesktopController controller) {
+		super(start, controller);
 	}
 
 	@Override

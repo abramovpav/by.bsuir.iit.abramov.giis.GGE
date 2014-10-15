@@ -1,5 +1,7 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+
 public class LineDDA extends Line {
 
 	/**
@@ -7,12 +9,12 @@ public class LineDDA extends Line {
 	 */
 	private static final long	serialVersionUID	= 1L;
 
-	public LineDDA() {
-		super();
+	public LineDDA(final DesktopController controller) {
+		super(controller);
 	}
 
-	public LineDDA(final Point start) {
-		super(start);
+	public LineDDA(final Point start, final DesktopController controller) {
+		super(start, controller);
 	}
 
 	@Override

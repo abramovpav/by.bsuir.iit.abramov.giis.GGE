@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenu;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenuItem;
@@ -66,8 +67,13 @@ public class MainWindow {
 	}
 
 	private void initDesktop(final JPanel contentPane) {
+		DesktopController controller = new DesktopController();
+		controller.setController(this.controller);
+		desktop = new Desktop(this, controller);
+		controller.setDesktop(desktop);
+		Log log = new Log();
+		controller.setLog(log);
 
-		desktop = new Desktop(this);
 		desktop.setLayout(null);
 		scroll = new JScrollPane(desktop);
 		panel = new JPanel();
@@ -111,6 +117,10 @@ public class MainWindow {
 		if (!visible) {
 			window.dispose();
 		}
+	}
+
+	public void showLog() {
+		desktop.showLog();
 	}
 
 	private void updateDesktop() {
