@@ -18,6 +18,23 @@ public class Line_Wy extends Line {
 	public Line_Wy(final Point start, final DesktopController controller) {
 		super(start, controller);
 	}
+	
+	private void generateStraightLine(int start, int end, int fixed, boolean isYFixed) {
+		Point tmpPoint;
+		if (start > end) {
+			int tmp = start;
+			start = end;
+			end = tmp;
+		}
+		for(int i = start; i <= end; i++) {
+			if (isYFixed) {
+				tmpPoint = new Point((int) i, (int) fixed);
+			} else {
+				tmpPoint = new Point((int) fixed, (int) i);
+			}
+			addPoint(tmpPoint);
+		}
+	}
 
 	@Override
 	public void generate() {
@@ -28,6 +45,15 @@ public class Line_Wy extends Line {
 		int y1 = firstPoint.getY();
 		int x2 = lastPoint.getX();
 		int y2 = lastPoint.getY();
+		if (x1 == x2) {
+			generateStraightLine(y1, y2, x1, false);
+			generated();
+			return;
+		} else if (y1 == y2) {
+			generateStraightLine(x1, x2, y1, true);
+			generated();
+			return;
+		}
 		int a = 1;
 		int b = 1;
 		if (x1 < x2) {
@@ -52,7 +78,7 @@ public class Line_Wy extends Line {
 		addPoint(curPoint);
 		log("e = ", e);
 		log("distance = ", distance);
-		int i = 1;
+		int i = 0;
 		if (dx > dy) {
 			segmentAngle = Math.atan2(dy, dx);
 			while (i < dx) {
