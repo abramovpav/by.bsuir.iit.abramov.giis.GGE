@@ -3,6 +3,7 @@ package by.bsuir.iit.abramov.giis.GGE.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
+
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
@@ -139,8 +141,8 @@ public class MainWindow {
 	}
 
 	public void updateDesktopContent() {
-		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE, DEFAULT_HEIGHT
-				* Config.CURRENT_SCALE);
+		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE / Config.MIN_SCALE, DEFAULT_HEIGHT
+				* Config.CURRENT_SCALE / Config.MIN_SCALE);
 		updateDesktop();
 		System.out.println("New center = " + desktop.getCenterPoint().getX() + " "
 				+ desktop.getCenterPoint().getY());

@@ -58,9 +58,9 @@ public class Line extends JComponent implements GraphicObject {
 		g2d.setColor(point.getColor());
 		int x = point.getX() * Config.CURRENT_SCALE;
 		int y = point.getY() * Config.CURRENT_SCALE;
-		for (int i = x; i < x + Config.CURRENT_SCALE; i++) {
-			for (int j = y; j < y + Config.CURRENT_SCALE; j++) {
-				g2d.drawLine(i, j, i, j);
+		for (int i = x - Config.CURRENT_SCALE / 2; i < x + Config.CURRENT_SCALE / 2; i++) {
+			for (int j = y - Config.CURRENT_SCALE / 2; j < y + Config.CURRENT_SCALE / 2; j++) {
+				g2d.drawLine(i + Config.CURRENT_SCALE / 2, j  + Config.CURRENT_SCALE / 2, i  + Config.CURRENT_SCALE / 2, j  + Config.CURRENT_SCALE / 2);
 			}
 		}
 	}
@@ -102,7 +102,7 @@ public class Line extends JComponent implements GraphicObject {
 
 	protected Point getFirstPointOnCanvas() {
 		Point point = new Point();
-		Point refPoint = getRefferencePoint();
+		Point refPoint = getRefferencePointLocal();
 		int x = startPoint.getX() - refPoint.getX();
 		int y = startPoint.getY() - refPoint.getY();
 		point.setX(x);
@@ -112,7 +112,7 @@ public class Line extends JComponent implements GraphicObject {
 
 	protected Point getLastPointOnCanvas() {
 		Point point = new Point();
-		Point refPoint = getRefferencePoint();
+		Point refPoint = getRefferencePointLocal();
 		int x = endPoint.getX() - refPoint.getX();
 		int y = endPoint.getY() - refPoint.getY();
 		point.setX(x);
@@ -133,14 +133,13 @@ public class Line extends JComponent implements GraphicObject {
 		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(),
 				endPoint.getY()));
 	}
-
-	private int getScaledCoord(int coord) {
-		if (coord % Config.CURRENT_SCALE > 0) {
-			coord = coord / Config.CURRENT_SCALE + 1;
-		} else {
-			coord /= Config.CURRENT_SCALE;
+	
+	public Point getRefferencePointLocal() {
+		if (startPoint == null || endPoint == null) {
+			return null;
 		}
-		return coord;
+		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(),
+				endPoint.getY()));
 	}
 
 	@Override
@@ -169,7 +168,8 @@ public class Line extends JComponent implements GraphicObject {
 			return;
 		}
 		Graphics2D g2d = (Graphics2D) g;
-		// g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
+		g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
+		g2d.drawRect(1, 1, getScaledWidth() - 2, getScaledHeight() - 2);
 		draw(g2d);
 	}
 
@@ -195,7 +195,7 @@ public class Line extends JComponent implements GraphicObject {
 	@Override
 	public void updateBounds(final java.awt.Point point) {
 		Point refPoint = getRefferencePoint();
-		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x, refPoint.getY()
-				* Config.CURRENT_SCALE + point.y, getScaledWidth(), getScaledHeight());
+		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.CURRENT_SCALE / 2, refPoint.getY()
+				* Config.CURRENT_SCALE + point.y - Config.CURRENT_SCALE / 2, getScaledWidth(), getScaledHeight());
 	}
 }

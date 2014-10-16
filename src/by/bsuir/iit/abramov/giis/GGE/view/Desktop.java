@@ -91,19 +91,18 @@ public class Desktop extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
 		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
-		// for (int i = 0; i < getWidth(); i += Config.CURRENT_SCALE * 10) {
-		// g2d.drawLine(i, 0, i, getHeight());
-		// }
-		// for (int i = 0; i < getHeight(); i += Config.CURRENT_SCALE * 10) {
-		// g2d.drawLine(0, i, getWidth(), i);
-		// }
-
-		// g2d.drawLine(0, getHeight() / 2-1, getWidth(), getHeight() / 2-1);
-		// g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
-		// g2d.drawLine(0, getHeight() / 2+1, getWidth(), getHeight() / 2+1);
-		// g2d.drawLine(getWidth() / 2 - 1, 0, getWidth() / 2 - 1, getHeight());
-		// g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
-		// g2d.drawLine(getWidth() / 2 + 1, 0, getWidth() / 2 + 1, getHeight());
+		for (int i = Config.CURRENT_SCALE / 2; i < getWidth(); i += Config.CURRENT_SCALE) {
+			g2d.drawLine(i, 0, i, getHeight());
+		}
+		for (int i = Config.CURRENT_SCALE / 2; i < getHeight(); i += Config.CURRENT_SCALE) {
+			g2d.drawLine(0, i, getWidth(), i);
+		}
+		 g2d.drawLine(0, getHeight() / 2-1, getWidth(), getHeight() / 2-1);
+		 g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+		 g2d.drawLine(0, getHeight() / 2+1, getWidth(), getHeight() / 2+1);
+		 g2d.drawLine(getWidth() / 2 - 1, 0, getWidth() / 2 - 1, getHeight());
+		 g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+		 g2d.drawLine(getWidth() / 2 + 1, 0, getWidth() / 2 + 1, getHeight());
 	}
 
 	public void setLinePoint(final int x, final int y) {
@@ -133,9 +132,14 @@ public class Desktop extends JPanel {
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
-			tempGraphicObject.setBounds(refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x,
-					refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y,
+			tempGraphicObject.setBounds(refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x - Config.CURRENT_SCALE / 2,
+					refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y - Config.CURRENT_SCALE / 2,
 					tempGraphicObject.getScaledWidth(), tempGraphicObject.getScaledHeight());
+//			controller.log("bounds: ");
+//			controller.log("real: " + (refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x) + " " + (refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y));
+//			controller.log(Point.getUnscaledCoord(refPoint.getX() * Config.CURRENT_SCALE) + " " +
+//					Point.getUnscaledCoord(refPoint.getY() * Config.CURRENT_SCALE) + " " + 
+//					tempGraphicObject.getBaseWidth() + " " + tempGraphicObject.getBaseHeight());
 			tempGraphicObject = null;
 			controller.log("delete tempLine");
 			setMode(Mode.NONE);

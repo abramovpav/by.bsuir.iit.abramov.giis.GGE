@@ -96,10 +96,16 @@ public class Point {
 	
 	public static int getUnscaledCoord(final int input_coord) {
 		int coord = input_coord;
-		if (coord % Config.CURRENT_SCALE > 0) {
-			coord = coord / Config.CURRENT_SCALE + 1;
+		if (Math.abs(coord % Config.CURRENT_SCALE) <= Config.CURRENT_SCALE / 2) {
+			coord = coord / Config.CURRENT_SCALE;
 		} else {
 			coord /= Config.CURRENT_SCALE;
+			if (coord > 0) {
+				coord += 1;
+			}
+			else {
+				coord -=1;
+			}
 		}
 		return coord;
 	}
