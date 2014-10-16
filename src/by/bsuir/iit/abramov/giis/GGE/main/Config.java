@@ -17,6 +17,10 @@ public class Config {
 			System.out.println("new Scale = " + CURRENT_SCALE);
 		}
 	}
+	
+	public static int getHalfScale() {
+		return CURRENT_SCALE / 2;
+	}
 
 	public static int		CURRENT_SCALE		= 4;
 	public static final int	PIXELS_PER_SCALE	= 2;

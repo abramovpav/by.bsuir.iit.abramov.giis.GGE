@@ -87,10 +87,10 @@ public class Desktop extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
 		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
-		for (int i = Config.CURRENT_SCALE / 2; i < getWidth(); i += Config.CURRENT_SCALE) {
+		for (int i = Config.getHalfScale(); i < getWidth(); i += Config.CURRENT_SCALE) {
 			g2d.drawLine(i, 0, i, getHeight());
 		}
-		for (int i = Config.CURRENT_SCALE / 2; i < getHeight(); i += Config.CURRENT_SCALE) {
+		for (int i = Config.getHalfScale(); i < getHeight(); i += Config.CURRENT_SCALE) {
 			g2d.drawLine(0, i, getWidth(), i);
 		}
 		g2d.drawLine(0, getHeight() / 2 - 1, getWidth(), getHeight() / 2 - 1);
@@ -129,8 +129,8 @@ public class Desktop extends JPanel {
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
 			tempGraphicObject.setBounds(refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x
-					- Config.CURRENT_SCALE / 2, refPoint.getY() * Config.CURRENT_SCALE
-					+ centerPoint.y - Config.CURRENT_SCALE / 2, tempGraphicObject.getScaledWidth(),
+					- Config.getHalfScale(), refPoint.getY() * Config.CURRENT_SCALE
+					+ centerPoint.y - Config.getHalfScale(), tempGraphicObject.getScaledWidth(),
 					tempGraphicObject.getScaledHeight());
 			tempGraphicObject = null;
 			controller.log("delete tempLine");

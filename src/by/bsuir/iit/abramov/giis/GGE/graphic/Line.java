@@ -60,10 +60,10 @@ public class Line extends JComponent implements GraphicObject {
 		g2d.setColor(point.getColor());
 		int x = point.getX() * Config.CURRENT_SCALE;
 		int y = point.getY() * Config.CURRENT_SCALE;
-		for (int i = x - Config.CURRENT_SCALE / 2; i < x + Config.CURRENT_SCALE / 2; i++) {
-			for (int j = y - Config.CURRENT_SCALE / 2; j < y + Config.CURRENT_SCALE / 2; j++) {
-				g2d.drawLine(i + Config.CURRENT_SCALE / 2, j + Config.CURRENT_SCALE / 2, i
-						+ Config.CURRENT_SCALE / 2, j + Config.CURRENT_SCALE / 2);
+		for (int i = x - Config.getHalfScale(); i < x + Config.getHalfScale(); i++) {
+			for (int j = y - Config.getHalfScale(); j < y + Config.getHalfScale(); j++) {
+				g2d.drawLine(i + Config.getHalfScale(), j + Config.getHalfScale(), i
+						+ Config.getHalfScale(), j + Config.getHalfScale());
 			}
 		}
 	}
@@ -198,8 +198,8 @@ public class Line extends JComponent implements GraphicObject {
 	@Override
 	public void updateBounds(final java.awt.Point point) {
 		Point refPoint = getRefferencePoint();
-		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.CURRENT_SCALE / 2,
-				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.CURRENT_SCALE / 2,
+		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.getHalfScale(),
+				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.getHalfScale(),
 				getScaledWidth(), getScaledHeight());
 	}
 }

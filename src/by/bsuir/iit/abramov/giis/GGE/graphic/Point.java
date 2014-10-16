@@ -97,7 +97,7 @@ public class Point {
 
 	public static int getUnscaledCoord(final int input_coord) {
 		int coord = input_coord;
-		if (Math.abs(coord % Config.CURRENT_SCALE) <= Config.CURRENT_SCALE / 2) {
+		if (Math.abs(coord % Config.CURRENT_SCALE) <= Config.getHalfScale()) {
 			coord = coord / Config.CURRENT_SCALE;
 		} else {
 			coord /= Config.CURRENT_SCALE;
