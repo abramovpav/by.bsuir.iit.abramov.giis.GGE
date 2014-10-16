@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JComponent;
+
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
@@ -60,7 +62,8 @@ public class Line extends JComponent implements GraphicObject {
 		int y = point.getY() * Config.CURRENT_SCALE;
 		for (int i = x - Config.CURRENT_SCALE / 2; i < x + Config.CURRENT_SCALE / 2; i++) {
 			for (int j = y - Config.CURRENT_SCALE / 2; j < y + Config.CURRENT_SCALE / 2; j++) {
-				g2d.drawLine(i + Config.CURRENT_SCALE / 2, j  + Config.CURRENT_SCALE / 2, i  + Config.CURRENT_SCALE / 2, j  + Config.CURRENT_SCALE / 2);
+				g2d.drawLine(i + Config.CURRENT_SCALE / 2, j + Config.CURRENT_SCALE / 2, i
+						+ Config.CURRENT_SCALE / 2, j + Config.CURRENT_SCALE / 2);
 			}
 		}
 	}
@@ -133,7 +136,7 @@ public class Line extends JComponent implements GraphicObject {
 		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(),
 				endPoint.getY()));
 	}
-	
+
 	public Point getRefferencePointLocal() {
 		if (startPoint == null || endPoint == null) {
 			return null;
@@ -195,7 +198,8 @@ public class Line extends JComponent implements GraphicObject {
 	@Override
 	public void updateBounds(final java.awt.Point point) {
 		Point refPoint = getRefferencePoint();
-		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.CURRENT_SCALE / 2, refPoint.getY()
-				* Config.CURRENT_SCALE + point.y - Config.CURRENT_SCALE / 2, getScaledWidth(), getScaledHeight());
+		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.CURRENT_SCALE / 2,
+				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.CURRENT_SCALE / 2,
+				getScaledWidth(), getScaledHeight());
 	}
 }

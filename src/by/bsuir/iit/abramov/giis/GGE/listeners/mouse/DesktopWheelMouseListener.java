@@ -2,6 +2,7 @@ package by.bsuir.iit.abramov.giis.GGE.listeners.mouse;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 

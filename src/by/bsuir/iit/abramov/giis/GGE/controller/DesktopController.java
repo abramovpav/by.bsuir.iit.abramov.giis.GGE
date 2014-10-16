@@ -26,7 +26,7 @@ public class DesktopController {
 	public void log(final Point point) {
 		log.log(point);
 	}
-	
+
 	public void log(final Point point, final Point startPoint, final Point endPoint) {
 		Point correctivePoint = startPoint;
 		if (startPoint.getX() > endPoint.getX()) {
@@ -54,8 +54,8 @@ public class DesktopController {
 	public void showLog() {
 		log.setVisible(true);
 	}
-	
-	public void updateStatusBar(int x, int y) {
-		controller.updateStatusBar(x, y); 
+
+	public void updateStatusBar(final int x, final int y) {
+		controller.updateStatusBar(x, y);
 	}
 }

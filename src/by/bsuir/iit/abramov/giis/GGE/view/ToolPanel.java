@@ -2,9 +2,11 @@ package by.bsuir.iit.abramov.giis.GGE.view;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.utils.EMenuItem;
 import by.bsuir.iit.abramov.giis.GGE.utils.ListenerFactory;

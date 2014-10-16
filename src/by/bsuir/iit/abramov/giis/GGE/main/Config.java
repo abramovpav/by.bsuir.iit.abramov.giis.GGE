@@ -12,11 +12,6 @@ public class Config {
 	}
 
 	public static void incScale() {
-//		if (CURRENT_SCALE == MIN_SCALE) {
-//			CURRENT_SCALE = PIXELS_PER_SCALE;
-////			System.out.println("new Scale = " + CURRENT_SCALE);
-//			return;
-//		}
 		if (CURRENT_SCALE + PIXELS_PER_SCALE <= MAX_SCALE) {
 			CURRENT_SCALE += PIXELS_PER_SCALE;
 			System.out.println("new Scale = " + CURRENT_SCALE);

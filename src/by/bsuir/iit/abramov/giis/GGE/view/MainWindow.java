@@ -33,7 +33,7 @@ public class MainWindow {
 	private Dimension			desktopSize		= new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	private JScrollPane			scroll;
 	private JPanel				panel;
-	private StatusBar 			statusBar;
+	private StatusBar			statusBar;
 
 	public MainWindow(final Controller controller) {
 		window = new JFrame(TITLE);
@@ -141,8 +141,8 @@ public class MainWindow {
 	}
 
 	public void updateDesktopContent() {
-		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE / Config.MIN_SCALE, DEFAULT_HEIGHT
-				* Config.CURRENT_SCALE / Config.MIN_SCALE);
+		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE / Config.MIN_SCALE,
+				DEFAULT_HEIGHT * Config.CURRENT_SCALE / Config.MIN_SCALE);
 		updateDesktop();
 		System.out.println("New center = " + desktop.getCenterPoint().getX() + " "
 				+ desktop.getCenterPoint().getY());
@@ -150,8 +150,8 @@ public class MainWindow {
 			desktop.updateGraphics();
 		}
 	}
-	
-	public void updateStatusBar(int x, int y) {
+
+	public void updateStatusBar(final int x, final int y) {
 		statusBar.updateCoordinates(x, y);
 	}
 }

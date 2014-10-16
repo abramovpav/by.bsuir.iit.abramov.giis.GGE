@@ -1,6 +1,7 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
 import java.awt.Color;
+
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 
 public class Line_Wy extends Line {

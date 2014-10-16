@@ -3,6 +3,7 @@ package by.bsuir.iit.abramov.giis.GGE.listeners.mouse;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
