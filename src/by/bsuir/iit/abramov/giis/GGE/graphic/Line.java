@@ -45,7 +45,7 @@ public class Line extends JComponent implements GraphicObject {
 
 	public void addPoint(final Point point) {
 		points.add(point);
-		controller.log(point, startPoint);
+		controller.log(point, startPoint, endPoint);
 	}
 
 	private void draw(final Graphics2D g2d) {

@@ -27,7 +27,11 @@ public class DesktopController {
 		log.log(point);
 	}
 	
-	public void log(final Point point, final Point correctivePoint) {
+	public void log(final Point point, final Point startPoint, final Point endPoint) {
+		Point correctivePoint = startPoint;
+		if (startPoint.getX() > endPoint.getX()) {
+			correctivePoint = endPoint;
+		}
 		log.log(point, correctivePoint);
 	}
 
