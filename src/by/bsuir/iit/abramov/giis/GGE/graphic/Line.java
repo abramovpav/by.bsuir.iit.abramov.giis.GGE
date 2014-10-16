@@ -9,37 +9,63 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
-import by.bsuir.iit.abramov.giis.GGE.utils.Logger;
 
 public class Line extends JComponent implements GraphicObject {
 	/**
-	 * 
+	 *
 	 */
-	private static final long serialVersionUID = 1L;
-	private Point startPoint;
-	private Point endPoint;
-	private final List<Point> points;
-	private boolean generated = false;
+	private static final long		serialVersionUID	= 1L;
+	private Point					startPoint;
+	private Point					endPoint;
+	private final List<Point>		points;
+	private boolean					generated			= false;
+	private final DesktopController	controller;
 
-	public Line() {
+	public Line(final DesktopController controller) {
+		this.controller = controller;
 		points = new ArrayList<Point>();
 		startPoint = new Point();
 		endPoint = new Point();
 	}
 
-	public Line(final Point start) {
+	public Line(final Point start, final DesktopController controller) {
+		this.controller = controller;
 		points = new ArrayList<Point>();
 		startPoint = start;
-		points.add(start);
 	}
 
-	public boolean isGenerated() {
-		return generated;
+	public Line(final Point start, final Point end, final List<Point> points,
+			final DesktopController controller) {
+		this.controller = controller;
+		this.points = new ArrayList<Point>();
+		startPoint = start;
+		endPoint = end;
+		this.points.addAll(points);
 	}
 
-	protected void generated() {
-		generated = true;
+	public void addPoint(final Point point) {
+		points.add(point);
+		controller.log(point, startPoint, endPoint);
+	}
+
+	private void draw(final Graphics2D g2d) {
+		for (Point point : getPoints()) {
+			drawPoint(g2d, point);
+		}
+	}
+
+	private void drawPoint(final Graphics2D g2d, final Point point) {
+		g2d.setColor(point.getColor());
+		int x = point.getX() * Config.CURRENT_SCALE;
+		int y = point.getY() * Config.CURRENT_SCALE;
+		for (int i = x - Config.CURRENT_SCALE / 2; i < x + Config.CURRENT_SCALE / 2; i++) {
+			for (int j = y - Config.CURRENT_SCALE / 2; j < y + Config.CURRENT_SCALE / 2; j++) {
+				g2d.drawLine(i + Config.CURRENT_SCALE / 2, j + Config.CURRENT_SCALE / 2, i
+						+ Config.CURRENT_SCALE / 2, j + Config.CURRENT_SCALE / 2);
+			}
+		}
 	}
 
 	@Override
@@ -47,47 +73,8 @@ public class Line extends JComponent implements GraphicObject {
 		points.clear();
 	}
 
-	public Line(final Point start, final Point end, final List<Point> points) {
-		this.points = new ArrayList<Point>();
-		startPoint = start;
-		endPoint = end;
-		this.points.addAll(points);
-	}
-
-	public Point getStartPoint() {
-		return startPoint;
-	}
-
-	public void setStartPoint(final Point startPoint) {
-		this.startPoint = startPoint;
-	}
-
-	public Point getEndPoint() {
-		return endPoint;
-	}
-
-	public void setEndPoint(final Point endPoint) {
-		this.endPoint = endPoint;
-		setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
-	}
-
-	@Override
-	public final int getScaledWidth() {
-		return getBaseWidth() * Config.CURRENT_SCALE;
-	}
-
-	@Override
-	public final int getBaseWidth() {
-		int width = Math.abs(startPoint.getX() - endPoint.getX());
-		while (width % Config.CURRENT_SCALE != 0 || width == 0) {
-			width++;
-		}
-		return width;
-	}
-
-	@Override
-	public int getScaledHeight() {
-		return getBaseHeight() * Config.CURRENT_SCALE;
+	protected void generated() {
+		generated = true;
 	}
 
 	@Override
@@ -100,13 +87,80 @@ public class Line extends JComponent implements GraphicObject {
 	}
 
 	@Override
+	public final int getBaseWidth() {
+		int width = Math.abs(startPoint.getX() - endPoint.getX());
+		while (width % Config.CURRENT_SCALE != 0 || width == 0) {
+			width++;
+		}
+		return width;
+	}
+
+	protected Color getColor(final float intensity) {
+		return new Color((int) (255 * intensity), (int) (255 * intensity), (int) (255 * intensity));
+	}
+
+	public Point getEndPoint() {
+		return endPoint;
+	}
+
+	protected Point getFirstPointOnCanvas() {
+		Point point = new Point();
+		Point refPoint = getRefferencePointLocal();
+		int x = startPoint.getX() - refPoint.getX();
+		int y = startPoint.getY() - refPoint.getY();
+		point.setX(x);
+		point.setY(y);
+		return point;
+	}
+
+	protected Point getLastPointOnCanvas() {
+		Point point = new Point();
+		Point refPoint = getRefferencePointLocal();
+		int x = endPoint.getX() - refPoint.getX();
+		int y = endPoint.getY() - refPoint.getY();
+		point.setX(x);
+		point.setY(y);
+		return point;
+	}
+
+	@Override
 	public final List<Point> getPoints() {
 		return points;
 	}
 
-	public void addPoint(final Point point) {
-		points.add(point);
-		Logger.log(point);
+	@Override
+	public Point getRefferencePoint() {
+		if (startPoint == null || endPoint == null) {
+			return null;
+		}
+		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(),
+				endPoint.getY()));
+	}
+
+	public Point getRefferencePointLocal() {
+		if (startPoint == null || endPoint == null) {
+			return null;
+		}
+		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(),
+				endPoint.getY()));
+	}
+
+	@Override
+	public int getScaledHeight() {
+		return getBaseHeight() * Config.CURRENT_SCALE;
+	}
+
+	@Override
+	public final int getScaledWidth() {
+		return getBaseWidth() * Config.CURRENT_SCALE;
+	}
+
+	public Point getStartPoint() {
+		return startPoint;
+	}
+
+	public boolean isGenerated() {
+		return generated;
 	}
 
 	@Override
@@ -117,69 +171,18 @@ public class Line extends JComponent implements GraphicObject {
 			return;
 		}
 		Graphics2D g2d = (Graphics2D) g;
-		// g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
+		g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
+		g2d.drawRect(1, 1, getScaledWidth() - 2, getScaledHeight() - 2);
 		draw(g2d);
 	}
 
-	private void draw(final Graphics2D g2d) {
-		for (Point point : getPoints()) {
-			drawPoint(g2d, point);
-		}
+	public void setEndPoint(final Point endPoint) {
+		this.endPoint = endPoint;
+		setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 	}
 
-	private void drawPoint(final Graphics2D g2d, final Point point) {
-		g2d.setColor(point.getColor());
-		int x = point.getX() * Config.CURRENT_SCALE;
-		if (x == 0) {
-			x = Config.CURRENT_SCALE / 2;
-		}
-		int y = point.getY() * Config.CURRENT_SCALE;
-		if (y == 0) {
-			y = Config.CURRENT_SCALE / 2;
-		}
-		for (int i = x - Config.CURRENT_SCALE + 1; i <= x; i++) {
-			for (int j = y - Config.CURRENT_SCALE + 1; j <= y; j++) {
-				g2d.drawLine(i, j, i, j);
-			}
-		}
-	}
-
-	protected Point getLastPointOnCanvas() {
-		Point point = new Point();
-		Point refPoint = getRefferencePoint();
-		int x = endPoint.getX() - refPoint.getX();
-		int y = endPoint.getY() - refPoint.getY();
-		point.setX(x);
-		point.setY(y);
-		return point;
-	}
-
-	protected Point getFirstPointOnCanvas() {
-		Point point = new Point();
-		Point refPoint = getRefferencePoint();
-		int x = startPoint.getX() - refPoint.getX();
-		int y = startPoint.getY() - refPoint.getY();
-		point.setX(x);
-		point.setY(y);
-		return point;
-	}
-
-	private int getScaledCoord(int coord) {
-		if (coord % Config.CURRENT_SCALE > 0) {
-			coord = coord / Config.CURRENT_SCALE + 1;
-		} else {
-			coord /= Config.CURRENT_SCALE;
-		}
-		return coord;
-	}
-
-	@Override
-	public Point getRefferencePoint() {
-		if (startPoint == null || endPoint == null) {
-			return null;
-		}
-		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(),
-				endPoint.getY()));
+	public void setStartPoint(final Point startPoint) {
+		this.startPoint = startPoint;
 	}
 
 	protected int sign(final double x) {
@@ -192,14 +195,11 @@ public class Line extends JComponent implements GraphicObject {
 		}
 	}
 
-	protected Color getColor(final float intensity) {
-		return new Color((int) (255 * intensity), (int) (255 * intensity), (int) (255 * intensity));
-	}
-
 	@Override
 	public void updateBounds(final java.awt.Point point) {
 		Point refPoint = getRefferencePoint();
-		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x, refPoint.getY()
-				* Config.CURRENT_SCALE + point.y, getScaledWidth(), getScaledHeight());
+		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.CURRENT_SCALE / 2,
+				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.CURRENT_SCALE / 2,
+				getScaledWidth(), getScaledHeight());
 	}
 }

@@ -14,12 +14,12 @@ import by.bsuir.iit.abramov.giis.GGE.utils.ListenerFactory;
 public class ToolPanel extends JToolBar {
 
 	/**
-	 * 
+	 *
 	 */
-	private static final long serialVersionUID = 1L;
-	private final MainWindow parent;
-	private final Controller controller;
-	private Map<String, JButton> buttons;
+	private static final long		serialVersionUID	= 1L;
+	private final MainWindow		parent;
+	private final Controller		controller;
+	private Map<String, JButton>	buttons;
 
 	public ToolPanel(final MainWindow parent, final Controller controller) {
 		this.parent = parent;

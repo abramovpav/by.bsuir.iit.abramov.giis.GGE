@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,45 +12,129 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
-import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Line;
 import by.bsuir.iit.abramov.giis.GGE.graphic.LineDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Line_Brezenhem;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Line_Wy;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.LineDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
-import by.bsuir.iit.abramov.giis.GGE.utils.Logger;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class Desktop extends JPanel {
 	/**
-	 * 
+	 *
 	 */
-	private static final long serialVersionUID = 1L;
-	final MainWindow parent;
-	private final Controller controller;
-	private final List<GraphicObject> graphicObjects;
-	private GraphicObject tempGraphicObject;
-	private Mode mode;
-	private final java.awt.Point centerPoint;
+	private static final long			serialVersionUID	= 1L;
+	private final MainWindow			parent;
+	private final DesktopController		controller;
+	private final List<GraphicObject>	graphicObjects;
+	private GraphicObject				tempGraphicObject;
+	private Mode						mode;
+	private final java.awt.Point		centerPoint;
 
-	public Desktop(final MainWindow parent) {
+	public Desktop(final MainWindow parent, final DesktopController controller) {
 		this.parent = parent;
-		controller = parent.getController();
+		this.controller = controller;
 		graphicObjects = new ArrayList<GraphicObject>();
-		mode = Mode.NONE;
 		centerPoint = new java.awt.Point(0, 0);
 		init();
+		setMode(Mode.NONE);
 	}
 
-	public void updateGraphics() {
-		java.awt.Point centerPoint = getCenterPoint();
-		for (GraphicObject object : graphicObjects) {
-			object.updateBounds(centerPoint);
+	private void addLineMouseListeners() {
+		addMouseListener(new LineDesktopMouseListener(controller, this));
+	}
+
+	public void cancelTempObject() {
+		tempGraphicObject = null;
+		System.out.println("Cancel temp Graphic Object");
+		setMode(Mode.NONE);
+	}
+
+	public void clearMouseListeners() {
+		for (MouseListener listener : getMouseListeners()) {
+			removeMouseListener(listener);
+		}
+	}
+
+	public java.awt.Point getCenterPoint() {
+		return centerPoint;
+	}
+
+	public final Mode getMode() {
+		return mode;
+	}
+
+	private int getScaleCoord(final int x) {
+		return x / Config.CURRENT_SCALE;
+	}
+
+	private void init() {
+		System.out.println("Desktop - init");
+		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
+		addMouseListener(new DesktopMouseListener(controller, this));
+		addMouseWheelListener(new DesktopWheelMouseListener(controller, this));
+	}
+
+	@Override
+	protected void paintComponent(final Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+		for (int i = Config.CURRENT_SCALE / 2; i < getWidth(); i += Config.CURRENT_SCALE) {
+			g2d.drawLine(i, 0, i, getHeight());
+		}
+		for (int i = Config.CURRENT_SCALE / 2; i < getHeight(); i += Config.CURRENT_SCALE) {
+			g2d.drawLine(0, i, getWidth(), i);
+		}
+		g2d.drawLine(0, getHeight() / 2 - 1, getWidth(), getHeight() / 2 - 1);
+		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+		g2d.drawLine(0, getHeight() / 2 + 1, getWidth(), getHeight() / 2 + 1);
+		g2d.drawLine(getWidth() / 2 - 1, 0, getWidth() / 2 - 1, getHeight());
+		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+		g2d.drawLine(getWidth() / 2 + 1, 0, getWidth() / 2 + 1, getHeight());
+	}
+
+	public void setLinePoint(final int x, final int y) {
+		if (tempGraphicObject == null) {
+			controller.log("Create temp Line. First point in (" + Point.getUnscaledCoord(x) + ", "
+					+ Point.getUnscaledCoord(y) + ")");
+			switch (mode) {
+			case LINE_DDA:
+				tempGraphicObject = new LineDDA(new Point(Point.getUnscaledCoord(x),
+						Point.getUnscaledCoord(y)), controller);
+				break;
+			case LINE_BREZENHEM:
+				tempGraphicObject = new Line_Brezenhem(new Point(Point.getUnscaledCoord(x),
+						Point.getUnscaledCoord(y)), controller);
+				break;
+			case LINE_WY:
+				tempGraphicObject = new Line_Wy(new Point(Point.getUnscaledCoord(x),
+						Point.getUnscaledCoord(y)), controller);
+				break;
+			}
+		} else {
+			((Line) tempGraphicObject).setEndPoint(new Point(Point.getUnscaledCoord(x), Point
+					.getUnscaledCoord(y)));
+			graphicObjects.add(tempGraphicObject);
+			controller.log("Set last point of temp Line: (" + Point.getUnscaledCoord(x) + ", "
+					+ Point.getUnscaledCoord(y) + ")");
+			add((JComponent) tempGraphicObject);
+			tempGraphicObject.generate();
+			Point refPoint = tempGraphicObject.getRefferencePoint();
+			tempGraphicObject.setBounds(refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x
+					- Config.CURRENT_SCALE / 2, refPoint.getY() * Config.CURRENT_SCALE
+					+ centerPoint.y - Config.CURRENT_SCALE / 2, tempGraphicObject.getScaledWidth(),
+					tempGraphicObject.getScaledHeight());
+			tempGraphicObject = null;
+			controller.log("delete tempLine");
+			setMode(Mode.NONE);
 		}
 	}
 
@@ -78,91 +161,22 @@ public class Desktop extends JPanel {
 			addLineMouseListeners();
 		case NONE:
 			addMouseListener(new DesktopMouseListener(controller, this));
-			addMouseMotionListener(new DesktopMouseListener(controller, this));
-			break;
-		default:
-
-		}
-	}
-
-	private void addLineMouseListeners() {
-		addMouseListener(new LineDesktopMouseListener(controller, this));
-	}
-
-	public java.awt.Point getCenterPoint() {
-		return centerPoint;
-	}
-
-	public void setLinePoint(final int x, final int y) {
-		if (tempGraphicObject == null) {
-			Logger.log("Create temp Line. Frist point in (" + x + ", " + y + ")");
-			switch (mode) {
-			case LINE_DDA:
-				tempGraphicObject = new LineDDA(new Point(getScaleCoord(x), getScaleCoord(y)));
-				break;
-			case LINE_BREZENHEM:
-				tempGraphicObject = new Line_Brezenhem(new Point(getScaleCoord(x),
-						getScaleCoord(y)));
-				break;
-			case LINE_WY:
-				tempGraphicObject = new Line_Wy(new Point(getScaleCoord(x), getScaleCoord(y)));
-				break;
+			if (getMouseMotionListeners().length == 0) {
+				addMouseMotionListener(new DesktopMouseListener(controller, this));
 			}
-
-		} else {
-			((Line) tempGraphicObject)
-					.setEndPoint(new Point(getScaleCoord(x), getScaleCoord(y)));
-			graphicObjects.add(tempGraphicObject);
-			Logger.log("Set last point of temp Line: (" + x + ", " + y + ")");
-			add((JComponent) tempGraphicObject);
-			tempGraphicObject.generate();
-			Point refPoint = tempGraphicObject.getRefferencePoint();
-			tempGraphicObject.setBounds((refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x),
-					(refPoint.getY() * Config.CURRENT_SCALE + centerPoint.y),
-					tempGraphicObject.getScaledWidth(), tempGraphicObject.getScaledHeight());
-			tempGraphicObject = null;
-			Logger.log("delete tempLine");
-
-			setMode(Mode.NONE);
+			break;
 		}
 	}
 
-	private int getScaleCoord(final int x) {
-		return x / Config.CURRENT_SCALE;
+	public void showLog() {
+		controller.showLog();
 	}
 
-	public void cancelTempObject() {
-		tempGraphicObject = null;
-		System.out.println("Cancel temp Graphic Object");
-		setMode(Mode.NONE);
-	}
-
-	public void clearMouseListeners() {
-		for (MouseListener listener : getMouseListeners()) {
-			removeMouseListener(listener);
+	public void updateGraphics() {
+		java.awt.Point centerPoint = getCenterPoint();
+		for (GraphicObject object : graphicObjects) {
+			object.updateBounds(centerPoint);
 		}
-		for (MouseMotionListener listener : getMouseMotionListeners()) {
-			removeMouseMotionListener(listener);
-		}
-	}
-
-	public final Mode getMode() {
-		return mode;
-	}
-
-	private void init() {
-		System.out.println("Desktop - init");
-		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
-		addMouseListener(new DesktopMouseListener(controller, this));
-		addMouseWheelListener(new DesktopWheelMouseListener(controller, this));
-	}
-
-	@Override
-	protected void paintComponent(final Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
-		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
 	}
 
 }

@@ -7,7 +7,7 @@ import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 
 public class LineWyActionListener implements ActionListener {
 
-	private final Controller controller;
+	private final Controller	controller;
 
 	public LineWyActionListener(final Controller controller) {
 		this.controller = controller;

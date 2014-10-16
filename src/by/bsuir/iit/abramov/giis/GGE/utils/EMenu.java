@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum EMenu {
-	FILE("File", EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), 
-	EDIT("Edit"), 
-	ACTIONS("Actions", EMenuItem.LINE_DDA, EMenuItem.LINE_BREZENHEM, 
-			EMenuItem.LINE_WY, EMenuItem.NONE);
+	FILE("File", EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), EDIT("Edit"), ACTIONS(
+			"Actions", EMenuItem.LINE_DDA, EMenuItem.LINE_BREZENHEM, EMenuItem.LINE_WY,
+			EMenuItem.NONE);
 
-	private List<EMenuItem> items;
-	private String name = "DEFAULT";
+	private List<EMenuItem>	items;
+	private String			name	= "DEFAULT";
 
 	EMenu(final String name, final EMenuItem... items) {
 		this.name = name;

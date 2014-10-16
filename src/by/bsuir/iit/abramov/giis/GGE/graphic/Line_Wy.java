@@ -2,19 +2,21 @@ package by.bsuir.iit.abramov.giis.GGE.graphic;
 
 import java.awt.Color;
 
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+
 public class Line_Wy extends Line {
 
 	/**
-	 * 
+	 *
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public Line_Wy() {
-		super();
+	public Line_Wy(final DesktopController controller) {
+		super(controller);
 	}
 
-	public Line_Wy(final Point start) {
-		super(start);
+	public Line_Wy(final Point start, final DesktopController controller) {
+		super(start, controller);
 	}
 
 	@Override

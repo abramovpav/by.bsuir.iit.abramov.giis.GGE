@@ -1,20 +1,19 @@
 package by.bsuir.iit.abramov.giis.GGE.listeners.mouse;
 
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
-import by.bsuir.iit.abramov.giis.GGE.main.Config;
+import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
 public class DesktopMouseListener implements MouseListener, MouseMotionListener {
 
-	private final Controller controller;
-	private final Desktop desktop;
+	private final DesktopController	controller;
+	private final Desktop			desktop;
 
-	public DesktopMouseListener(final Controller controller, final Desktop desktop) {
+	public DesktopMouseListener(final DesktopController controller, final Desktop desktop) {
 		this.controller = controller;
 		this.desktop = desktop;
 	}
@@ -22,9 +21,15 @@ public class DesktopMouseListener implements MouseListener, MouseMotionListener 
 	@Override
 	public void mouseClicked(final MouseEvent arg0) {
 		System.out.println("tuck");
-		Point centerDesktop = desktop.getCenterPoint();
-		System.out.println(((arg0.getX() - centerDesktop.x) / Config.CURRENT_SCALE) + " "
-				+ ((arg0.getY() - centerDesktop.y) / Config.CURRENT_SCALE));
+		java.awt.Point centerDesktop = desktop.getCenterPoint();
+		System.out.println(Point.getUnscaledCoord(arg0.getX() - centerDesktop.x) + " "
+				+ Point.getUnscaledCoord(arg0.getY() - centerDesktop.y));
+	}
+
+	@Override
+	public void mouseDragged(final MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -37,27 +42,20 @@ public class DesktopMouseListener implements MouseListener, MouseMotionListener 
 	}
 
 	@Override
+	public void mouseMoved(final MouseEvent e) {
+		java.awt.Point centerDesktop = desktop.getCenterPoint();
+		controller.updateStatusBar(Point.getUnscaledCoord(e.getX() - centerDesktop.x),
+				Point.getUnscaledCoord(e.getY() - centerDesktop.y));
+
+	}
+
+	@Override
 	public void mousePressed(final MouseEvent arg0) {
 
 	}
 
 	@Override
 	public void mouseReleased(final MouseEvent arg0) {
-
-	}
-
-	@Override
-	public void mouseDragged(final MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(final MouseEvent e) {
-		// Point centerDesktop = desktop.getCenterPoint();
-		// System.out.println(((e.getX() - centerDesktop.x) /
-		// Config.DEFAULT_SCALE) + " "
-		// + ((e.getY() - centerDesktop.y) / Config.DEFAULT_SCALE));
 
 	}
 
