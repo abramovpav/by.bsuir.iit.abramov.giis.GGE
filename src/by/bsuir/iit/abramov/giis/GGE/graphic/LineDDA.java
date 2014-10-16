@@ -29,8 +29,8 @@ public class LineDDA extends Line {
 		int length = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
 		double dx = (double) (x2 - x1) / length;
 		double dy = (double) (y2 - y1) / length;
-		double x = x1 + 0.5 * sign(dx);
-		double y = y1 + 0.5 * sign(dy);
+		double x = x1;
+		double y = y1;
 		Point curPoint = new Point((int) x, (int) y);
 		addPoint(curPoint);
 		int i = 0;
