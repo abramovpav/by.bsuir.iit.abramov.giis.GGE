@@ -171,8 +171,8 @@ public class Line extends JComponent implements GraphicObject {
 			return;
 		}
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
-		g2d.drawRect(1, 1, getScaledWidth() - 2, getScaledHeight() - 2);
+//		g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
+//		g2d.drawRect(1, 1, getScaledWidth() - 2, getScaledHeight() - 2);
 		draw(g2d);
 	}
 
