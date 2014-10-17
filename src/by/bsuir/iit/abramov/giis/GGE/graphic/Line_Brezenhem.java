@@ -47,7 +47,7 @@ public class Line_Brezenhem extends Line {
 		Point curPoint = new Point((int) x, (int) y);
 		addPoint(curPoint);
 		log("e = ", e);
-		int i = 1;
+		int i = 0;
 		if (dx > dy) {
 			while (i < dx) {
 				if (e >= 0) {
