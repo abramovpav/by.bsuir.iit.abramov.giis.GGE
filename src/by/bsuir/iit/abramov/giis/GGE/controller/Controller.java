@@ -1,12 +1,18 @@
 package by.bsuir.iit.abramov.giis.GGE.controller;
 
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
+import by.bsuir.iit.abramov.giis.GGE.view.AboutDialog;
 import by.bsuir.iit.abramov.giis.GGE.view.MainWindow;
 
 public class Controller {
 	private MainWindow	window;
 
 	public Controller() {
+	}
+
+	public void about() {
+		AboutDialog aboutDialog = new AboutDialog(window.getWindow());
+		aboutDialog.setVisible(true);
 	}
 
 	public void exit() {

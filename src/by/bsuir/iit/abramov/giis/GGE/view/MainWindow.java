@@ -53,6 +53,10 @@ public class MainWindow {
 		return controller;
 	}
 
+	public final JFrame getWindow() {
+		return window;
+	}
+
 	private void init() {
 		window.setBounds(0, 0, DEFAULT_HEIGHT, DEFAULT_WIDTH);
 		window.setExtendedState(Frame.MAXIMIZED_BOTH);

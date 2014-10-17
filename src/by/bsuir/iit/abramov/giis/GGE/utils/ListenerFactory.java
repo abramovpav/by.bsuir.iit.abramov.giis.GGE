@@ -3,6 +3,7 @@ package by.bsuir.iit.abramov.giis.GGE.utils;
 import java.awt.event.ActionListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
+import by.bsuir.iit.abramov.giis.GGE.listeners.AboutListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineBrezenhemActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineDDAActionListener;
@@ -34,6 +35,8 @@ public class ListenerFactory {
 			return new NoneActionListener(controller);
 		case LOG:
 			return new ShowLogListener(controller);
+		case ABOUT:
+			return new AboutListener(controller);
 		default:
 			return null;
 		}
