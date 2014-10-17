@@ -46,7 +46,7 @@ public class Line_Brezenhem extends Line {
 		double y = y1;
 		Point curPoint = new Point((int) x, (int) y);
 		addPoint(curPoint);
-		log("e = ", e);
+		log("e = " + e, true);
 		int i = 0;
 		if (dx > dy) {
 			while (i < dx) {
@@ -59,7 +59,7 @@ public class Line_Brezenhem extends Line {
 				i++;
 				curPoint = new Point((int) x, (int) y);
 				addPoint(curPoint);
-				log("e = ", e);
+				log("e = " + e, true);
 			}
 		} else {
 			e = 2 * dx - dy;
@@ -73,13 +73,9 @@ public class Line_Brezenhem extends Line {
 				i++;
 				curPoint = new Point((int) x, (int) y);
 				addPoint(curPoint);
-				log("e = ", e);
+				log("e = " + e, true);
 			}
 		}
 		generated();
-	}
-
-	private void log(final String str, final double e) {
-		System.out.println(str + e);
 	}
 }

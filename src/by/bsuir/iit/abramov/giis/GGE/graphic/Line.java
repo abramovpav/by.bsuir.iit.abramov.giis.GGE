@@ -6,9 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JComponent;
-
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
@@ -201,5 +199,9 @@ public class Line extends JComponent implements GraphicObject {
 		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.getHalfScale(),
 				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.getHalfScale(),
 				getScaledWidth(), getScaledHeight());
+	}
+	
+	protected void log(final String msg, boolean offset) {
+		controller.log(msg, offset);
 	}
 }

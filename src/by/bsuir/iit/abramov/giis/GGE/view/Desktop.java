@@ -104,7 +104,7 @@ public class Desktop extends JPanel {
 	public void setLinePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
 			controller.log("Create temp Line. First point in (" + Point.getUnscaledCoord(x) + ", "
-					+ Point.getUnscaledCoord(y) + ")");
+					+ Point.getUnscaledCoord(y) + ")", false);
 			switch (mode) {
 			case LINE_DDA:
 				tempGraphicObject = new LineDDA(new Point(Point.getUnscaledCoord(x),
@@ -124,7 +124,7 @@ public class Desktop extends JPanel {
 					.getUnscaledCoord(y)));
 			graphicObjects.add(tempGraphicObject);
 			controller.log("Set last point of temp Line: (" + Point.getUnscaledCoord(x) + ", "
-					+ Point.getUnscaledCoord(y) + ")");
+					+ Point.getUnscaledCoord(y) + ")", false);
 			add((JComponent) tempGraphicObject);
 			tempGraphicObject.generate();
 			Point refPoint = tempGraphicObject.getRefferencePoint();
@@ -133,7 +133,7 @@ public class Desktop extends JPanel {
 					+ centerPoint.y - Config.getHalfScale(), tempGraphicObject.getScaledWidth(),
 					tempGraphicObject.getScaledHeight());
 			tempGraphicObject = null;
-			controller.log("delete tempLine");
+			controller.log("delete tempLine", false);
 			setMode(Mode.NONE);
 		}
 	}

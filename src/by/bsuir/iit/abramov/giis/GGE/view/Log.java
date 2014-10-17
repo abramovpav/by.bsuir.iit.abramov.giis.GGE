@@ -55,19 +55,23 @@ public class Log {
 	}
 
 	public void log(final Point point) {
-		String message = POINT_OFFSET + "Point: x = " + point.getX() + ", y = " + point.getY();
-		log(message);
+		String message = "Point: x = " + point.getX() + ", y = " + point.getY();
+		log(message, true);
 	}
 
 	public void log(final Point point, final Point correctivePoint) {
 		int x = point.getX() + correctivePoint.getX();
 		int y = point.getY() + correctivePoint.getY();
-		String message = POINT_OFFSET + "Point: x = " + x + ", y = " + y;
-		log(message);
+		String message = "Point: x = " + x + ", y = " + y;
+		log(message, true);
 	}
 
-	public void log(final String message) {
-		textArea.append(message + System.lineSeparator());
+	public void log(final String message, boolean offset) {
+		if (offset) {
+			textArea.append(POINT_OFFSET + message + System.lineSeparator());
+		} else {
+			textArea.append(message + System.lineSeparator());
+		}
 		textArea.setCaretPosition(textArea.getText().length());
 	}
 

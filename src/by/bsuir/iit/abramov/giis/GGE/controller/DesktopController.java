@@ -35,8 +35,8 @@ public class DesktopController {
 		log.log(point, correctivePoint);
 	}
 
-	public void log(final String message) {
-		log.log(message);
+	public void log(final String message, boolean offset) {
+		log.log(message, offset);
 	}
 
 	public void setController(final Controller controller) {

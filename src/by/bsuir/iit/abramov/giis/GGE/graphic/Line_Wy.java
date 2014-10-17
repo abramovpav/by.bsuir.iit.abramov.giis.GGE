@@ -76,8 +76,8 @@ public class Line_Wy extends Line {
 		double segmentAngle = 0;
 		double distance = 0;
 		addPoint(curPoint);
-		log("e = ", e);
-		log("distance = ", distance);
+		log("e = " + e, true);
+		log("distance = " + distance, true);
 		int i = 0;
 		if (dx > dy) {
 			segmentAngle = Math.atan2(dy, dx);
@@ -92,9 +92,9 @@ public class Line_Wy extends Line {
 				distance = getDistance(x1, y1, x2, y2, dy, x, y, segmentAngle);
 				curPoint = new Point((int) x, (int) y, getColor((float) distance));
 				addPoint(curPoint);
-				log("e = ", e);
-				log("distance = ", distance);
-				System.out.println("second");
+				log("e = " + e, true);
+				log("distance = " + distance, true);
+//				System.out.println("second");
 				distance = getDistance(x1, y1, x2, y2, dy, x, y + 1, segmentAngle);
 				if (distance > 1) {
 					distance = getDistance(x1, y1, x2, y2, dy, x, y - 1, segmentAngle);
@@ -103,8 +103,8 @@ public class Line_Wy extends Line {
 					curPoint = new Point((int) x, (int) y + 1, getColor((float) distance));
 				}
 				addPoint(curPoint);
-				log("e = ", e);
-				log("distance = ", distance);
+				log("e = " + e, true);
+				log("distance = " + distance, true);
 			}
 		} else {
 			e = 2 * dx - dy;
@@ -120,8 +120,8 @@ public class Line_Wy extends Line {
 				distance = getDistance(x1, y1, x2, y2, dy, x, y, segmentAngle);
 				curPoint = new Point((int) x, (int) y, getColor((float) distance));
 				addPoint(curPoint);
-				log("e = ", e);
-				log("distance = ", distance);
+				log("e = " + e, true);
+				log("distance = " + distance, true);
 				distance = getDistance(x1, y1, x2, y2, dy, x + 1, y, segmentAngle);
 				System.out.println("second");
 				if (distance > 1) {
@@ -131,8 +131,8 @@ public class Line_Wy extends Line {
 					curPoint = new Point((int) x + 1, (int) y, getColor((float) distance));
 				}
 				addPoint(curPoint);
-				log("e = ", e);
-				log("distance = ", distance);
+				log("e = " + e, true);
+				log("distance = " + distance, true);
 			}
 		}
 		generated();
@@ -150,9 +150,5 @@ public class Line_Wy extends Line {
 
 		distance = Math.sin(angle) * hypot;
 		return distance;
-	}
-
-	private void log(final String str, final double e) {
-		System.out.println(str + e);
 	}
 }
