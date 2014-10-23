@@ -190,7 +190,7 @@ public class Line extends JComponent implements GraphicObject {
 		Point point = getPoint(index);
 		if (point != null) {
 			controller.log("Last point:", false);
-			controller.log(point);
+			controller.log(point, getRefferencePoint());
 			controller.log(point.getGenerateInfo(), true);
 		}
 	}

@@ -38,6 +38,10 @@ public class DesktopController {
 		}
 		log.log(point, correctivePoint);
 	}
+	
+	public void log(final Point point, final Point correctivePoint) {
+		log.log(point, correctivePoint);
+	}
 
 	public void log(final String message, final boolean offset) {
 		log.log(message, offset);
