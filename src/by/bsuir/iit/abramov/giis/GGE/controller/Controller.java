@@ -15,6 +15,10 @@ public class Controller {
 		aboutDialog.setVisible(true);
 	}
 
+	public void activateStepButton() {
+		window.activateStepButton();
+	}
+
 	public void exit() {
 		window.setVisible(false);
 	}

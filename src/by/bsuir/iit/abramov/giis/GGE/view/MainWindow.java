@@ -7,18 +7,12 @@ import java.awt.Frame;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
-import by.bsuir.iit.abramov.giis.GGE.utils.EMenu;
-import by.bsuir.iit.abramov.giis.GGE.utils.EMenuItem;
-import by.bsuir.iit.abramov.giis.GGE.utils.ListenerFactory;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class MainWindow {
@@ -34,11 +28,22 @@ public class MainWindow {
 	private JScrollPane			scroll;
 	private JPanel				panel;
 	private StatusBar			statusBar;
+	private MenuBar				menuBar;
 
 	public MainWindow(final Controller controller) {
 		window = new JFrame(TITLE);
 		this.controller = controller;
 		init();
+	}
+
+	public void activateActions() {
+		menuBar.activateActions();
+		toolPanel.activateActions();
+	}
+
+	public void activateStepButton() {
+		menuBar.activateStepButton();
+		toolPanel.activateStepButton();
 	}
 
 	public void add(final JComponent component) {
@@ -95,20 +100,11 @@ public class MainWindow {
 		scroll.setViewportView(panel);
 
 		updateDesktop();
-
+		activateActions();
 	}
 
 	private void initMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-		for (EMenu emenu : EMenu.values()) {
-			JMenu menu = new JMenu(emenu.getName());
-			for (EMenuItem eMenuItem : emenu.getItems()) {
-				JMenuItem item = new JMenuItem(eMenuItem.getName());
-				item.addActionListener(ListenerFactory.getActionListener(eMenuItem, controller));
-				menu.add(item);
-			}
-			menuBar.add(menu);
-		}
+		menuBar = new MenuBar(controller);
 		window.setJMenuBar(menuBar);
 	}
 

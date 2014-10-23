@@ -149,6 +149,7 @@ public class Desktop extends JPanel {
 					tempGraphicObject.getScaledHeight());
 			tempGraphicObject = null;
 			controller.log("delete tempLine", false);
+			controller.activateStepButton();
 			setMode(Mode.NONE);
 		}
 	}

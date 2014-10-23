@@ -13,6 +13,10 @@ public class DesktopController {
 	public DesktopController() {
 	}
 
+	public void activateStepButton() {
+		controller.activateStepButton();
+	}
+
 	public void decScale() {
 		Config.decScale();
 		controller.updateDesktopContent();
@@ -35,7 +39,7 @@ public class DesktopController {
 		log.log(point, correctivePoint);
 	}
 
-	public void log(final String message, boolean offset) {
+	public void log(final String message, final boolean offset) {
 		log.log(message, offset);
 	}
 
