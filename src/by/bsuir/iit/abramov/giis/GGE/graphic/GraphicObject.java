@@ -17,6 +17,8 @@ public interface GraphicObject {
 
 	public int getScaledWidth();
 
+	public void last();
+
 	public void next();
 
 	public void prev();

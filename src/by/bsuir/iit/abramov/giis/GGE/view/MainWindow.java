@@ -117,6 +117,10 @@ public class MainWindow {
 		contentPane.add(toolPanel, BorderLayout.EAST);
 	}
 
+	public void last() {
+		desktop.last();
+	}
+
 	public void next() {
 		desktop.next();
 	}

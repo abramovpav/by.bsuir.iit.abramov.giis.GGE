@@ -176,6 +176,12 @@ public class Line extends JComponent implements GraphicObject {
 		return generated;
 	}
 
+	@Override
+	public void last() {
+		currentStep = points.size() - 1;
+		repaint();
+	}
+
 	protected void log(final String msg, final boolean offset) {
 		controller.log(msg, offset);
 	}

@@ -19,6 +19,10 @@ public class Controller {
 		window.setVisible(false);
 	}
 
+	public void last() {
+		window.last();
+	}
+
 	public void lineBrezenhem() {
 		window.setMode(Mode.LINE_BREZENHEM);
 	}

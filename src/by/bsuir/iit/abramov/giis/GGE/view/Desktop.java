@@ -81,6 +81,11 @@ public class Desktop extends JPanel {
 		addMouseWheelListener(new DesktopWheelMouseListener(controller, this));
 	}
 
+	public void last() {
+		GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
+		last.last();
+	}
+
 	public void next() {
 		GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
 		last.next();

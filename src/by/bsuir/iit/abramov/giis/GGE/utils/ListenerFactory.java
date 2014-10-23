@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.listeners.AboutListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.LastActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineBrezenhemActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineDDAActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineWyActionListener;
@@ -43,6 +44,8 @@ public class ListenerFactory {
 			return new NextActionListener(controller);
 		case PREV:
 			return new PrevActionListener(controller);
+		case LAST:
+			return new LastActionListener(controller);
 		default:
 			return null;
 		}
