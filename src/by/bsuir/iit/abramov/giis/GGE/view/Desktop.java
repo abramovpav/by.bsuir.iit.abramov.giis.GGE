@@ -82,8 +82,10 @@ public class Desktop extends JPanel {
 	}
 
 	public void last() {
-		GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
-		last.last();
+		if (graphicObjects.size() > 0) {
+			GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
+			last.last();
+		}
 	}
 
 	public void next() {
@@ -135,6 +137,7 @@ public class Desktop extends JPanel {
 				break;
 			}
 		} else {
+			last();
 			((Line) tempGraphicObject).setEndPoint(new Point(Point.getUnscaledCoord(x), Point
 					.getUnscaledCoord(y)));
 			graphicObjects.add(tempGraphicObject);
