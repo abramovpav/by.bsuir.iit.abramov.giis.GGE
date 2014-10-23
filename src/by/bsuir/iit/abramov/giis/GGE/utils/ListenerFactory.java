@@ -9,7 +9,9 @@ import by.bsuir.iit.abramov.giis.GGE.listeners.LineBrezenhemActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineDDAActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LineWyActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NewMenuListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.NextActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.NoneActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.PrevActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ShowLogListener;
 
 public class ListenerFactory {
@@ -37,6 +39,10 @@ public class ListenerFactory {
 			return new ShowLogListener(controller);
 		case ABOUT:
 			return new AboutListener(controller);
+		case NEXT:
+			return new NextActionListener(controller);
+		case PREV:
+			return new PrevActionListener(controller);
 		default:
 			return null;
 		}

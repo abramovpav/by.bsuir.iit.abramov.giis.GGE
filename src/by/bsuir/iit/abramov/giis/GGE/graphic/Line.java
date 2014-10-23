@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JComponent;
+
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
@@ -20,6 +22,7 @@ public class Line extends JComponent implements GraphicObject {
 	private final List<Point>		points;
 	private boolean					generated			= false;
 	private final DesktopController	controller;
+	private int						currentStep			= 1;
 
 	public Line(final DesktopController controller) {
 		this.controller = controller;
@@ -49,8 +52,11 @@ public class Line extends JComponent implements GraphicObject {
 	}
 
 	private void draw(final Graphics2D g2d) {
-		for (Point point : getPoints()) {
-			drawPoint(g2d, point);
+		for (int index = 0; index <= currentStep; index++) {
+			Point point = getPoint(index);
+			if (point != null) {
+				drawPoint(g2d, point);
+			}
 		}
 	}
 
@@ -60,8 +66,8 @@ public class Line extends JComponent implements GraphicObject {
 		int y = point.getY() * Config.CURRENT_SCALE;
 		for (int i = x - Config.getHalfScale(); i < x + Config.getHalfScale(); i++) {
 			for (int j = y - Config.getHalfScale(); j < y + Config.getHalfScale(); j++) {
-				g2d.drawLine(i + Config.getHalfScale(), j + Config.getHalfScale(), i
-						+ Config.getHalfScale(), j + Config.getHalfScale());
+				g2d.drawLine(i + Config.getHalfScale(), j + Config.getHalfScale(),
+						i + Config.getHalfScale(), j + Config.getHalfScale());
 			}
 		}
 	}
@@ -73,6 +79,7 @@ public class Line extends JComponent implements GraphicObject {
 
 	protected void generated() {
 		generated = true;
+		currentStep = points.size() - 1;
 	}
 
 	@Override
@@ -121,6 +128,14 @@ public class Line extends JComponent implements GraphicObject {
 		return point;
 	}
 
+	public final Point getPoint(final int index) {
+		if (index >= 0 && index < points.size()) {
+			return points.get(index);
+		} else {
+			return null;
+		}
+	}
+
 	@Override
 	public final List<Point> getPoints() {
 		return points;
@@ -161,6 +176,28 @@ public class Line extends JComponent implements GraphicObject {
 		return generated;
 	}
 
+	protected void log(final String msg, final boolean offset) {
+		controller.log(msg, offset);
+	}
+
+	private void logPointInfo(final int index) {
+		Point point = getPoint(index);
+		if (point != null) {
+			controller.log("Last point:", false);
+			controller.log(point);
+			controller.log(point.getGenerateInfo(), true);
+		}
+	}
+
+	@Override
+	public void next() {
+		if (currentStep + 1 < points.size()) {
+			currentStep++;
+			logPointInfo(currentStep);
+			repaint();
+		}
+	}
+
 	@Override
 	protected void paintComponent(final Graphics g) {
 		System.out.println(this.getClass().getSimpleName() + "-paint");
@@ -169,9 +206,18 @@ public class Line extends JComponent implements GraphicObject {
 			return;
 		}
 		Graphics2D g2d = (Graphics2D) g;
-//		g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
-//		g2d.drawRect(1, 1, getScaledWidth() - 2, getScaledHeight() - 2);
+		// g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
+		// g2d.drawRect(1, 1, getScaledWidth() - 2, getScaledHeight() - 2);
 		draw(g2d);
+	}
+
+	@Override
+	public void prev() {
+		if (currentStep - 1 >= 0) {
+			currentStep--;
+			logPointInfo(currentStep);
+			repaint();
+		}
 	}
 
 	public void setEndPoint(final Point endPoint) {
@@ -199,9 +245,5 @@ public class Line extends JComponent implements GraphicObject {
 		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.getHalfScale(),
 				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.getHalfScale(),
 				getScaledWidth(), getScaledHeight());
-	}
-	
-	protected void log(final String msg, boolean offset) {
-		controller.log(msg, offset);
 	}
 }

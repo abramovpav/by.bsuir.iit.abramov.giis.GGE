@@ -5,11 +5,28 @@ import java.awt.Color;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
 public class Point {
+	public static int getUnscaledCoord(final int input_coord) {
+		int coord = input_coord;
+		if (Math.abs(coord % Config.CURRENT_SCALE) <= Config.getHalfScale()) {
+			coord = coord / Config.CURRENT_SCALE;
+		} else {
+			coord /= Config.CURRENT_SCALE;
+			if (coord > 0) {
+				coord += 1;
+			} else {
+				coord -= 1;
+			}
+		}
+		return coord;
+	}
+
 	private int		x;
 	private int		y;
 	private int		z;
 	private double	dist;
-	private Color	color	= Color.BLACK;
+	private Color	color			= Color.BLACK;
+
+	private String	generateInfo	= "";
 
 	public Point() {
 		x = 0;
@@ -47,12 +64,28 @@ public class Point {
 		this.dist = dist;
 	}
 
+	public void addGenerateInfo(final String info) {
+		generateInfo = info;
+	}
+
 	public Color getColor() {
 		return color;
 	}
 
 	public double getDist() {
 		return dist;
+	}
+
+	public final String getGenerateInfo() {
+		return generateInfo;
+	}
+
+	public int getScaledX() {
+		return getUnscaledCoord(x);
+	}
+
+	public int getScaledY() {
+		return getUnscaledCoord(y);
 	}
 
 	public int getX() {
@@ -85,29 +118,6 @@ public class Point {
 
 	public void setZ(final int z) {
 		this.z = z;
-	}
-
-	public int getScaledX() {
-		return getUnscaledCoord(x);
-	}
-
-	public int getScaledY() {
-		return getUnscaledCoord(y);
-	}
-
-	public static int getUnscaledCoord(final int input_coord) {
-		int coord = input_coord;
-		if (Math.abs(coord % Config.CURRENT_SCALE) <= Config.getHalfScale()) {
-			coord = coord / Config.CURRENT_SCALE;
-		} else {
-			coord /= Config.CURRENT_SCALE;
-			if (coord > 0) {
-				coord += 1;
-			} else {
-				coord -= 1;
-			}
-		}
-		return coord;
 	}
 
 }

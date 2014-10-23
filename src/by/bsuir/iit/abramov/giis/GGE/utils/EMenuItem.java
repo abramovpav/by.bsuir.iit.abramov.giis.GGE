@@ -4,7 +4,7 @@ public enum EMenuItem {
 
 	NEW("New...", true), OPEN("Open"), CLOSE("Close"), EXIT("Exit"), LINE_DDA("LineDDA", true), 
 	LINE_WY("LineWy", true), LINE_BREZENHEM("LineBrezenhem", true), NONE("Empty", true), 
-	LOG("Show log", true), ABOUT("About");
+	LOG("Show log", true), ABOUT("About"), NEXT("Next", true), PREV("Prev", true);
 
 	private String	name	= "DEFAULT";
 	private boolean	tool	= false;

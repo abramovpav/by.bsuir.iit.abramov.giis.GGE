@@ -117,6 +117,14 @@ public class MainWindow {
 		contentPane.add(toolPanel, BorderLayout.EAST);
 	}
 
+	public void next() {
+		desktop.next();
+	}
+
+	public void prev() {
+		desktop.prev();
+	}
+
 	public void setMode(final Mode mode) {
 		desktop.setMode(mode);
 	}

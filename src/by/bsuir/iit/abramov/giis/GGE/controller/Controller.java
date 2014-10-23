@@ -35,8 +35,16 @@ public class Controller {
 		window.createNewTab();
 	}
 
+	public void next() {
+		window.next();
+	}
+
 	public void none() {
 		window.setMode(Mode.NONE);
+	}
+
+	public void prev() {
+		window.prev();
 	}
 
 	public void setMainWindow(final MainWindow window) {

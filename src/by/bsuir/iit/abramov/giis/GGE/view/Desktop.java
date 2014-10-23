@@ -81,6 +81,11 @@ public class Desktop extends JPanel {
 		addMouseWheelListener(new DesktopWheelMouseListener(controller, this));
 	}
 
+	public void next() {
+		GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
+		last.next();
+	}
+
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
@@ -99,6 +104,11 @@ public class Desktop extends JPanel {
 		g2d.drawLine(getWidth() / 2 - 1, 0, getWidth() / 2 - 1, getHeight());
 		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
 		g2d.drawLine(getWidth() / 2 + 1, 0, getWidth() / 2 + 1, getHeight());
+	}
+
+	public void prev() {
+		GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
+		last.prev();
 	}
 
 	public void setLinePoint(final int x, final int y) {

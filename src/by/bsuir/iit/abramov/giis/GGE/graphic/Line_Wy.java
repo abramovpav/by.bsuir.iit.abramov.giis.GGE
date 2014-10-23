@@ -18,23 +18,6 @@ public class Line_Wy extends Line {
 	public Line_Wy(final Point start, final DesktopController controller) {
 		super(start, controller);
 	}
-	
-	private void generateStraightLine(int start, int end, int fixed, boolean isYFixed) {
-		Point tmpPoint;
-		if (start > end) {
-			int tmp = start;
-			start = end;
-			end = tmp;
-		}
-		for(int i = start; i <= end; i++) {
-			if (isYFixed) {
-				tmpPoint = new Point((int) i, (int) fixed);
-			} else {
-				tmpPoint = new Point((int) fixed, (int) i);
-			}
-			addPoint(tmpPoint);
-		}
-	}
 
 	@Override
 	public void generate() {
@@ -76,8 +59,9 @@ public class Line_Wy extends Line {
 		double segmentAngle = 0;
 		double distance = 0;
 		addPoint(curPoint);
-		log("e = " + e, true);
-		log("distance = " + distance, true);
+		String info = generateinfo(e, distance);
+		curPoint.addGenerateInfo(info);
+		log(info, true);
 		int i = 0;
 		if (dx > dy) {
 			segmentAngle = Math.atan2(dy, dx);
@@ -92,9 +76,10 @@ public class Line_Wy extends Line {
 				distance = getDistance(x1, y1, x2, y2, dy, x, y, segmentAngle);
 				curPoint = new Point((int) x, (int) y, getColor((float) distance));
 				addPoint(curPoint);
-				log("e = " + e, true);
-				log("distance = " + distance, true);
-//				System.out.println("second");
+				info = generateinfo(e, distance);
+				curPoint.addGenerateInfo(info);
+				log(info, true);
+				// System.out.println("second");
 				distance = getDistance(x1, y1, x2, y2, dy, x, y + 1, segmentAngle);
 				if (distance > 1) {
 					distance = getDistance(x1, y1, x2, y2, dy, x, y - 1, segmentAngle);
@@ -103,8 +88,9 @@ public class Line_Wy extends Line {
 					curPoint = new Point((int) x, (int) y + 1, getColor((float) distance));
 				}
 				addPoint(curPoint);
-				log("e = " + e, true);
-				log("distance = " + distance, true);
+				info = generateinfo(e, distance);
+				curPoint.addGenerateInfo(info);
+				log(info, true);
 			}
 		} else {
 			e = 2 * dx - dy;
@@ -120,8 +106,9 @@ public class Line_Wy extends Line {
 				distance = getDistance(x1, y1, x2, y2, dy, x, y, segmentAngle);
 				curPoint = new Point((int) x, (int) y, getColor((float) distance));
 				addPoint(curPoint);
-				log("e = " + e, true);
-				log("distance = " + distance, true);
+				info = generateinfo(e, distance);
+				curPoint.addGenerateInfo(info);
+				log(info, true);
 				distance = getDistance(x1, y1, x2, y2, dy, x + 1, y, segmentAngle);
 				System.out.println("second");
 				if (distance > 1) {
@@ -131,11 +118,33 @@ public class Line_Wy extends Line {
 					curPoint = new Point((int) x + 1, (int) y, getColor((float) distance));
 				}
 				addPoint(curPoint);
-				log("e = " + e, true);
-				log("distance = " + distance, true);
+				info = generateinfo(e, distance);
+				curPoint.addGenerateInfo(info);
+				log(info, true);
 			}
 		}
 		generated();
+	}
+
+	private String generateinfo(final int e, final double distance) {
+		return "e = " + e + " | " + "distance = " + distance;
+	}
+
+	private void generateStraightLine(int start, int end, final int fixed, final boolean isYFixed) {
+		Point tmpPoint;
+		if (start > end) {
+			int tmp = start;
+			start = end;
+			end = tmp;
+		}
+		for (int i = start; i <= end; i++) {
+			if (isYFixed) {
+				tmpPoint = new Point(i, fixed);
+			} else {
+				tmpPoint = new Point(fixed, i);
+			}
+			addPoint(tmpPoint);
+		}
 	}
 
 	private double getDistance(final int x1, final int y1, final int x2, final int y2,
