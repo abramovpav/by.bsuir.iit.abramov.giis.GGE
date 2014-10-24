@@ -4,6 +4,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
 public class DesktopWheelMouseListener implements MouseWheelListener {
@@ -20,9 +21,9 @@ public class DesktopWheelMouseListener implements MouseWheelListener {
 	public void mouseWheelMoved(final MouseWheelEvent e) {
 		if (e.getModifiers() == 2) {
 			if (e.getWheelRotation() < 0) {
-				controller.incScale();
+				controller.incScale(Point.getUnscaledCoord(e.getX()), Point.getUnscaledCoord(e.getY()));
 			} else if (e.getWheelRotation() > 0) {
-				controller.decScale();
+				controller.decScale(Point.getUnscaledCoord(e.getX()), Point.getUnscaledCoord(e.getY()));
 			}
 		}
 

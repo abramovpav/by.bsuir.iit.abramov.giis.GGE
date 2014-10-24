@@ -17,14 +17,14 @@ public class DesktopController {
 		controller.activateStepButton();
 	}
 
-	public void decScale() {
+	public void decScale(int x, int y) {
 		Config.decScale();
-		controller.updateDesktopContent();
+		controller.updateDesktopContent(x, y);
 	}
 
-	public void incScale() {
+	public void incScale(int x, int y) {
 		Config.incScale();
-		controller.updateDesktopContent();
+		controller.updateDesktopContent(x, y);
 	}
 
 	public void log(final Point point) {

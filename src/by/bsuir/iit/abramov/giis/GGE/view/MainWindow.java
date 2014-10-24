@@ -3,6 +3,7 @@ package by.bsuir.iit.abramov.giis.GGE.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Point;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -99,7 +100,7 @@ public class MainWindow {
 
 		scroll.setViewportView(panel);
 
-		updateDesktop();
+		updateDesktop(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
 		activateActions();
 	}
 
@@ -140,7 +141,7 @@ public class MainWindow {
 		desktop.showLog();
 	}
 
-	private void updateDesktop() {
+	private void updateDesktop(int x, int y) {
 
 		desktop.setMinimumSize(desktopSize);
 		desktop.setMaximumSize(desktopSize);
@@ -148,14 +149,30 @@ public class MainWindow {
 		panel.setMinimumSize(desktopSize);
 		panel.setPreferredSize(desktopSize);
 		window.validate();
+		int scrollWidth = scroll.getViewportBorderBounds().width;
+		int newX = x * Config.CURRENT_SCALE - scrollWidth / 2;
+		int scrollHeight = scroll.getViewportBorderBounds().height;
+		int newY = y * Config.CURRENT_SCALE - scrollHeight / 2;
+		newX = normalizeCoord(desktopSize.width - scrollWidth, newX);
+		newY = normalizeCoord(desktopSize.height - scrollHeight, newY);
+		scroll.getViewport().setViewPosition(new Point(newX, newY));
 		scroll.validate();
 		window.repaint();
 	}
 
-	public void updateDesktopContent() {
+	private int normalizeCoord(int max, int coord) {
+		if (coord < 0) {
+			coord = 0;
+		} else if (coord > max) {
+			coord = max;
+		}
+		return coord;
+	}
+
+	public void updateDesktopContent(int x, int y) {
 		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE / Config.MIN_SCALE,
 				DEFAULT_HEIGHT * Config.CURRENT_SCALE / Config.MIN_SCALE);
-		updateDesktop();
+		updateDesktop(x, y);
 		System.out.println("New center = " + desktop.getCenterPoint().getX() + " "
 				+ desktop.getCenterPoint().getY());
 		if (desktop != null) {

@@ -63,8 +63,8 @@ public class Controller {
 		window.showLog();
 	}
 
-	public void updateDesktopContent() {
-		window.updateDesktopContent();
+	public void updateDesktopContent(int x, int y) {
+		window.updateDesktopContent(x, y);
 	}
 
 	public void updateStatusBar(final int x, final int y) {
