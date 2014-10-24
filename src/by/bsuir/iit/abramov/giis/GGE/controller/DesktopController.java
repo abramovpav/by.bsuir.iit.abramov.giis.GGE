@@ -18,13 +18,15 @@ public class DesktopController {
 	}
 
 	public void decScale(int x, int y) {
-		Config.decScale();
-		controller.updateDesktopContent(x, y);
+		if (Config.decScale()) {
+			controller.updateDesktopContent(x, y);
+		}
 	}
 
 	public void incScale(int x, int y) {
-		Config.incScale();
-		controller.updateDesktopContent(x, y);
+		if (Config.incScale()) {
+			controller.updateDesktopContent(x, y);
+		}
 	}
 
 	public void log(final Point point) {

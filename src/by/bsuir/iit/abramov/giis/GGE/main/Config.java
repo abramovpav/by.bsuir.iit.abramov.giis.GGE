@@ -1,21 +1,25 @@
 package by.bsuir.iit.abramov.giis.GGE.main;
 
 public class Config {
-	public static void decScale() {
+	public static boolean decScale() {
 		if (CURRENT_SCALE - PIXELS_PER_SCALE >= 0) {
 			CURRENT_SCALE -= PIXELS_PER_SCALE;
 			if (CURRENT_SCALE < MIN_SCALE) {
 				CURRENT_SCALE = MIN_SCALE;
 			}
 			System.out.println("new Scale = " + CURRENT_SCALE);
+			return true;
 		}
+		return false;
 	}
 
-	public static void incScale() {
+	public static boolean incScale() {
 		if (CURRENT_SCALE + PIXELS_PER_SCALE <= MAX_SCALE) {
 			CURRENT_SCALE += PIXELS_PER_SCALE;
 			System.out.println("new Scale = " + CURRENT_SCALE);
+			return true;
 		}
+		return false;
 	}
 	
 	public static int getHalfScale() {
