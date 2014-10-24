@@ -45,6 +45,7 @@ public class Line_Brezenhem extends Line {
 		double x = x1;
 		double y = y1;
 		Point curPoint = new Point((int) x, (int) y);
+		addPoint(curPoint);
 		String info = generateInfo(e);
 		curPoint.addGenerateInfo(info);
 		log(info, true);
