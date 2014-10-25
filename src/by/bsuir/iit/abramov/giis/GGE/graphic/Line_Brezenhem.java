@@ -13,8 +13,8 @@ public class Line_Brezenhem extends Line {
 		super(controller);
 	}
 
-	public Line_Brezenhem(final Point start, final DesktopController controller) {
-		super(start, controller);
+	public Line_Brezenhem(final int x, final int y, final DesktopController controller) {
+		super(x, y, controller);
 	}
 
 	@Override

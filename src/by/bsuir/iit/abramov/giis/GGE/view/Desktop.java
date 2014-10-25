@@ -26,6 +26,11 @@ import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class Desktop extends JPanel {
+	private static final String			NEW_MODE			= "Set new mode: ";
+	private static final String			COORD_SEPARATOR		= ", ";
+	private static final String			DELETE_TEMP_LINE	= "delete tempLine";
+	private static final String			SET_LAST_POINT		= "Set last point of temp Line: ";
+	private static final String			CREATE_TEMP_LINE	= "Create temp Line. First point in ";
 	/**
 	 *
 	 */
@@ -70,10 +75,6 @@ public class Desktop extends JPanel {
 		return mode;
 	}
 
-	private int getScaleCoord(final int x) {
-		return x / Config.CURRENT_SCALE;
-	}
-
 	private void init() {
 		System.out.println("Desktop - init");
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, true));
@@ -83,13 +84,13 @@ public class Desktop extends JPanel {
 
 	public void last() {
 		if (graphicObjects.size() > 0) {
-			GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
+			GraphicObject last = getCurrentGraphicObject();
 			last.last();
 		}
 	}
 
 	public void next() {
-		GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
+		GraphicObject last = getCurrentGraphicObject();
 		last.next();
 	}
 
@@ -97,14 +98,14 @@ public class Desktop extends JPanel {
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
-		g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+		// Coordinate's grid
 		for (int i = Config.getHalfScale(); i < getWidth(); i += Config.CURRENT_SCALE) {
 			g2d.drawLine(i, 0, i, getHeight());
 		}
 		for (int i = Config.getHalfScale(); i < getHeight(); i += Config.CURRENT_SCALE) {
 			g2d.drawLine(0, i, getWidth(), i);
 		}
+		// Axis
 		g2d.drawLine(0, getHeight() / 2 - 1, getWidth(), getHeight() / 2 - 1);
 		g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
 		g2d.drawLine(0, getHeight() / 2 + 1, getWidth(), getHeight() / 2 + 1);
@@ -114,44 +115,46 @@ public class Desktop extends JPanel {
 	}
 
 	public void prev() {
-		GraphicObject last = graphicObjects.get(graphicObjects.size() - 1);
+		GraphicObject last = getCurrentGraphicObject();
 		last.prev();
+	}
+
+	private GraphicObject getCurrentGraphicObject() {
+		return graphicObjects.get(graphicObjects.size() - 1);
 	}
 
 	public void setLinePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
-			controller.log("Create temp Line. First point in (" + Point.getUnscaledCoord(x) + ", "
-					+ Point.getUnscaledCoord(y) + ")", false);
+			controller.log(
+					CREATE_TEMP_LINE + Point.getUnscaledCoord(x) + COORD_SEPARATOR
+							+ Point.getUnscaledCoord(y), false);
 			switch (mode) {
 			case LINE_DDA:
-				tempGraphicObject = new LineDDA(new Point(Point.getUnscaledCoord(x),
-						Point.getUnscaledCoord(y)), controller);
+				tempGraphicObject = new LineDDA(x, y, controller);
 				break;
 			case LINE_BREZENHEM:
-				tempGraphicObject = new Line_Brezenhem(new Point(Point.getUnscaledCoord(x),
-						Point.getUnscaledCoord(y)), controller);
+				tempGraphicObject = new Line_Brezenhem(x, y, controller);
 				break;
 			case LINE_WY:
-				tempGraphicObject = new Line_Wy(new Point(Point.getUnscaledCoord(x),
-						Point.getUnscaledCoord(y)), controller);
+				tempGraphicObject = new Line_Wy(x, y, controller);
 				break;
 			}
 		} else {
 			last();
 			((Line) tempGraphicObject).setEndPoint(new Point(Point.getUnscaledCoord(x), Point
 					.getUnscaledCoord(y)));
-			graphicObjects.add(tempGraphicObject);
-			controller.log("Set last point of temp Line: (" + Point.getUnscaledCoord(x) + ", "
-					+ Point.getUnscaledCoord(y) + ")", false);
+
 			add((JComponent) tempGraphicObject);
+			graphicObjects.add(tempGraphicObject);
+
 			tempGraphicObject.generate();
-			Point refPoint = tempGraphicObject.getRefferencePoint();
-			tempGraphicObject.setBounds(refPoint.getX() * Config.CURRENT_SCALE + centerPoint.x
-					- Config.getHalfScale(), refPoint.getY() * Config.CURRENT_SCALE
-					+ centerPoint.y - Config.getHalfScale(), tempGraphicObject.getScaledWidth(),
-					tempGraphicObject.getScaledHeight());
+			tempGraphicObject.updateBounds(centerPoint);
 			tempGraphicObject = null;
-			controller.log("delete tempLine", false);
+
+			controller.log(
+					SET_LAST_POINT + Point.getUnscaledCoord(x) + COORD_SEPARATOR
+							+ Point.getUnscaledCoord(y), false);
+			controller.log(DELETE_TEMP_LINE, false);
 			controller.activateStepButton();
 			setMode(Mode.NONE);
 		}
@@ -167,7 +170,7 @@ public class Desktop extends JPanel {
 		if (this.mode != mode) {
 			clearMouseListeners();
 		}
-		System.out.println("Set new mode: " + mode);
+		System.out.println(NEW_MODE + mode);
 		this.mode = mode;
 		switch (this.mode) {
 		case LINE_DDA:
@@ -179,11 +182,15 @@ public class Desktop extends JPanel {
 		case LINE_WY:
 			addLineMouseListeners();
 		case NONE:
-			addMouseListener(new DesktopMouseListener(controller, this));
-			if (getMouseMotionListeners().length == 0) {
-				addMouseMotionListener(new DesktopMouseListener(controller, this));
-			}
+			addDesktopMouseListeners();
 			break;
+		}
+	}
+
+	private void addDesktopMouseListeners() {
+		addMouseListener(new DesktopMouseListener(controller, this));
+		if (getMouseMotionListeners().length == 0) {
+			addMouseMotionListener(new DesktopMouseListener(controller, this));
 		}
 	}
 

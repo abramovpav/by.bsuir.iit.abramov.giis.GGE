@@ -13,8 +13,8 @@ public class LineDDA extends Line {
 		super(controller);
 	}
 
-	public LineDDA(final Point start, final DesktopController controller) {
-		super(start, controller);
+	public LineDDA(final int x, final int y, final DesktopController controller) {
+		super(x, y, controller);
 	}
 
 	@Override

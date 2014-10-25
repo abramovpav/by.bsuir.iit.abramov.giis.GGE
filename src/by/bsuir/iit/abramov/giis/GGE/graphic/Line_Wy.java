@@ -15,8 +15,8 @@ public class Line_Wy extends Line {
 		super(controller);
 	}
 
-	public Line_Wy(final Point start, final DesktopController controller) {
-		super(start, controller);
+	public Line_Wy(final int x, final int y, final DesktopController controller) {
+		super(x, y, controller);
 	}
 
 	@Override

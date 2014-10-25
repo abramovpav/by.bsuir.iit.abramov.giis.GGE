@@ -37,6 +37,12 @@ public class Line extends JComponent implements GraphicObject {
 		startPoint = start;
 	}
 
+	public Line(final int x, final int y, final DesktopController controller) {
+		this.controller = controller;
+		points = new ArrayList<Point>();
+		startPoint = new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y));
+	}
+
 	public Line(final Point start, final Point end, final List<Point> points,
 			final DesktopController controller) {
 		this.controller = controller;
