@@ -13,7 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
-import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
+import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Line;
 import by.bsuir.iit.abramov.giis.GGE.graphic.LineDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Line_Brezenhem;
@@ -26,26 +26,26 @@ import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 
 public class Desktop extends JPanel {
-	private static final String			NEW_MODE			= "Set new mode: ";
-	private static final String			COORD_SEPARATOR		= ", ";
-	private static final String			DELETE_TEMP_LINE	= "delete tempLine";
-	private static final String			SET_LAST_POINT		= "Set last point of temp Line: ";
-	private static final String			CREATE_TEMP_LINE	= "Create temp Line. First point in ";
+	private static final String					NEW_MODE			= "Set new mode: ";
+	private static final String					COORD_SEPARATOR		= ", ";
+	private static final String					DELETE_TEMP_LINE	= "delete tempLine";
+	private static final String					SET_LAST_POINT		= "Set last point of temp Line: ";
+	private static final String					CREATE_TEMP_LINE	= "Create temp Line. First point in ";
 	/**
 	 *
 	 */
-	private static final long			serialVersionUID	= 1L;
-	private final MainWindow			parent;
-	private final DesktopController		controller;
-	private final List<GraphicObject>	graphicObjects;
-	private GraphicObject				tempGraphicObject;
-	private Mode						mode;
-	private final java.awt.Point		centerPoint;
+	private static final long					serialVersionUID	= 1L;
+	private final MainWindow					parent;
+	private final DesktopController				controller;
+	private final List<GraphicObjectInterface>	graphicObjects;
+	private GraphicObjectInterface				tempGraphicObject;
+	private Mode								mode;
+	private final java.awt.Point				centerPoint;
 
 	public Desktop(final MainWindow parent, final DesktopController controller) {
 		this.parent = parent;
 		this.controller = controller;
-		graphicObjects = new ArrayList<GraphicObject>();
+		graphicObjects = new ArrayList<GraphicObjectInterface>();
 		centerPoint = new java.awt.Point(0, 0);
 		init();
 		setMode(Mode.NONE);
@@ -84,13 +84,13 @@ public class Desktop extends JPanel {
 
 	public void last() {
 		if (graphicObjects.size() > 0) {
-			GraphicObject last = getCurrentGraphicObject();
+			GraphicObjectInterface last = getCurrentGraphicObject();
 			last.last();
 		}
 	}
 
 	public void next() {
-		GraphicObject last = getCurrentGraphicObject();
+		GraphicObjectInterface last = getCurrentGraphicObject();
 		last.next();
 	}
 
@@ -115,11 +115,11 @@ public class Desktop extends JPanel {
 	}
 
 	public void prev() {
-		GraphicObject last = getCurrentGraphicObject();
+		GraphicObjectInterface last = getCurrentGraphicObject();
 		last.prev();
 	}
 
-	private GraphicObject getCurrentGraphicObject() {
+	private GraphicObjectInterface getCurrentGraphicObject() {
 		return graphicObjects.get(graphicObjects.size() - 1);
 	}
 
@@ -127,7 +127,7 @@ public class Desktop extends JPanel {
 		if (tempGraphicObject == null) {
 			controller.log(
 					CREATE_TEMP_LINE + Point.getUnscaledCoord(x) + COORD_SEPARATOR
-							+ Point.getUnscaledCoord(y), false);
+					+ Point.getUnscaledCoord(y), false);
 			switch (mode) {
 			case LINE_DDA:
 				tempGraphicObject = new LineDDA(x, y, controller);
@@ -153,7 +153,7 @@ public class Desktop extends JPanel {
 
 			controller.log(
 					SET_LAST_POINT + Point.getUnscaledCoord(x) + COORD_SEPARATOR
-							+ Point.getUnscaledCoord(y), false);
+					+ Point.getUnscaledCoord(y), false);
 			controller.log(DELETE_TEMP_LINE, false);
 			controller.activateStepButton();
 			setMode(Mode.NONE);
@@ -200,7 +200,7 @@ public class Desktop extends JPanel {
 
 	public void updateGraphics() {
 		java.awt.Point centerPoint = getCenterPoint();
-		for (GraphicObject object : graphicObjects) {
+		for (GraphicObjectInterface object : graphicObjects) {
 			object.updateBounds(centerPoint);
 		}
 	}
