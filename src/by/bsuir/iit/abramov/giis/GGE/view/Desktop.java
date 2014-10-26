@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
-import by.bsuir.iit.abramov.giis.GGE.graphic.Line;
-import by.bsuir.iit.abramov.giis.GGE.graphic.LineDDA;
-import by.bsuir.iit.abramov.giis.GGE.graphic.Line_Brezenhem;
-import by.bsuir.iit.abramov.giis.GGE.graphic.Line_Wy;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
+import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line;
+import by.bsuir.iit.abramov.giis.GGE.graphic.line.LineDDA;
+import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line_Brezenhem;
+import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line_Wy;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.LineDesktopMouseListener;

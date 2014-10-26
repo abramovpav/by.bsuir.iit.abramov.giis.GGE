@@ -1,8 +1,9 @@
-package by.bsuir.iit.abramov.giis.GGE.graphic;
+package by.bsuir.iit.abramov.giis.GGE.graphic.line;
 
 import java.awt.Color;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 
 public class Line_Wy extends Line {
 

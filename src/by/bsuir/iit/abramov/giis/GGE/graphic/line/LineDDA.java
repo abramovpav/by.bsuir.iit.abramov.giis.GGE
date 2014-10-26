@@ -1,6 +1,7 @@
-package by.bsuir.iit.abramov.giis.GGE.graphic;
+package by.bsuir.iit.abramov.giis.GGE.graphic.line;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 
 public class LineDDA extends Line {
 

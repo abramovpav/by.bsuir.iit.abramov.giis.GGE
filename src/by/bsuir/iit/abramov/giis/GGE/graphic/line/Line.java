@@ -1,9 +1,12 @@
-package by.bsuir.iit.abramov.giis.GGE.graphic;
+package by.bsuir.iit.abramov.giis.GGE.graphic.line;
 
 import java.awt.Dimension;
 import java.util.List;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
+import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
 public class Line extends GraphicObject implements GraphicObjectInterface {
@@ -100,7 +103,6 @@ public class Line extends GraphicObject implements GraphicObjectInterface {
 				endPoint.getY()));
 	}
 
-	@Override
 	public Point getRefferencePointLocal() {
 		if (startPoint == null || endPoint == null) {
 			return null;

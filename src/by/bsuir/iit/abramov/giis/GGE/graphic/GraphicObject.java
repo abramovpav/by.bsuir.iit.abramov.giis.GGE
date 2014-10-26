@@ -111,10 +111,6 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		return new Point(0, 0);
 	}
 
-	public Point getRefferencePointLocal() {
-		return new Point(0, 0);
-	}
-
 	@Override
 	public int getScaledHeight() {
 		return getBaseHeight() * Config.CURRENT_SCALE;
