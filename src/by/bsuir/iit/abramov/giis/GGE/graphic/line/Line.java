@@ -114,6 +114,11 @@ public class Line extends GraphicObject implements GraphicObjectInterface {
 	public Point getStartPoint() {
 		return startPoint;
 	}
+	
+	public void setEndPoint(final int x, final int y) {
+		this.endPoint = new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y));
+		setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
+	}
 
 	public void setEndPoint(final Point endPoint) {
 		this.endPoint = endPoint;

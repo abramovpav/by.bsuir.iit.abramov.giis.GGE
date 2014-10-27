@@ -1,5 +1,8 @@
 package by.bsuir.iit.abramov.giis.GGE.controller;
 
+import javax.swing.JComponent;
+
+import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
@@ -47,6 +50,10 @@ public class DesktopController {
 
 	public void log(final String message, final boolean offset) {
 		log.log(message, offset);
+	}
+	
+	public void select(GraphicObjectInterface component) {
+		desktop.selectComponent(component);
 	}
 
 	public void setController(final Controller controller) {

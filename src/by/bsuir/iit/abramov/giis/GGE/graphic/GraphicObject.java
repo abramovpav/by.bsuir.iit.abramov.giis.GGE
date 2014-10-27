@@ -20,6 +20,15 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	private boolean						generated			= false;
 	protected final DesktopController	controller;
 	private int							currentStep			= 1;
+	private boolean selected;
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 
 	public int getCurrentStep() {
 		return currentStep;
@@ -36,12 +45,14 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	public GraphicObject(final DesktopController controller) {
 		this.controller = controller;
 		points = new ArrayList<Point>();
+		setLayout(null);
 	}
 
 	public GraphicObject(final List<Point> points, final DesktopController controller) {
 		this.controller = controller;
 		this.points = new ArrayList<Point>();
 		this.points.addAll(points);
+		setLayout(null);
 	}
 
 	public void addPoint(final Point point) {
@@ -191,5 +202,15 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.getHalfScale(),
 				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.getHalfScale(),
 				getScaledWidth(), getScaledHeight());
+	}
+
+	@Override
+	public void select() {
+		setSelected(true);
+	}
+	
+	@Override
+	public void unselect() {
+		setSelected(false);
 	}
 }

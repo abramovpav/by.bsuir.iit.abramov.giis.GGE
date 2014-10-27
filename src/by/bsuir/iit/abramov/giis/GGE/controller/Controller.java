@@ -22,6 +22,10 @@ public class Controller {
 	public void exit() {
 		window.setVisible(false);
 	}
+	
+	public void form() {
+		window.setMode(Mode.FORM);
+	}
 
 	public void last() {
 		window.last();

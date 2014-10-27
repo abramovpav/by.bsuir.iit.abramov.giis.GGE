@@ -24,6 +24,10 @@ public interface GraphicObjectInterface {
 	public void prev();
 
 	public void setBounds(int x, int y, int width, int height);
+	
+	public void select();
+	
+	public void unselect();
 
 	public void updateBounds(java.awt.Point point);
 }
