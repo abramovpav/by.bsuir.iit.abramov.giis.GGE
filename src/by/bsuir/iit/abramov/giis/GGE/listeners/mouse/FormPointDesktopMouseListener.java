@@ -43,25 +43,21 @@ public class FormPointDesktopMouseListener implements MouseListener {
 
 	@Override
 	public void mouseEntered(final MouseEvent e) {
-		System.out.println("formPoint-click");
 
 	}
 
 	@Override
 	public void mouseExited(final MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mousePressed(final MouseEvent e) {
-		System.out.println("formPoint-click");
 
 	}
 
 	@Override
 	public void mouseReleased(final MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 }

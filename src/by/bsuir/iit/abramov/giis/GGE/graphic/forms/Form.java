@@ -23,7 +23,7 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 	public Form(final int x, final int y, DesktopController controller) {
 		super(controller);
 		basePoints = new ArrayList<Point>();
-		graphicPoints = new HashMap<>();
+		graphicPoints = new HashMap<GraphicPoint, Point>();
 		basePoints.add(new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y)));
 	}
 	
