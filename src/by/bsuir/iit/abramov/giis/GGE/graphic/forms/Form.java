@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
+import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.FormPointDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
 public class Form extends GraphicObject implements GraphicObjectInterface {
@@ -21,6 +23,7 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 	public Form(final int x, final int y, DesktopController controller) {
 		super(controller);
 		basePoints = new ArrayList<Point>();
+		graphicPoints = new HashMap<GraphicPoint, Point>();
 		basePoints.add(new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y)));
 	}
 	
@@ -75,7 +78,7 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		super.select();
 		System.out.println("form2-select");
 		GraphicPoint graphicPoint;
-		if (graphicPoints.size() >= 0) {
+		if (graphicPoints.size() > 0) {
 			for (GraphicPoint point: graphicPoints.keySet()) {
 				add(point);
 			}
@@ -85,6 +88,7 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		Point refPoint = getRefferencePoint();
 		for (Point point: basePoints) {
 			graphicPoint = new GraphicPoint();
+			graphicPoint.addMouseListener(new FormPointDesktopMouseListener(controller, this));
 			add(graphicPoint);
 			int newX = (point.getX() - refPoint.getX()) * Config.CURRENT_SCALE;
 			int newY = (point.getY() - refPoint.getY()) * Config.CURRENT_SCALE;
@@ -92,6 +96,7 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 			newX -= graphicPoint.getHalfWidth();
 			graphicPoint.setLocation(newX, newY);
 			System.out.println();
+			graphicPoints.put(graphicPoint, point);
 		}
 		repaint();
 	}
@@ -134,4 +139,19 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		return new Point(minX, minY);
 	}
 
+	@Override
+	public void updateBounds(java.awt.Point centerPoint) {
+		super.updateBounds(centerPoint);
+		Point refPoint = getRefferencePoint();
+		for (GraphicPoint gPoint: graphicPoints.keySet()) {
+			Point point = graphicPoints.get(gPoint);
+			int newX = (point.getX() - refPoint.getX()) * Config.CURRENT_SCALE;
+			int newY = (point.getY() - refPoint.getY()) * Config.CURRENT_SCALE;
+			newY -= gPoint.getHalfHeight();
+			newX -= gPoint.getHalfWidth();
+			gPoint.setLocation(newX, newY);
+		}
+	}
+
+	
 }

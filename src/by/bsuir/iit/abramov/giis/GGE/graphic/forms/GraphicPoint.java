@@ -16,6 +16,11 @@ public class GraphicPoint extends JComponent{
 		
 	}
 	
+	@Override
+	public boolean contains(int x, int y) {
+//		return super.contains(x, y);
+		return (x >= 0) && (x < getWidth()) && (y >= 0) && (y < getHeight());
+	}
 
 	public int getyOffset() {
 		return yOffset;
