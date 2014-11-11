@@ -64,9 +64,10 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-//		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawRect(1, 1, getWidth()-2, getHeight()-2);
+		super.paintComponent(g);
+		
 		
 	}
 

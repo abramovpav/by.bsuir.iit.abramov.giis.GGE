@@ -166,7 +166,7 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 
 	@Override
 	protected void paintComponent(final Graphics g) {
-		System.out.println(this.getClass().getSimpleName() + "-paint");
+		System.out.println(this.getClass().getSimpleName() + "-paint " + points.size());
 		if (!isGenerated()) {
 			super.paintComponent(g);
 			return;

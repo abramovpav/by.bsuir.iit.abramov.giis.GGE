@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
+import by.bsuir.iit.abramov.giis.GGE.graphic.forms.ErmitForm;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.Form;
 import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line;
 import by.bsuir.iit.abramov.giis.GGE.graphic.line.LineDDA;
@@ -178,7 +179,7 @@ public class Desktop extends JPanel {
 					+ Point.getUnscaledCoord(y), false);
 			switch (mode) {
 			case FORM:
-				tempGraphicObject = new Form(x, y, controller);
+				tempGraphicObject = new ErmitForm(x, y, controller);
 			}
 		} else {
 			last();

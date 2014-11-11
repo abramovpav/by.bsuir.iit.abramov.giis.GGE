@@ -47,7 +47,7 @@ public class ListenerFactory {
 			return new PrevActionListener(controller);
 		case LAST:
 			return new LastActionListener(controller);
-		case FORM:
+		case ERMIT_FORM:
 			return new FormActionListener(controller);
 		default:
 			return null;
