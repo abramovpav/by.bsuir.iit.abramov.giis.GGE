@@ -25,6 +25,10 @@ public class DesktopController {
 			controller.updateDesktopContent(x, y);
 		}
 	}
+	
+	public java.awt.Point getDesktopCenterPoint() {
+		return desktop.getCenterPoint();
+	}
 
 	public void incScale(int x, int y) {
 		if (Config.incScale()) {

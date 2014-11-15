@@ -16,42 +16,43 @@ import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.FormPointDesktopMouseListen
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
 public class Form extends GraphicObject implements GraphicObjectInterface {
-	
-	private List<Point> basePoints;
-	private Map<GraphicPoint, Point> graphicPoints;
 
-	public Form(final int x, final int y, DesktopController controller) {
+	private final List<Point>				basePoints;
+	private final Map<GraphicPoint, Point>	graphicPoints;
+	private Point							refPoint;
+
+	public Form(final int x, final int y, final DesktopController controller) {
 		super(controller);
 		basePoints = new ArrayList<Point>();
 		graphicPoints = new HashMap<GraphicPoint, Point>();
 		basePoints.add(new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y)));
 	}
-	
+
 	public void addBasePoint(final int x, final int y) {
 		basePoints.add(new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y)));
+		generateRefPoint();
 		setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 	}
 
-	@Override
-	public int getBaseHeight() {
-		int minY = basePoints.get(0).getY();
-		int maxY = basePoints.get(0).getY();
-		for (Point point: basePoints) {
+	private void generateRefPoint() {
+		if (basePoints.size() <= 0) {
+			return;
+		}
+		refPoint = getLeftUpPoint(basePoints);
+	}
+
+	static public Point getLeftUpPoint(final List<Point> points) {
+		int minX = 0, minY = 0, maxX = 0, maxY = 0;
+		minY = maxY = points.get(0).getY();
+		minX = maxX = points.get(0).getX();
+
+		for (Point point : points) {
 			if (point.getY() > maxY) {
 				maxY = point.getY();
 			}
 			if (point.getY() < minY) {
 				minY = point.getY();
 			}
-		}
-		return Math.abs(maxY - minY);
-	}
-
-	@Override
-	public int getBaseWidth() {
-		int minX = basePoints.get(0).getX();
-		int maxX = basePoints.get(0).getX();
-		for (Point point: basePoints) {
 			if (point.getX() > maxX) {
 				maxX = point.getX();
 			}
@@ -59,16 +60,57 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 				minX = point.getX();
 			}
 		}
-		return Math.abs(maxX - minX);
+		return new Point(minX, minY);
 	}
-	
+
 	@Override
-	protected void paintComponent(Graphics g) {
+	public int getBaseHeight() {
+		List<Point> usedPoints = basePoints;
+		if (getPoints().size() > 0) {
+			usedPoints = getPoints();
+		}
+		int minY = usedPoints.get(0).getY();
+		int maxY = usedPoints.get(0).getY();
+		for (Point point : usedPoints) {
+			if (point.getY() > maxY) {
+				maxY = point.getY();
+			}
+			if (point.getY() < minY) {
+				minY = point.getY();
+			}
+		}
+		return Math.abs(maxY - minY) + 1;
+	}
+
+	protected Point getBasePoint(final int index) {
+		return basePoints.get(index);
+	}
+
+	@Override
+	public int getBaseWidth() {
+		List<Point> usedPoints = basePoints;
+		if (getPoints().size() > 0) {
+			usedPoints = getPoints();
+		}
+		int minX = usedPoints.get(0).getX();
+		int maxX = usedPoints.get(0).getX();
+		for (Point point : usedPoints) {
+			if (point.getX() > maxX) {
+				maxX = point.getX();
+			}
+			if (point.getX() < minX) {
+				minX = point.getX();
+			}
+		}
+		return Math.abs(maxX - minX) + 1;
+	}
+
+	@Override
+	protected void paintComponent(final Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawRect(1, 1, getWidth()-2, getHeight()-2);
+		g2d.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
 		super.paintComponent(g);
-		
-		
+
 	}
 
 	@Override
@@ -80,14 +122,14 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		System.out.println("form2-select");
 		GraphicPoint graphicPoint;
 		if (graphicPoints.size() > 0) {
-			for (GraphicPoint point: graphicPoints.keySet()) {
+			for (GraphicPoint point : graphicPoints.keySet()) {
 				add(point);
 			}
 			repaint();
 			return;
 		}
 		Point refPoint = getRefferencePoint();
-		for (Point point: basePoints) {
+		for (Point point : basePoints) {
 			graphicPoint = new GraphicPoint();
 			graphicPoint.addMouseListener(new FormPointDesktopMouseListener(controller, this));
 			add(graphicPoint);
@@ -108,8 +150,8 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 			return;
 		}
 		super.unselect();
-		
-		for (GraphicPoint point: graphicPoints.keySet()) {
+
+		for (GraphicPoint point : graphicPoints.keySet()) {
 			remove(point);
 		}
 		repaint();
@@ -117,35 +159,22 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 
 	@Override
 	public Point getRefferencePoint() {
-		if (basePoints.size() <= 0) {
-			return null;
+		return refPoint;
+	}
+
+	protected void setRefPoint(final Point point) {
+		if (point == null) {
+			return;
 		}
-		int minX = 0, minY = 0, maxX = 0, maxY = 0;
-		minY = maxY = basePoints.get(0).getY();
-		minX = maxX = basePoints.get(0).getX();
-		
-		for (Point point: basePoints) {
-			if (point.getY() > maxY) {
-				maxY = point.getY();
-			}
-			if (point.getY() < minY) {
-				minY = point.getY();
-			}
-			if (point.getX() > maxX) {
-				maxX = point.getX();
-			}
-			if (point.getX() < minX) {
-				minX = point.getX();
-			}
-		}
-		return new Point(minX, minY);
+		refPoint.setX(point.getX());
+		refPoint.setY(point.getY());
 	}
 
 	@Override
-	public void updateBounds(java.awt.Point centerPoint) {
+	public void updateBounds(final java.awt.Point centerPoint) {
 		super.updateBounds(centerPoint);
 		Point refPoint = getRefferencePoint();
-		for (GraphicPoint gPoint: graphicPoints.keySet()) {
+		for (GraphicPoint gPoint : graphicPoints.keySet()) {
 			Point point = graphicPoints.get(gPoint);
 			int newX = (point.getX() - refPoint.getX()) * Config.CURRENT_SCALE;
 			int newY = (point.getY() - refPoint.getY()) * Config.CURRENT_SCALE;
@@ -155,5 +184,4 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		}
 	}
 
-	
 }

@@ -111,6 +111,14 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 			return null;
 		}
 	}
+	
+	protected Point getLocalCoord(Point point) {
+		Point local = new Point();
+		Point refPoint = getRefferencePoint();
+		local.setX(point.getX() - refPoint.getX());
+		local.setY(point.getY() - refPoint.getY());
+		return local;
+	}
 
 	@Override
 	public List<Point> getPoints() {
@@ -202,6 +210,10 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.getHalfScale(),
 				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.getHalfScale(),
 				getScaledWidth(), getScaledHeight());
+	}
+	
+	protected java.awt.Point getDesktopCenterPoint() {
+		return controller.getDesktopCenterPoint();
 	}
 
 	@Override
