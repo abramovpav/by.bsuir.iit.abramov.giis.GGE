@@ -1,5 +1,6 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic.forms;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -51,12 +52,12 @@ public class GraphicPoint extends JComponent{
 
 	@Override
 	public int getHeight() {
-		return 2 * Config.CURRENT_SCALE;
+		return 4 * Config.CURRENT_SCALE;
 	}
 
 	@Override
 	public int getWidth() {
-		return 2 * Config.CURRENT_SCALE;
+		return 4 * Config.CURRENT_SCALE;
 	}
 
 	@Override
@@ -64,6 +65,7 @@ public class GraphicPoint extends JComponent{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g;
+		g2d.setColor(Color.RED);
 		g2d.fillRect(0, 0, getWidth(), getHeight());
 	}
 

@@ -131,7 +131,9 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		Point refPoint = getRefferencePoint();
 		for (Point point : basePoints) {
 			graphicPoint = new GraphicPoint();
-			graphicPoint.addMouseListener(new FormPointDesktopMouseListener(controller, this));
+			FormPointDesktopMouseListener mouseListener = new FormPointDesktopMouseListener(this, graphicPoint);
+			graphicPoint.addMouseListener(mouseListener);
+			graphicPoint.addMouseMotionListener(mouseListener);
 			add(graphicPoint);
 			int newX = (point.getX() - refPoint.getX()) * Config.CURRENT_SCALE;
 			int newY = (point.getY() - refPoint.getY()) * Config.CURRENT_SCALE;
@@ -168,6 +170,18 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		}
 		refPoint.setX(point.getX());
 		refPoint.setY(point.getY());
+	}
+	
+	public void updateBasePoint(final GraphicPoint gPoint, int dx, int dy) {
+		Point basePoint = graphicPoints.get(gPoint);
+		if (basePoint == null) {
+			return;
+		}
+		basePoint.setX(basePoint.getX() + dx);
+		basePoint.setY(basePoint.getY() + dy);
+		gPoint.setLocation(gPoint.getX() + dx, gPoint.getY() + dy);
+		generate();
+		repaint();
 	}
 
 	@Override
