@@ -121,7 +121,8 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 			return null;
 		}
 		int minX = 0, minY = 0, maxX = 0, maxY = 0;
-		minX = minY = maxX = maxY = basePoints.get(0).getY();
+		minY = maxY = basePoints.get(0).getY();
+		minX = maxX = basePoints.get(0).getX();
 		
 		for (Point point: basePoints) {
 			if (point.getY() > maxY) {
