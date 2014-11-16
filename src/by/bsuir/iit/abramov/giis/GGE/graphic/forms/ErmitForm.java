@@ -55,13 +55,13 @@ public class ErmitForm extends Form {
 			point.setX(point.getX() - leftUpPoint.getX());
 			point.setY(point.getY() - leftUpPoint.getY());
 		}
-		
+		updateWidthAndHeight();
 		//After correction points we have to move form's component to the same distance
 		curRefPoint.setX(curRefPoint.getX() + leftUpPoint.getX());
 		curRefPoint.setY(curRefPoint.getY() + leftUpPoint.getY());
 		setRefPoint(curRefPoint);
 		
-		baseUpdateBounds(getDesktopCenterPoint());
+		updateBounds(getDesktopCenterPoint());
 		generated();
 	}
 
