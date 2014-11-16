@@ -20,13 +20,13 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	private boolean						generated			= false;
 	protected final DesktopController	controller;
 	private int							currentStep			= 1;
-	private boolean selected;
+	private boolean						selected;
 
 	public boolean isSelected() {
 		return selected;
 	}
 
-	public void setSelected(boolean selected) {
+	public void setSelected(final boolean selected) {
 		this.selected = selected;
 	}
 
@@ -111,8 +111,8 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 			return null;
 		}
 	}
-	
-	protected Point getLocalCoord(Point point) {
+
+	protected Point getLocalCoord(final Point point) {
 		Point local = new Point();
 		Point refPoint = getRefferencePoint();
 		local.setX(point.getX() - refPoint.getX());
@@ -211,7 +211,7 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.getHalfScale(),
 				getScaledWidth(), getScaledHeight());
 	}
-	
+
 	protected java.awt.Point getDesktopCenterPoint() {
 		return controller.getDesktopCenterPoint();
 	}
@@ -220,7 +220,7 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	public void select() {
 		setSelected(true);
 	}
-	
+
 	@Override
 	public void unselect() {
 		setSelected(false);

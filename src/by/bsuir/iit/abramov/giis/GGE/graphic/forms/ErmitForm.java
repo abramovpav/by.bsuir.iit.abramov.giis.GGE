@@ -7,10 +7,10 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 
 public class ErmitForm extends Form {
 	private final double	multiplier[][]	= { 
-			                                  	{ 2, -2, 1, 1 }, 
-			                                  	{ -3, 3, -2, -1 }, 
-			                                  	{ 0, 0, 1, 0 },
-			                                  	{ 1, 0, 0, 0 }					
+			                                    { 2, -2, 1, 1 }, 
+			                                    { -3, 3, -2, -1 }, 
+			                                    { 0, 0, 1, 0 },
+			                                    { 1, 0, 0, 0 }				
 			                                  };
 
 	public ErmitForm(final int x, final int y, final DesktopController controller) {
@@ -27,9 +27,9 @@ public class ErmitForm extends Form {
 									{ start.getX(), start.getY() }, 
 									{ end.getX(), end.getY() },
 									{ 0, 100 }, 
-									{ 100, 0 }, 
+									{ 100, 0 }
 								 };
-		
+
 		SimpleMatrix coord = new SimpleMatrix(coordinates);
 		SimpleMatrix multiplier = new SimpleMatrix(this.multiplier);
 		SimpleMatrix step_multiplier = new SimpleMatrix(1, 4);
@@ -45,10 +45,10 @@ public class ErmitForm extends Form {
 			Point curPoint = new Point((int) x, (int) y);
 			addPoint(curPoint);
 		}
-		
-		//Some points have negative coordinates after generation.
-		//To fix it we need to correct coordinates of points by deducting top-left point's 
-		//coordinates(it's the distance to zero)
+
+		// Some points have negative coordinates after generation.
+		// To fix it we need to correct coordinates of points by deducting
+		// top-left point's coordinates(it's the distance to zero)
 
 		Point leftUpPoint = getLeftUpPoint(getPoints());
 		for (Point point : points) {
@@ -56,11 +56,12 @@ public class ErmitForm extends Form {
 			point.setY(point.getY() - leftUpPoint.getY());
 		}
 		updateWidthAndHeight();
-		//After correction points we have to move form's component to the same distance
+		// After correction points we have to move form's component to the same
+		// distance
 		curRefPoint.setX(curRefPoint.getX() + leftUpPoint.getX());
 		curRefPoint.setY(curRefPoint.getY() + leftUpPoint.getY());
 		setRefPoint(curRefPoint);
-		
+
 		updateBounds(getDesktopCenterPoint());
 		generated();
 	}

@@ -5,10 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.Form;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.GraphicPoint;
-import by.bsuir.iit.abramov.giis.GGE.view.Desktop;
 
 public class FormPointDesktopMouseListener implements MouseListener, MouseMotionListener {
 
@@ -22,9 +20,9 @@ public class FormPointDesktopMouseListener implements MouseListener, MouseMotion
 		}
 	}
 
-	private final Form form;
-	private final GraphicPoint point;
-	private Point pressPoint;
+	private final Form			form;
+	private final GraphicPoint	point;
+	private final Point			pressPoint;
 
 	public FormPointDesktopMouseListener(final Form form, final GraphicPoint point) {
 		this.form = form;
@@ -67,8 +65,8 @@ public class FormPointDesktopMouseListener implements MouseListener, MouseMotion
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		int dx = e.getXOnScreen() - pressPoint.x; 
+	public void mouseDragged(final MouseEvent e) {
+		int dx = e.getXOnScreen() - pressPoint.x;
 		int dy = e.getYOnScreen() - pressPoint.y;
 		System.out.println(dx + " " + dy);
 		pressPoint.x = e.getXOnScreen();
@@ -77,7 +75,7 @@ public class FormPointDesktopMouseListener implements MouseListener, MouseMotion
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		
+	public void mouseMoved(final MouseEvent e) {
+
 	}
 }
