@@ -52,12 +52,12 @@ public class GraphicPoint extends JComponent{
 
 	@Override
 	public int getHeight() {
-		return 4 * Config.CURRENT_SCALE;
+		return 2 * Config.CURRENT_SCALE;
 	}
 
 	@Override
 	public int getWidth() {
-		return 4 * Config.CURRENT_SCALE;
+		return 2 * Config.CURRENT_SCALE;
 	}
 
 	@Override

@@ -57,8 +57,8 @@ public class FormPointDesktopMouseListener implements MouseListener, MouseMotion
 
 	@Override
 	public void mousePressed(final MouseEvent e) {
-		pressPoint.x = e.getX();
-		pressPoint.y = e.getY();
+		pressPoint.x = e.getXOnScreen();
+		pressPoint.y = e.getYOnScreen();
 	}
 
 	@Override
@@ -68,8 +68,11 @@ public class FormPointDesktopMouseListener implements MouseListener, MouseMotion
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		int dx = e.getX() - pressPoint.x; 
-		int dy = e.getY() - pressPoint.y;
+		int dx = e.getXOnScreen() - pressPoint.x; 
+		int dy = e.getYOnScreen() - pressPoint.y;
+		System.out.println(dx + " " + dy);
+		pressPoint.x = e.getXOnScreen();
+		pressPoint.y = e.getYOnScreen();
 		form.updateBasePoint(point, dx, dy);
 	}
 

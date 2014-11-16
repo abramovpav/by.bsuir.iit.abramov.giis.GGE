@@ -60,7 +60,8 @@ public class ErmitForm extends Form {
 		curRefPoint.setX(curRefPoint.getX() + leftUpPoint.getX());
 		curRefPoint.setY(curRefPoint.getY() + leftUpPoint.getY());
 		setRefPoint(curRefPoint);
-
+		
+		baseUpdateBounds(getDesktopCenterPoint());
 		generated();
 	}
 
