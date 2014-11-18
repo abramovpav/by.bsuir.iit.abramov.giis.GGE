@@ -1,6 +1,7 @@
-package by.bsuir.iit.abramov.giis.GGE.graphic;
+package by.bsuir.iit.abramov.giis.GGE.graphic.line;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 
 public class LineDDA extends Line {
 
@@ -13,8 +14,8 @@ public class LineDDA extends Line {
 		super(controller);
 	}
 
-	public LineDDA(final Point start, final DesktopController controller) {
-		super(start, controller);
+	public LineDDA(final int x, final int y, final DesktopController controller) {
+		super(x, y, controller);
 	}
 
 	@Override
