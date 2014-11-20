@@ -34,7 +34,7 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 	public void addBasePoint(final int x, final int y) {
 		basePoints.add(new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y)));
 		addPoint(new Point(x, y));
-		updateWidthAndHeight();
+		updateWidthAndHeight(basePoints, false);
 		generateRefPoint();
 		setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 	}
@@ -43,53 +43,69 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		if (basePoints.size() <= 0) {
 			return;
 		}
-		refPoint = getLeftUpPoint(basePoints);
+		refPoint = getLeftUpPoint(basePoints, false);
 	}
-
-	static public Point getLeftUpPoint(final List<Point> points) {
-		int minX = 0, minY = 0, maxX = 0, maxY = 0;
-		minY = maxY = points.get(0).getY();
-		minX = maxX = points.get(0).getX();
-
-		for (Point point : points) {
-			if (point.getY() > maxY) {
-				maxY = point.getY();
-			}
-			if (point.getY() < minY) {
-				minY = point.getY();
-			}
-			if (point.getX() > maxX) {
-				maxX = point.getX();
-			}
-			if (point.getX() < minX) {
-				minX = point.getX();
+	
+	public List<Integer> getWorkAreaBounds(List<Point> points, boolean withBasePoints) {
+		int minX = 99999, minY = 99999, maxX = 0, maxY = 0;
+		
+		if (points !=null) {
+			minY = maxY = points.get(0).getY();
+			minX = maxX = points.get(0).getX();
+			for (Point point : points) {
+				if (point.getY() > maxY) {
+					maxY = point.getY();
+				}
+				if (point.getY() < minY) {
+					minY = point.getY();
+				}
+				if (point.getX() > maxX) {
+					maxX = point.getX();
+				}
+				if (point.getX() < minX) {
+					minX = point.getX();
+				}
 			}
 		}
-		return new Point(minX, minY);
-	}
-
-	protected void updateWidthAndHeight() {
-		List<Point> points = getPoints();
-		int minX = points.get(0).getX();
-		int maxX = minX;
-		int minY = points.get(0).getY();
-		int maxY = minY;
-		for (Point point : points) {
-			if (point.getX() > maxX) {
-				maxX = point.getX();
+		if (!withBasePoints) {
+			List<Integer> results = new ArrayList<Integer>();
+			results.add(minX);
+			results.add(minY);
+			return results;
+		}
+		for (Point point : basePoints) {
+			Point localpoint = getLocalCoord(point);
+			if (localpoint.getY() > maxY) {
+				maxY = localpoint.getY();
 			}
-			if (point.getX() < minX) {
-				minX = point.getX();
+			if (localpoint.getY() < minY) {
+				minY = localpoint.getY();
 			}
-
-			if (point.getY() > maxY) {
-				maxY = point.getY();
+			if (localpoint.getX() > maxX) {
+				maxX = localpoint.getX();
 			}
-			if (point.getY() < minY) {
-				minY = point.getY();
+			if (localpoint.getX() < minX) {
+				minX = localpoint.getX();
 			}
 		}
-		form_size.setSize(Math.abs(maxX - minX) + 1, Math.abs(maxY - minY) + 1);
+		List<Integer> results = new ArrayList<Integer>();
+		results.add(minX);
+		results.add(minY);
+		results.add(maxX);
+		results.add(maxY);
+		return results;
+	}
+	
+	public Point getLeftUpPoint(final List<Point> points, boolean withBasePoints) {
+		
+		List<Integer> bounds = getWorkAreaBounds(points, withBasePoints);
+		return new Point(bounds.get(0), bounds.get(1));
+	}
+
+	protected void updateWidthAndHeight(List<Point> points, boolean withBasePoints) {
+		List<Integer> bounds = getWorkAreaBounds(points, withBasePoints);
+		
+		form_size.setSize(Math.abs(bounds.get(2) - bounds.get(0)) + 1, Math.abs(bounds.get(3) - bounds.get(1)) + 1);
 	}
 
 	@Override

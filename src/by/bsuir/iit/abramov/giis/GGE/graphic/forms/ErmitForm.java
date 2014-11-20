@@ -19,6 +19,8 @@ public class ErmitForm extends Form {
 
 	@Override
 	public void generate() {
+		long startTime = System.nanoTime();
+
 		super.generate();
 		Point curRefPoint = getRefferencePoint();
 		Point start = getLocalCoord(getBasePoint(0));
@@ -34,7 +36,7 @@ public class ErmitForm extends Form {
 		SimpleMatrix multiplier = new SimpleMatrix(this.multiplier);
 		SimpleMatrix step_multiplier = new SimpleMatrix(1, 4);
 		step_multiplier.set(0, 3, 1);
-		for (double t = 0; t < 1; t += 0.01) {
+		for (double t = 0; t <= 1; t += 0.01) {
 			step_multiplier.set(0, 0, Math.pow(t, 3));
 			step_multiplier.set(0, 1, Math.pow(t, 2));
 			step_multiplier.set(0, 2, t);
@@ -50,12 +52,12 @@ public class ErmitForm extends Form {
 		// To fix it we need to correct coordinates of points by deducting
 		// top-left point's coordinates(it's the distance to zero)
 
-		Point leftUpPoint = getLeftUpPoint(getPoints());
+		Point leftUpPoint = getLeftUpPoint(getPoints(), true);
 		for (Point point : points) {
 			point.setX(point.getX() - leftUpPoint.getX());
 			point.setY(point.getY() - leftUpPoint.getY());
 		}
-		updateWidthAndHeight();
+		updateWidthAndHeight(getPoints(), true);
 		// After correction points we have to move form's component to the same
 		// distance
 		curRefPoint.setX(curRefPoint.getX() + leftUpPoint.getX());
@@ -64,6 +66,10 @@ public class ErmitForm extends Form {
 
 		updateBounds(getDesktopCenterPoint());
 		generated();
+		long endTime = System.nanoTime();
+
+		long duration = (endTime - startTime) / 1000000;
+		System.out.println("generated in " + duration + "ms");
 	}
 
 	@Override
