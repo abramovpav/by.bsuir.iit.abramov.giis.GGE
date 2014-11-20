@@ -1,5 +1,7 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic.forms;
 
+import java.util.List;
+
 import org.ejml.simple.SimpleMatrix;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
@@ -25,6 +27,12 @@ public class ErmitForm extends Form {
 		Point curRefPoint = getRefferencePoint();
 		Point start = getLocalCoord(getBasePoint(0));
 		Point end = getLocalCoord(getBasePoint(1));
+		double minX, minY, maxX, maxY;
+		minX = minY = 99999;
+		maxX = maxY = 0;
+		for (Point point : points) {
+			
+		}
 		double coordinates[][] = { 
 									{ start.getX(), start.getY() }, 
 									{ end.getX(), end.getY() },
@@ -45,29 +53,41 @@ public class ErmitForm extends Form {
 			double x = res.get(0, 0);
 			double y = res.get(0, 1);
 			Point curPoint = new Point((int) x, (int) y);
+			if (y > maxY) {
+				maxY = y;
+			}
+			if (y < minY) {
+				minY = y;
+			}
+			if (x > maxX) {
+				maxX = x;
+			}
+			if (x < minX) {
+				minX = x;
+			}
 			addPoint(curPoint);
 		}
 
 		// Some points have negative coordinates after generation.
 		// To fix it we need to correct coordinates of points by deducting
 		// top-left point's coordinates(it's the distance to zero)
-
-		Point leftUpPoint = getLeftUpPoint(getPoints(), true);
+		List<Integer> results = getLocalBasePointAreaBounds((int)minX, (int)minY, (int)maxX, (int)maxY);
+		
 		for (Point point : points) {
-			point.setX(point.getX() - leftUpPoint.getX());
-			point.setY(point.getY() - leftUpPoint.getY());
+			point.setX(point.getX() - results.get(0));
+			point.setY(point.getY() - results.get(1));
 		}
-		updateWidthAndHeight(getPoints(), true);
+		
 		// After correction points we have to move form's component to the same
 		// distance
-		curRefPoint.setX(curRefPoint.getX() + leftUpPoint.getX());
-		curRefPoint.setY(curRefPoint.getY() + leftUpPoint.getY());
+		curRefPoint.setX(curRefPoint.getX() + results.get(0));
+		curRefPoint.setY(curRefPoint.getY() + results.get(1));
 		setRefPoint(curRefPoint);
+		updateWidthAndHeight(results.get(0), results.get(1), results.get(2), results.get(3));
 
 		updateBounds(getDesktopCenterPoint());
 		generated();
 		long endTime = System.nanoTime();
-
 		long duration = (endTime - startTime) / 1000000;
 		System.out.println("generated in " + duration + "ms");
 	}

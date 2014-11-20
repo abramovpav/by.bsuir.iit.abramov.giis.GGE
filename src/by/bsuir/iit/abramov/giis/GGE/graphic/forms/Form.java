@@ -71,8 +71,15 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 			List<Integer> results = new ArrayList<Integer>();
 			results.add(minX);
 			results.add(minY);
+			results.add(maxX);
+			results.add(maxY);
 			return results;
 		}
+		List<Integer> results = getLocalBasePointAreaBounds(minX, minY, maxX, maxY);
+		return results;
+	}
+	
+	protected List<Integer> getLocalBasePointAreaBounds(int minX, int minY, int maxX, int maxY) {
 		for (Point point : basePoints) {
 			Point localpoint = getLocalCoord(point);
 			if (localpoint.getY() > maxY) {
@@ -106,6 +113,11 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 		List<Integer> bounds = getWorkAreaBounds(points, withBasePoints);
 		
 		form_size.setSize(Math.abs(bounds.get(2) - bounds.get(0)) + 1, Math.abs(bounds.get(3) - bounds.get(1)) + 1);
+	}
+	
+	protected void updateWidthAndHeight(int x1, int y1, int x2, int y2) {
+		
+		form_size.setSize(Math.abs(x2 - x1) + 1, Math.abs(y2 - y1) + 1);
 	}
 
 	@Override
