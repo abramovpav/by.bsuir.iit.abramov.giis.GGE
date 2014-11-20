@@ -20,9 +20,15 @@ public class ErmitForm extends Form {
 	}
 
 	@Override
+	public void addPoint(final Point point) {
+		super.addPoint(point);
+		controller.log(point);
+	}
+
+	@Override
 	public void generate() {
 		long startTime = System.nanoTime();
-
+		System.out.println("size = " + getPoints().size());
 		super.generate();
 		Point curRefPoint = getRefferencePoint();
 		Point start = getLocalCoord(getBasePoint(0));
@@ -30,9 +36,6 @@ public class ErmitForm extends Form {
 		double minX, minY, maxX, maxY;
 		minX = minY = 99999;
 		maxX = maxY = 0;
-		for (Point point : points) {
-			
-		}
 		double coordinates[][] = { 
 									{ start.getX(), start.getY() }, 
 									{ end.getX(), end.getY() },
@@ -71,13 +74,14 @@ public class ErmitForm extends Form {
 		// Some points have negative coordinates after generation.
 		// To fix it we need to correct coordinates of points by deducting
 		// top-left point's coordinates(it's the distance to zero)
-		List<Integer> results = getLocalBasePointAreaBounds((int)minX, (int)minY, (int)maxX, (int)maxY);
-		
+		List<Integer> results = getLocalBasePointAreaBounds((int) minX, (int) minY, (int) maxX,
+				(int) maxY);
+
 		for (Point point : points) {
 			point.setX(point.getX() - results.get(0));
 			point.setY(point.getY() - results.get(1));
 		}
-		
+
 		// After correction points we have to move form's component to the same
 		// distance
 		curRefPoint.setX(curRefPoint.getX() + results.get(0));
@@ -90,12 +94,6 @@ public class ErmitForm extends Form {
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime) / 1000000;
 		System.out.println("generated in " + duration + "ms");
-	}
-
-	@Override
-	public void addPoint(final Point point) {
-		super.addPoint(point);
-		controller.log(point);
 	}
 
 }

@@ -1,6 +1,7 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic;
 
 import java.util.List;
+import java.util.Set;
 
 public interface GraphicObjectInterface {
 	public void generate();
@@ -9,7 +10,7 @@ public interface GraphicObjectInterface {
 
 	public int getBaseWidth();
 
-	public List<Point> getPoints();
+	public Set<Point> getPoints();
 
 	public Point getRefferencePoint();
 

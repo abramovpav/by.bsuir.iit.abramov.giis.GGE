@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JComponent;
 
@@ -16,7 +18,7 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	 *
 	 */
 	private static final long			serialVersionUID	= 1L;
-	protected final List<Point>			points;
+	protected final LinkedHashSet<Point>			points;
 	private boolean						generated			= false;
 	protected final DesktopController	controller;
 	private int							currentStep			= 1;
@@ -44,13 +46,13 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 
 	public GraphicObject(final DesktopController controller) {
 		this.controller = controller;
-		points = new ArrayList<Point>();
+		points = new LinkedHashSet<Point>();
 		setLayout(null);
 	}
 
 	public GraphicObject(final List<Point> points, final DesktopController controller) {
 		this.controller = controller;
-		this.points = new ArrayList<Point>();
+		this.points = new LinkedHashSet<Point>();
 		this.points.addAll(points);
 		setLayout(null);
 	}
@@ -60,11 +62,16 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	}
 
 	private void draw(final Graphics2D g2d) {
-		for (int index = 0; index <= currentStep; index++) {
-			Point point = getPoint(index);
+		int index = 0;
+	
+		for (Point point: points) {
+			if (index > currentStep) {
+				return;
+			}
 			if (point != null) {
 				drawPoint(g2d, point);
 			}
+			index++;
 		}
 	}
 
@@ -104,13 +111,13 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		return new Color((int) (255 * intensity), (int) (255 * intensity), (int) (255 * intensity));
 	}
 
-	public Point getPoint(final int index) {
-		if (index >= 0 && index < points.size()) {
-			return points.get(index);
-		} else {
-			return null;
-		}
-	}
+//	public Point getPoint(final int index) {
+//		if (index >= 0 && index < points.size()) {
+//			return points.get(index);
+//		} else {
+//			return null;
+//		}
+//	}
 
 	protected Point getLocalCoord(final Point point) {
 		Point local = new Point();
@@ -121,7 +128,7 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	}
 
 	@Override
-	public List<Point> getPoints() {
+	public Set<Point> getPoints() {
 		return points;
 	}
 
@@ -155,19 +162,19 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	}
 
 	private void logPointInfo(final int index) {
-		Point point = getPoint(index);
-		if (point != null) {
-			controller.log("Last point:", false);
-			controller.log(point, getRefferencePoint());
-			controller.log(point.getGenerateInfo(), true);
-		}
+//		Point point = getPoint(index);
+//		if (point != null) {
+//			controller.log("Last point:", false);
+//			controller.log(point, getRefferencePoint());
+//			controller.log(point.getGenerateInfo(), true);
+//		}
 	}
 
 	@Override
 	public void next() {
 		if (currentStep + 1 < points.size()) {
 			currentStep++;
-			logPointInfo(currentStep);
+//			logPointInfo(currentStep);
 			repaint();
 		}
 	}
