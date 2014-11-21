@@ -107,12 +107,14 @@ public class Desktop extends JPanel {
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		if (Config.CURRENT_SCALE > 10) {
 		// Coordinate's grid
-		for (int i = Config.getHalfScale(); i < getWidth(); i += Config.CURRENT_SCALE) {
-			g2d.drawLine(i, 0, i, getHeight());
-		}
-		for (int i = Config.getHalfScale(); i < getHeight(); i += Config.CURRENT_SCALE) {
-			g2d.drawLine(0, i, getWidth(), i);
+			for (int i = Config.getHalfScale(); i < getWidth(); i += Config.CURRENT_SCALE) {
+				g2d.drawLine(i, 0, i, getHeight());
+			}
+			for (int i = Config.getHalfScale(); i < getHeight(); i += Config.CURRENT_SCALE) {
+				g2d.drawLine(0, i, getWidth(), i);
+			}
 		}
 		// Axis
 		g2d.drawLine(0, getHeight() / 2 - 1, getWidth(), getHeight() / 2 - 1);

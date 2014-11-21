@@ -137,7 +137,7 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 	@Override
 	protected void paintComponent(final Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
+//		g2d.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
 		super.paintComponent(g);
 
 	}
@@ -212,11 +212,14 @@ public class Form extends GraphicObject implements GraphicObjectInterface {
 				/ Config.CURRENT_SCALE;
 		int y = (gPoint.getY() + gPoint.getHalfHeight() + refPoint.getY() * Config.CURRENT_SCALE)
 				/ Config.CURRENT_SCALE;
-
-		basePoint.setX(x);
-		basePoint.setY(y);
-		generate();
-		repaint();
+		
+		if (basePoint.getX() != x || basePoint.getY() != y) {
+			basePoint.setX(x);
+			basePoint.setY(y);
+			generate();
+			repaint();
+		}
+		
 	}
 
 	public void baseUpdateBounds(final java.awt.Point centerPoint) {

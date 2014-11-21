@@ -47,7 +47,7 @@ public class ErmitForm extends Form {
 		SimpleMatrix multiplier = new SimpleMatrix(this.multiplier);
 		SimpleMatrix step_multiplier = new SimpleMatrix(1, 4);
 		step_multiplier.set(0, 3, 1);
-		for (double t = 0; t <= 1; t += 0.01) {
+		for (double t = 0; t <= 1; t += 0.1) {
 			step_multiplier.set(0, 0, Math.pow(t, 3));
 			step_multiplier.set(0, 1, Math.pow(t, 2));
 			step_multiplier.set(0, 2, t);
