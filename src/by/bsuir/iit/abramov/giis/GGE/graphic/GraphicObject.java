@@ -79,12 +79,8 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		g2d.setColor(point.getColor());
 		int x = point.getX() * Config.CURRENT_SCALE;
 		int y = point.getY() * Config.CURRENT_SCALE;
-		for (int i = x - Config.getHalfScale(); i < x + Config.getHalfScale(); i++) {
-			for (int j = y - Config.getHalfScale(); j < y + Config.getHalfScale(); j++) {
-				g2d.drawLine(i + Config.getHalfScale(), j + Config.getHalfScale(),
-						i + Config.getHalfScale(), j + Config.getHalfScale());
-			}
-		}
+		
+		g2d.fillRect(x, y, Config.CURRENT_SCALE, Config.CURRENT_SCALE);
 	}
 
 	@Override
