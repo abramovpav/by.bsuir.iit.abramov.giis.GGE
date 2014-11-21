@@ -56,34 +56,6 @@ public class Line extends GraphicObject implements GraphicObjectInterface {
 		return endPoint;
 	}
 
-	protected Point getFirstPointOnCanvas() {
-		Point point = new Point();
-		Point refPoint = getRefferencePointLocal();
-		int x = startPoint.getX() - refPoint.getX();
-		int y = startPoint.getY() - refPoint.getY();
-		point.setX(x);
-		point.setY(y);
-		return point;
-	}
-
-	protected Point getLastPointOnCanvas() {
-		Point point = new Point();
-		Point refPoint = getRefferencePointLocal();
-		int x = endPoint.getX() - refPoint.getX();
-		int y = endPoint.getY() - refPoint.getY();
-		point.setX(x);
-		point.setY(y);
-		return point;
-	}
-
-	public Point getRefferencePointLocal() {
-		if (startPoint == null || endPoint == null) {
-			return null;
-		}
-		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(),
-				endPoint.getY()));
-	}
-
 	public Point getStartPoint() {
 		return startPoint;
 	}

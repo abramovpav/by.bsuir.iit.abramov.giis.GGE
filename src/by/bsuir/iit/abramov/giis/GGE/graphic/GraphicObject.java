@@ -59,7 +59,8 @@ public class GraphicObject implements GraphicObjectInterface {
 		points.add(point);
 	}
 
-	private void draw(final Graphics2D g2d) {
+	@Override
+	public void draw(final Graphics2D g2d) {
 		int index = 0;
 	
 		for (Point point: points) {
@@ -75,8 +76,10 @@ public class GraphicObject implements GraphicObjectInterface {
 
 	private void drawPoint(final Graphics2D g2d, final Point point) {
 		g2d.setColor(point.getColor());
-		int x = point.getX() * Config.CURRENT_SCALE;
-		int y = point.getY() * Config.CURRENT_SCALE;
+		java.awt.Point center = getDesktopCenterPoint();
+		int x = point.getX() * Config.CURRENT_SCALE - Config.getHalfScale() + center.x;
+		int y = point.getY() * Config.CURRENT_SCALE - Config.getHalfScale() + center.y;
+		System.out.println("draw " + x + " " + y);
 		
 		g2d.fillRect(x, y, Config.CURRENT_SCALE, Config.CURRENT_SCALE);
 	}

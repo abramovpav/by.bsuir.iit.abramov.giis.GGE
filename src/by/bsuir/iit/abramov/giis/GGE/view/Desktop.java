@@ -105,8 +105,15 @@ public class Desktop extends JPanel {
 
 	@Override
 	protected void paintComponent(final Graphics g) {
+		System.out.println("Desktop - paint: " + graphicObjects.size());
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		
+		for(GraphicObjectInterface graphObject: graphicObjects) {
+			graphObject.draw(g2d);
+		}
+		
+		
 		if (Config.CURRENT_SCALE > 10) {
 		// Coordinate's grid
 			for (int i = Config.getHalfScale(); i < getWidth(); i += Config.CURRENT_SCALE) {
@@ -158,11 +165,9 @@ public class Desktop extends JPanel {
 			last();
 			((Line) tempGraphicObject).setEndPoint(x, y);
 
-			add((JComponent) tempGraphicObject);
 			graphicObjects.add(tempGraphicObject);
 			
 			tempGraphicObject.generate();
-			tempGraphicObject.updateBounds(centerPoint);
 			tempGraphicObject = null;
 
 			controller.log(
@@ -171,6 +176,7 @@ public class Desktop extends JPanel {
 			controller.log(DELETE_TEMP_LINE, false);
 			controller.activateStepButton();
 			setMode(Mode.NONE);
+			repaint();
 		}
 	}
 	
@@ -186,13 +192,12 @@ public class Desktop extends JPanel {
 		} else {
 			last();
 			((Form) tempGraphicObject).addBasePoint(x, y);
-			((Form) tempGraphicObject).addMouseListener(new FormListener(((Form) tempGraphicObject), controller));
+//			((Form) tempGraphicObject).addMouseListener(new FormListener(((Form) tempGraphicObject), controller));
 
 			add((JComponent) tempGraphicObject);
 			graphicObjects.add(tempGraphicObject);
 			
 			tempGraphicObject.generate();
-			tempGraphicObject.updateBounds(centerPoint);
 			tempGraphicObject = null;
 
 //			controller.log(
@@ -247,7 +252,7 @@ public class Desktop extends JPanel {
 	public void updateGraphics() {
 		java.awt.Point centerPoint = getCenterPoint();
 		for (GraphicObjectInterface object : graphicObjects) {
-			object.updateBounds(centerPoint);
+//			object.updateBounds(centerPoint);
 		}
 	}
 

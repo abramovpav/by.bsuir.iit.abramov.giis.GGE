@@ -21,12 +21,11 @@ public class LineDDA extends Line {
 	@Override
 	public void generate() {
 		super.generate();
-		Point firstPoint = getFirstPointOnCanvas();
-		Point lastPoint = getLastPointOnCanvas();
-		int x1 = firstPoint.getX();
-		int y1 = firstPoint.getY();
-		int x2 = lastPoint.getX();
-		int y2 = lastPoint.getY();
+		int x1 = getStartPoint().getX();
+		int y1 = getStartPoint().getY();
+		int x2 = getEndPoint().getX();
+		int y2 = getEndPoint().getY();
+
 		int length = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
 		double dx = (double) (x2 - x1) / length;
 		double dy = (double) (y2 - y1) / length;

@@ -21,12 +21,10 @@ public class Line_Brezenhem extends Line {
 	@Override
 	public void generate() {
 		super.generate();
-		Point firstPoint = getFirstPointOnCanvas();
-		Point lastPoint = getLastPointOnCanvas();
-		int x1 = firstPoint.getX();
-		int y1 = firstPoint.getY();
-		int x2 = lastPoint.getX();
-		int y2 = lastPoint.getY();
+		int x1 = getStartPoint().getX();
+		int y1 = getStartPoint().getY();
+		int x2 = getEndPoint().getX();
+		int y2 = getEndPoint().getY();
 		int a = 1;
 		int b = 1;
 		if (x1 < x2) {

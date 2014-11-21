@@ -23,12 +23,10 @@ public class Line_Wy extends Line {
 	@Override
 	public void generate() {
 		super.generate();
-		Point firstPoint = getFirstPointOnCanvas();
-		Point lastPoint = getLastPointOnCanvas();
-		int x1 = firstPoint.getX();
-		int y1 = firstPoint.getY();
-		int x2 = lastPoint.getX();
-		int y2 = lastPoint.getY();
+		int x1 = getStartPoint().getX();
+		int y1 = getStartPoint().getY();
+		int x2 = getEndPoint().getX();
+		int y2 = getEndPoint().getY();
 		if (x1 == x2) {
 			generateStraightLine(y1, y2, x1, false);
 			generated();
