@@ -13,7 +13,7 @@ import javax.swing.JComponent;
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
-public class GraphicObject extends JComponent implements GraphicObjectInterface {
+public class GraphicObject implements GraphicObjectInterface {
 	/**
 	 *
 	 */
@@ -47,14 +47,12 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	public GraphicObject(final DesktopController controller) {
 		this.controller = controller;
 		points = new LinkedHashSet<Point>();
-		setLayout(null);
 	}
 
 	public GraphicObject(final List<Point> points, final DesktopController controller) {
 		this.controller = controller;
 		this.points = new LinkedHashSet<Point>();
 		this.points.addAll(points);
-		setLayout(null);
 	}
 
 	public void addPoint(final Point point) {
@@ -93,54 +91,13 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		currentStep = points.size() - 1;
 	}
 
-	@Override
-	public int getBaseHeight() {
-		return getHeight();
-	}
-
-	@Override
-	public int getBaseWidth() {
-		return getWidth();
-	}
-
 	protected Color getColor(final float intensity) {
 		return new Color((int) (255 * intensity), (int) (255 * intensity), (int) (255 * intensity));
-	}
-
-//	public Point getPoint(final int index) {
-//		if (index >= 0 && index < points.size()) {
-//			return points.get(index);
-//		} else {
-//			return null;
-//		}
-//	}
-
-	protected Point getLocalCoord(final Point point) {
-		Point local = new Point();
-		Point refPoint = getRefferencePoint();
-		local.setX(point.getX() - refPoint.getX());
-		local.setY(point.getY() - refPoint.getY());
-		return local;
 	}
 
 	@Override
 	public Set<Point> getPoints() {
 		return points;
-	}
-
-	@Override
-	public Point getRefferencePoint() {
-		return new Point(0, 0);
-	}
-
-	@Override
-	public int getScaledHeight() {
-		return getBaseHeight() * Config.CURRENT_SCALE;
-	}
-
-	@Override
-	public int getScaledWidth() {
-		return getBaseWidth() * Config.CURRENT_SCALE;
 	}
 
 	public boolean isGenerated() {
@@ -150,7 +107,6 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 	@Override
 	public void last() {
 		currentStep = points.size() - 1;
-		repaint();
 	}
 
 	protected void log(final String msg, final boolean offset) {
@@ -171,17 +127,11 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		if (currentStep + 1 < points.size()) {
 			currentStep++;
 //			logPointInfo(currentStep);
-			repaint();
 		}
 	}
 
-	@Override
 	protected void paintComponent(final Graphics g) {
 		System.out.println(this.getClass().getSimpleName() + "-paint " + points.size());
-		if (!isGenerated()) {
-			super.paintComponent(g);
-			return;
-		}
 		Graphics2D g2d = (Graphics2D) g;
 		// g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
 		// g2d.drawRect(1, 1, getScaledWidth() - 2, getScaledHeight() - 2);
@@ -193,7 +143,6 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		if (currentStep - 1 >= 0) {
 			currentStep--;
 			logPointInfo(currentStep);
-			repaint();
 		}
 	}
 
@@ -205,14 +154,6 @@ public class GraphicObject extends JComponent implements GraphicObjectInterface 
 		} else {
 			return -1;
 		}
-	}
-
-	@Override
-	public void updateBounds(final java.awt.Point point) {
-		Point refPoint = getRefferencePoint();
-		setBounds(refPoint.getX() * Config.CURRENT_SCALE + point.x - Config.getHalfScale(),
-				refPoint.getY() * Config.CURRENT_SCALE + point.y - Config.getHalfScale(),
-				getScaledWidth(), getScaledHeight());
 	}
 
 	protected java.awt.Point getDesktopCenterPoint() {

@@ -30,9 +30,9 @@ public class ErmitForm extends Form {
 		long startTime = System.nanoTime();
 		System.out.println("size = " + getPoints().size());
 		super.generate();
-		Point curRefPoint = getRefferencePoint();
-		Point start = getLocalCoord(getBasePoint(0));
-		Point end = getLocalCoord(getBasePoint(1));
+//		Point curRefPoint = getRefferencePoint();
+		Point start = /*getLocalCoord(*/getBasePoint(0);
+		Point end = /*getLocalCoord(*/getBasePoint(1);
 		double minX, minY, maxX, maxY;
 		minX = minY = 99999;
 		maxX = maxY = 0;
@@ -84,12 +84,11 @@ public class ErmitForm extends Form {
 
 		// After correction points we have to move form's component to the same
 		// distance
-		curRefPoint.setX(curRefPoint.getX() + results.get(0));
-		curRefPoint.setY(curRefPoint.getY() + results.get(1));
-		setRefPoint(curRefPoint);
+//		curRefPoint.setX(curRefPoint.getX() + results.get(0));
+//		curRefPoint.setY(curRefPoint.getY() + results.get(1));
+//		setRefPoint(curRefPoint);
 		updateWidthAndHeight(results.get(0), results.get(1), results.get(2), results.get(3));
 
-		updateBounds(getDesktopCenterPoint());
 		generated();
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime) / 1000000;

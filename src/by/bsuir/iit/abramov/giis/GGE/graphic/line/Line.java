@@ -52,24 +52,6 @@ public class Line extends GraphicObject implements GraphicObjectInterface {
 		points.clear();
 	}
 
-	@Override
-	public final int getBaseHeight() {
-		int heigth = Math.abs(startPoint.getY() - endPoint.getY());
-		while (heigth % Config.CURRENT_SCALE != 0 || heigth == 0) {
-			heigth++;
-		}
-		return heigth;
-	}
-
-	@Override
-	public final int getBaseWidth() {
-		int width = Math.abs(startPoint.getX() - endPoint.getX());
-		while (width % Config.CURRENT_SCALE != 0 || width == 0) {
-			width++;
-		}
-		return width;
-	}
-
 	public Point getEndPoint() {
 		return endPoint;
 	}
@@ -94,15 +76,6 @@ public class Line extends GraphicObject implements GraphicObjectInterface {
 		return point;
 	}
 
-	@Override
-	public Point getRefferencePoint() {
-		if (startPoint == null || endPoint == null) {
-			return null;
-		}
-		return new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(),
-				endPoint.getY()));
-	}
-
 	public Point getRefferencePointLocal() {
 		if (startPoint == null || endPoint == null) {
 			return null;
@@ -117,12 +90,10 @@ public class Line extends GraphicObject implements GraphicObjectInterface {
 	
 	public void setEndPoint(final int x, final int y) {
 		this.endPoint = new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y));
-		setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 	}
 
 	public void setEndPoint(final Point endPoint) {
 		this.endPoint = endPoint;
-		setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 	}
 
 	public void setStartPoint(final Point startPoint) {
