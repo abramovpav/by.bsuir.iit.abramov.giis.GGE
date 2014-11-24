@@ -11,7 +11,7 @@ public class Point {
 			coord = coord / Config.CURRENT_SCALE;
 		} else {
 			coord /= Config.CURRENT_SCALE;
-			if (coord > 0) {
+			if (input_coord > 0) {
 				coord += 1;
 			} else {
 				coord -= 1;
