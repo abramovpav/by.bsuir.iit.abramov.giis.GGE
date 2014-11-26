@@ -21,7 +21,7 @@ public class Config {
 		}
 		return false;
 	}
-	
+
 	public static int getHalfScale() {
 		return CURRENT_SCALE / 2;
 	}

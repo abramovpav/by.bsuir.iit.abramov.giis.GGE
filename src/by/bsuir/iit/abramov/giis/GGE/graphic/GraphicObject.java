@@ -8,21 +8,20 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JComponent;
-
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
+import by.bsuir.iit.abramov.giis.GGE.graphic.forms.GraphicPoint;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
 public class GraphicObject implements GraphicObjectInterface {
 	/**
 	 *
 	 */
-	private static final long			serialVersionUID	= 1L;
-	protected final LinkedHashSet<Point>			points;
-	private boolean						generated			= false;
-	protected final DesktopController	controller;
-	private int							currentStep			= 1;
-	private boolean						selected;
+	private static final long				serialVersionUID	= 1L;
+	protected final LinkedHashSet<Point>	points;
+	private boolean							generated			= false;
+	protected final DesktopController		controller;
+	private int								currentStep			= 1;
+	private boolean							selected;
 
 	public boolean isSelected() {
 		return selected;
@@ -62,8 +61,8 @@ public class GraphicObject implements GraphicObjectInterface {
 	@Override
 	public void draw(final Graphics2D g2d) {
 		int index = 0;
-	
-		for (Point point: points) {
+
+		for (Point point : points) {
 			if (index > currentStep) {
 				return;
 			}
@@ -79,8 +78,7 @@ public class GraphicObject implements GraphicObjectInterface {
 		java.awt.Point center = getDesktopCenterPoint();
 		int x = point.getX() * Config.CURRENT_SCALE - Config.getHalfScale() + center.x;
 		int y = point.getY() * Config.CURRENT_SCALE - Config.getHalfScale() + center.y;
-		System.out.println("draw " + x + " " + y);
-		
+
 		g2d.fillRect(x, y, Config.CURRENT_SCALE, Config.CURRENT_SCALE);
 	}
 
@@ -117,27 +115,25 @@ public class GraphicObject implements GraphicObjectInterface {
 	}
 
 	private void logPointInfo(final int index) {
-//		Point point = getPoint(index);
-//		if (point != null) {
-//			controller.log("Last point:", false);
-//			controller.log(point, getRefferencePoint());
-//			controller.log(point.getGenerateInfo(), true);
-//		}
+		// Point point = getPoint(index);
+		// if (point != null) {
+		// controller.log("Last point:", false);
+		// controller.log(point, getRefferencePoint());
+		// controller.log(point.getGenerateInfo(), true);
+		// }
 	}
 
 	@Override
 	public void next() {
 		if (currentStep + 1 < points.size()) {
 			currentStep++;
-//			logPointInfo(currentStep);
+			// logPointInfo(currentStep);
 		}
 	}
 
 	protected void paintComponent(final Graphics g) {
 		System.out.println(this.getClass().getSimpleName() + "-paint " + points.size());
 		Graphics2D g2d = (Graphics2D) g;
-		// g2d.drawRect(0, 0, getScaledWidth() - 1, getScaledHeight() - 1);
-		// g2d.drawRect(1, 1, getScaledWidth() - 2, getScaledHeight() - 2);
 		draw(g2d);
 	}
 
@@ -159,17 +155,16 @@ public class GraphicObject implements GraphicObjectInterface {
 		}
 	}
 
+	public void repaint() {
+		controller.desktopRepaint();
+	}
+
 	protected java.awt.Point getDesktopCenterPoint() {
 		return controller.getDesktopCenterPoint();
 	}
 
 	@Override
-	public void select() {
-		setSelected(true);
-	}
-
-	@Override
-	public void unselect() {
-		setSelected(false);
+	public List<GraphicPoint> getGraphicPoints() {
+		return new ArrayList<GraphicPoint>();
 	}
 }

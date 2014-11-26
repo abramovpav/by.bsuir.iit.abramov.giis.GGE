@@ -44,8 +44,6 @@ public class DesktopMouseListener implements MouseListener, MouseMotionListener 
 	@Override
 	public void mouseMoved(final MouseEvent e) {
 		java.awt.Point centerDesktop = desktop.getCenterPoint();
-		System.out.println("center " + centerDesktop.x + " " + centerDesktop.y);
-		System.out.println(e.getX() + " " + e.getY());
 		controller.updateStatusBar(Point.getUnscaledCoord(e.getX() - centerDesktop.x),
 				Point.getUnscaledCoord(e.getY() - centerDesktop.y));
 

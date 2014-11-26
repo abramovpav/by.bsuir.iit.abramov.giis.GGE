@@ -78,7 +78,6 @@ public class Line_Wy extends Line {
 				info = generateinfo(e, distance);
 				curPoint.addGenerateInfo(info);
 				log(info, true);
-				// System.out.println("second");
 				distance = getDistance(x1, y1, x2, y2, dy, x, y + 1, segmentAngle);
 				if (distance > 1) {
 					distance = getDistance(x1, y1, x2, y2, dy, x, y - 1, segmentAngle);
@@ -109,7 +108,6 @@ public class Line_Wy extends Line {
 				curPoint.addGenerateInfo(info);
 				log(info, true);
 				distance = getDistance(x1, y1, x2, y2, dy, x + 1, y, segmentAngle);
-				System.out.println("second");
 				if (distance > 1) {
 					distance = getDistance(x1, y1, x2, y2, dy, x - 1, y, segmentAngle);
 					curPoint = new Point((int) x - 1, (int) y, getColor((float) distance));
@@ -123,6 +121,7 @@ public class Line_Wy extends Line {
 			}
 		}
 		generated();
+		repaint();
 	}
 
 	private String generateinfo(final int e, final double distance) {

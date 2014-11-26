@@ -42,6 +42,7 @@ public class LineDDA extends Line {
 			i += 1;
 		}
 		generated();
+		repaint();
 	}
 
 }

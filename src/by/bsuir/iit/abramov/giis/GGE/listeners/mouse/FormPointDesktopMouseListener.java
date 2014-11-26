@@ -68,10 +68,10 @@ public class FormPointDesktopMouseListener implements MouseListener, MouseMotion
 	public void mouseDragged(final MouseEvent e) {
 		int dx = e.getXOnScreen() - pressPoint.x;
 		int dy = e.getYOnScreen() - pressPoint.y;
-		System.out.println(dx + " " + dy);
 		pressPoint.x = e.getXOnScreen();
 		pressPoint.y = e.getYOnScreen();
-		form.updateBasePoint(point, dx, dy);
+		point.setLocation(point.getX() + dx, point.getY() + dy);
+		form.generate();
 	}
 
 	@Override

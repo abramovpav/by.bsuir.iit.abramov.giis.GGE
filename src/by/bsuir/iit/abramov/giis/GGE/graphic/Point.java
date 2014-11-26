@@ -119,17 +119,17 @@ public class Point {
 	public void setZ(final int z) {
 		this.z = z;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return ("" + x + " " + y + " " + z + " " + dist).hashCode();
 	}
-	
+
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		// TODO Auto-generated method stub
-		return this.hashCode() == obj.hashCode();
+		return hashCode() == obj.hashCode();
 	}
 
 }

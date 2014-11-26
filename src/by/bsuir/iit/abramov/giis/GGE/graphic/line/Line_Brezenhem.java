@@ -82,6 +82,7 @@ public class Line_Brezenhem extends Line {
 			}
 		}
 		generated();
+		repaint();
 	}
 
 	private String generateInfo(final int e) {

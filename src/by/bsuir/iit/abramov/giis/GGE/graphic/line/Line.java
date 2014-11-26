@@ -1,13 +1,11 @@
 package by.bsuir.iit.abramov.giis.GGE.graphic.line;
 
-import java.awt.Dimension;
 import java.util.List;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObject;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
-import by.bsuir.iit.abramov.giis.GGE.main.Config;
 
 public class Line extends GraphicObject implements GraphicObjectInterface {
 	/**
@@ -59,9 +57,9 @@ public class Line extends GraphicObject implements GraphicObjectInterface {
 	public Point getStartPoint() {
 		return startPoint;
 	}
-	
+
 	public void setEndPoint(final int x, final int y) {
-		this.endPoint = new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y));
+		endPoint = new Point(Point.getUnscaledCoord(x), Point.getUnscaledCoord(y));
 	}
 
 	public void setEndPoint(final Point endPoint) {

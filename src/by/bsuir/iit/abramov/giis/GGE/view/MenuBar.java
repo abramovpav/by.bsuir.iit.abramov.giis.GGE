@@ -14,26 +14,26 @@ import by.bsuir.iit.abramov.giis.GGE.utils.EMenuItem;
 import by.bsuir.iit.abramov.giis.GGE.utils.ListenerFactory;
 
 public class MenuBar extends JMenuBar {
-	private final Map<EMenuItem, JMenuItem> items;
-	private Controller controller;
-	
-	public MenuBar(Controller controller) {
+	private final Map<EMenuItem, JMenuItem>	items;
+	private final Controller				controller;
+
+	public MenuBar(final Controller controller) {
 		super();
 		this.controller = controller;
 		items = new HashMap<EMenuItem, JMenuItem>();
 		init();
 	}
-	
+
 	public void activateActions() {
-		List <EMenuItem> items = EMenu.ACTIONS.getItems();
+		List<EMenuItem> items = EMenu.ACTIONS.getItems();
 		setEnabled(true, items);
 	}
-	
+
 	public void activateStepButton() {
-		List <EMenuItem> items = EMenu.ALGORITHM.getItems();
+		List<EMenuItem> items = EMenu.ALGORITHM.getItems();
 		setEnabled(true, items);
 	}
-	
+
 	private void init() {
 		for (EMenu emenu : EMenu.values()) {
 			JMenu menu = new JMenu(emenu.getName());
@@ -47,9 +47,9 @@ public class MenuBar extends JMenuBar {
 			add(menu);
 		}
 	}
-	
-	public void setEnabled(boolean enabled, List<EMenuItem> items) {
-		for(EMenuItem item: items) {
+
+	public void setEnabled(final boolean enabled, final List<EMenuItem> items) {
+		for (EMenuItem item : items) {
 			if (this.items.containsKey(item)) {
 				JMenuItem menuItem = this.items.get(item);
 				menuItem.setEnabled(enabled);
