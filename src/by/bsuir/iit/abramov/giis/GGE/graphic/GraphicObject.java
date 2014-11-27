@@ -92,7 +92,10 @@ public class GraphicObject implements GraphicObjectInterface {
 		currentStep = points.size() - 1;
 	}
 
-	protected Color getColor(final float intensity) {
+	protected Color getColor(final float input_intensity) {
+		float intensity = input_intensity;
+		if (intensity < 0) intensity = 0;
+		if (intensity > 1) intensity = 1;
 		return new Color((int) (255 * intensity), (int) (255 * intensity), (int) (255 * intensity));
 	}
 

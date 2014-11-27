@@ -112,6 +112,7 @@ public class Desktop extends JPanel {
 		for (GraphicObjectInterface graphObject : graphicObjects) {
 			graphObject.draw(g2d);
 		}
+		g2d.setColor(Color.BLACK);
 
 		if (Config.CURRENT_SCALE > 10) {
 			// Coordinate's grid

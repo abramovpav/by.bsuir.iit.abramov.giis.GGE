@@ -148,12 +148,10 @@ public class Line_Wy extends Line {
 	private double getDistance(final int x1, final int y1, final int x2, final int y2,
 			final int dy, final double x, final double y, final double segmentAngle) {
 		double distance;
-		double pixel_y = y;
-		if (x1 == 0 && y1 != 0 || x2 == 0 && y2 != 0) {
-			pixel_y = dy - y;
-		}
-		double hypot = Math.hypot(x, pixel_y);
-		double angle = Math.abs(segmentAngle - Math.asin(pixel_y / hypot));
+		double AB = Math.abs(x1 - x);
+		double BC = Math.abs(y1 - y);
+		double hypot = Math.hypot(AB, BC);
+		double angle = Math.abs(segmentAngle - Math.asin(BC / hypot));
 
 		distance = Math.sin(angle) * hypot;
 		return distance;
