@@ -18,13 +18,17 @@ public class Controller {
 	public void activateStepButton() {
 		window.activateStepButton();
 	}
+	
+	public void bsplain() {
+		window.setMode(Mode.BSPLAIN);
+	}
 
 	public void exit() {
 		window.setVisible(false);
 	}
 
-	public void form() {
-		window.setMode(Mode.FORM);
+	public void ermitForm() {
+		window.setMode(Mode.ERMIT_FORM);
 	}
 
 	public void last() {

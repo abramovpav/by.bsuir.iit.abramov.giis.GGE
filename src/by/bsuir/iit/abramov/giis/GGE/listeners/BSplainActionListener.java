@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 
-public class FormActionListener implements ActionListener {
+public class BSplainActionListener implements ActionListener {
 
 	private final Controller	controller;
 
-	public FormActionListener(final Controller controller) {
+	public BSplainActionListener(final Controller controller) {
 		this.controller = controller;
 	}
 

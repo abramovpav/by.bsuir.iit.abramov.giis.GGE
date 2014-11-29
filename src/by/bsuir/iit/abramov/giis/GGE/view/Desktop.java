@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
+import by.bsuir.iit.abramov.giis.GGE.graphic.forms.BSplain;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.ErmitForm;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.Form;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.GraphicPoint;
@@ -181,8 +182,12 @@ public class Desktop extends JPanel {
 					CREATE_TEMP_LINE + Point.getUnscaledCoord(x) + COORD_SEPARATOR
 					+ Point.getUnscaledCoord(y), false);
 			switch (mode) {
-			case FORM:
+			case ERMIT_FORM:
 				tempGraphicObject = new ErmitForm(x, y, controller);
+				break;
+			case BSPLAIN:
+				tempGraphicObject = new BSplain(x, y, controller);
+				break;
 			}
 		} else {
 			last();
@@ -196,9 +201,11 @@ public class Desktop extends JPanel {
 				gPoint.addMouseMotionListener(formPointListener);
 			}
 			graphicObjects.add(tempGraphicObject);
-
+			
 			tempGraphicObject.generate();
-			tempGraphicObject = null;
+			if (mode != Mode.BSPLAIN) {
+				tempGraphicObject = null;
+			}
 
 			// controller.log(
 			// SET_LAST_POINT + Point.getUnscaledCoord(x) + COORD_SEPARATOR
@@ -230,11 +237,16 @@ public class Desktop extends JPanel {
 			break;
 		case LINE_WY:
 			addLineMouseListeners();
+			break;
 		case NONE:
 			addDesktopMouseListeners();
 			break;
-		case FORM:
+		case ERMIT_FORM:
 			addFormMouseListeners();
+			break;
+		case BSPLAIN:
+			addFormMouseListeners();
+			break;
 		}
 	}
 
