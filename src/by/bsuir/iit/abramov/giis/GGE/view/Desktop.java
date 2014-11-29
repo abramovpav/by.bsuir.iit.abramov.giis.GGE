@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
@@ -17,6 +16,7 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.ErmitForm;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.Form;
+import by.bsuir.iit.abramov.giis.GGE.graphic.forms.GraphicPoint;
 import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line;
 import by.bsuir.iit.abramov.giis.GGE.graphic.line.LineDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line_Brezenhem;
@@ -24,7 +24,7 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line_Wy;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.FormDesktopMouseListener;
-import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.FormListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.FormPointDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.LineDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.main.Config;
 import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
@@ -59,7 +59,7 @@ public class Desktop extends JPanel {
 	private void addLineMouseListeners() {
 		addMouseListener(new LineDesktopMouseListener(controller, this));
 	}
-	
+
 	private void addFormMouseListeners() {
 		addMouseListener(new FormDesktopMouseListener(controller, this));
 	}
@@ -105,10 +105,17 @@ public class Desktop extends JPanel {
 
 	@Override
 	protected void paintComponent(final Graphics g) {
+		System.out.println("Desktop - paint: " + graphicObjects.size());
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+
+		for (GraphicObjectInterface graphObject : graphicObjects) {
+			graphObject.draw(g2d);
+		}
+		g2d.setColor(Color.BLACK);
+
 		if (Config.CURRENT_SCALE > 10) {
-		// Coordinate's grid
+			// Coordinate's grid
 			for (int i = Config.getHalfScale(); i < getWidth(); i += Config.CURRENT_SCALE) {
 				g2d.drawLine(i, 0, i, getHeight());
 			}
@@ -133,11 +140,6 @@ public class Desktop extends JPanel {
 	private GraphicObjectInterface getCurrentGraphicObject() {
 		return graphicObjects.get(graphicObjects.size() - 1);
 	}
-	
-	public void selectComponent(GraphicObjectInterface object) {
-		object.select();
-		selectedGraphicObject = object;
-	}
 
 	public void setLinePoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
@@ -158,11 +160,9 @@ public class Desktop extends JPanel {
 			last();
 			((Line) tempGraphicObject).setEndPoint(x, y);
 
-			add((JComponent) tempGraphicObject);
 			graphicObjects.add(tempGraphicObject);
-			
+
 			tempGraphicObject.generate();
-			tempGraphicObject.updateBounds(centerPoint);
 			tempGraphicObject = null;
 
 			controller.log(
@@ -171,9 +171,10 @@ public class Desktop extends JPanel {
 			controller.log(DELETE_TEMP_LINE, false);
 			controller.activateStepButton();
 			setMode(Mode.NONE);
+			repaint();
 		}
 	}
-	
+
 	public void setFormPoint(final int x, final int y) {
 		if (tempGraphicObject == null) {
 			controller.log(
@@ -186,19 +187,23 @@ public class Desktop extends JPanel {
 		} else {
 			last();
 			((Form) tempGraphicObject).addBasePoint(x, y);
-			((Form) tempGraphicObject).addMouseListener(new FormListener(((Form) tempGraphicObject), controller));
 
-			add((JComponent) tempGraphicObject);
+			for (GraphicPoint gPoint : tempGraphicObject.getGraphicPoints()) {
+				add(gPoint);
+				FormPointDesktopMouseListener formPointListener = new FormPointDesktopMouseListener(
+						((Form) tempGraphicObject), gPoint);
+				gPoint.addMouseListener(formPointListener);
+				gPoint.addMouseMotionListener(formPointListener);
+			}
 			graphicObjects.add(tempGraphicObject);
-			
+
 			tempGraphicObject.generate();
-			tempGraphicObject.updateBounds(centerPoint);
 			tempGraphicObject = null;
 
-//			controller.log(
-//					SET_LAST_POINT + Point.getUnscaledCoord(x) + COORD_SEPARATOR
-//					+ Point.getUnscaledCoord(y), false);
-//			controller.log(DELETE_TEMP_LINE, false);
+			// controller.log(
+			// SET_LAST_POINT + Point.getUnscaledCoord(x) + COORD_SEPARATOR
+			// + Point.getUnscaledCoord(y), false);
+			// controller.log(DELETE_TEMP_LINE, false);
 			controller.activateStepButton();
 			setMode(Mode.NONE);
 		}
@@ -247,7 +252,7 @@ public class Desktop extends JPanel {
 	public void updateGraphics() {
 		java.awt.Point centerPoint = getCenterPoint();
 		for (GraphicObjectInterface object : graphicObjects) {
-			object.updateBounds(centerPoint);
+			// object.updateBounds(centerPoint);
 		}
 	}
 

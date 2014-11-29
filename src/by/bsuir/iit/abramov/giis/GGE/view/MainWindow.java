@@ -19,8 +19,8 @@ import by.bsuir.iit.abramov.giis.GGE.utils.Mode;
 public class MainWindow {
 	private final JFrame		window;
 	private final String		TITLE			= "GGE";
-	private final int			DEFAULT_WIDTH	= 1024;
-	private final int			DEFAULT_HEIGHT	= 768;
+	private final int			DEFAULT_WIDTH	= 800;
+	private final int			DEFAULT_HEIGHT	= 600;
 	private JPanel				contentPane;
 	private Desktop				desktop;
 	private ToolPanel			toolPanel;
@@ -64,10 +64,10 @@ public class MainWindow {
 	}
 
 	private void init() {
-		window.setBounds(0, 0, DEFAULT_HEIGHT, DEFAULT_WIDTH);
+		window.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		window.setExtendedState(Frame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setMinimumSize(new Dimension(DEFAULT_HEIGHT, DEFAULT_WIDTH));
+		window.setMinimumSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		initMenuBar();
 		initContentPane();
 		initToolPanel(contentPane);
@@ -141,7 +141,7 @@ public class MainWindow {
 		desktop.showLog();
 	}
 
-	private void updateDesktop(int x, int y) {
+	private void updateDesktop(final int x, final int y) {
 
 		desktop.setMinimumSize(desktopSize);
 		desktop.setMaximumSize(desktopSize);
@@ -160,7 +160,7 @@ public class MainWindow {
 		window.repaint();
 	}
 
-	private int normalizeCoord(int max, int coord) {
+	private int normalizeCoord(final int max, int coord) {
 		if (coord < 0) {
 			coord = 0;
 		} else if (coord > max) {
@@ -169,7 +169,7 @@ public class MainWindow {
 		return coord;
 	}
 
-	public void updateDesktopContent(int x, int y) {
+	public void updateDesktopContent(final int x, final int y) {
 		desktopSize = new Dimension(DEFAULT_WIDTH * Config.CURRENT_SCALE / Config.MIN_SCALE,
 				DEFAULT_HEIGHT * Config.CURRENT_SCALE / Config.MIN_SCALE);
 		updateDesktop(x, y);

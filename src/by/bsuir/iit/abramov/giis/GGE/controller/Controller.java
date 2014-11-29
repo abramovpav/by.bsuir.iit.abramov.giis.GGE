@@ -22,7 +22,7 @@ public class Controller {
 	public void exit() {
 		window.setVisible(false);
 	}
-	
+
 	public void form() {
 		window.setMode(Mode.FORM);
 	}
@@ -67,7 +67,7 @@ public class Controller {
 		window.showLog();
 	}
 
-	public void updateDesktopContent(int x, int y) {
+	public void updateDesktopContent(final int x, final int y) {
 		window.updateDesktopContent(x, y);
 	}
 

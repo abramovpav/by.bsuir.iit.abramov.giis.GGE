@@ -21,15 +21,15 @@ public class Config {
 		}
 		return false;
 	}
-	
+
 	public static int getHalfScale() {
 		return CURRENT_SCALE / 2;
 	}
 
-	public static int		CURRENT_SCALE		= 8;
+	public static int		CURRENT_SCALE		= 4;
 	public static final int	PIXELS_PER_SCALE	= 2;
 
 	public static final int	MAX_SCALE			= PIXELS_PER_SCALE * 20;
 
-	public static final int	MIN_SCALE			= 8;
+	public static final int	MIN_SCALE			= 4;
 }

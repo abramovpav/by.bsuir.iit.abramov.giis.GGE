@@ -23,12 +23,10 @@ public class Line_Wy extends Line {
 	@Override
 	public void generate() {
 		super.generate();
-		Point firstPoint = getFirstPointOnCanvas();
-		Point lastPoint = getLastPointOnCanvas();
-		int x1 = firstPoint.getX();
-		int y1 = firstPoint.getY();
-		int x2 = lastPoint.getX();
-		int y2 = lastPoint.getY();
+		int x1 = getStartPoint().getX();
+		int y1 = getStartPoint().getY();
+		int x2 = getEndPoint().getX();
+		int y2 = getEndPoint().getY();
 		if (x1 == x2) {
 			generateStraightLine(y1, y2, x1, false);
 			generated();
@@ -80,7 +78,6 @@ public class Line_Wy extends Line {
 				info = generateinfo(e, distance);
 				curPoint.addGenerateInfo(info);
 				log(info, true);
-				// System.out.println("second");
 				distance = getDistance(x1, y1, x2, y2, dy, x, y + 1, segmentAngle);
 				if (distance > 1) {
 					distance = getDistance(x1, y1, x2, y2, dy, x, y - 1, segmentAngle);
@@ -111,7 +108,6 @@ public class Line_Wy extends Line {
 				curPoint.addGenerateInfo(info);
 				log(info, true);
 				distance = getDistance(x1, y1, x2, y2, dy, x + 1, y, segmentAngle);
-				System.out.println("second");
 				if (distance > 1) {
 					distance = getDistance(x1, y1, x2, y2, dy, x - 1, y, segmentAngle);
 					curPoint = new Point((int) x - 1, (int) y, getColor((float) distance));
@@ -125,6 +121,7 @@ public class Line_Wy extends Line {
 			}
 		}
 		generated();
+		repaint();
 	}
 
 	private String generateinfo(final int e, final double distance) {
@@ -151,12 +148,10 @@ public class Line_Wy extends Line {
 	private double getDistance(final int x1, final int y1, final int x2, final int y2,
 			final int dy, final double x, final double y, final double segmentAngle) {
 		double distance;
-		double pixel_y = y;
-		if (x1 == 0 && y1 != 0 || x2 == 0 && y2 != 0) {
-			pixel_y = dy - y;
-		}
-		double hypot = Math.hypot(x, pixel_y);
-		double angle = Math.abs(segmentAngle - Math.asin(pixel_y / hypot));
+		double AB = Math.abs(x1 - x);
+		double BC = Math.abs(y1 - y);
+		double hypot = Math.hypot(AB, BC);
+		double angle = Math.abs(segmentAngle - Math.asin(BC / hypot));
 
 		distance = Math.sin(angle) * hypot;
 		return distance;

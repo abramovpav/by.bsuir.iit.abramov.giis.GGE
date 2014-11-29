@@ -66,7 +66,7 @@ public class Log {
 		log(message, true);
 	}
 
-	public void log(final String message, boolean offset) {
+	public void log(final String message, final boolean offset) {
 		if (offset) {
 			textArea.append(POINT_OFFSET + message + System.lineSeparator());
 		} else {
