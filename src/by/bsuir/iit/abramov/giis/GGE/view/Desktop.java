@@ -187,33 +187,46 @@ public class Desktop extends JPanel {
 				break;
 			case BSPLAIN:
 				tempGraphicObject = new BSplain(x, y, controller);
+				GraphicPoint gPoint = tempGraphicObject.getLastGraphicPoint();
+				addGraphicPoint(gPoint);
 				break;
 			}
 		} else {
 			last();
 			((Form) tempGraphicObject).addBasePoint(x, y);
 
-			for (GraphicPoint gPoint : tempGraphicObject.getGraphicPoints()) {
-				add(gPoint);
-				FormPointDesktopMouseListener formPointListener = new FormPointDesktopMouseListener(
-						((Form) tempGraphicObject), gPoint);
-				gPoint.addMouseListener(formPointListener);
-				gPoint.addMouseMotionListener(formPointListener);
-			}
 			graphicObjects.add(tempGraphicObject);
-			
 			tempGraphicObject.generate();
-			if (mode != Mode.BSPLAIN) {
-				tempGraphicObject = null;
+			controller.activateStepButton();
+			if (mode == Mode.BSPLAIN) {
+				GraphicPoint gPoint = tempGraphicObject.getLastGraphicPoint();
+				addGraphicPoint(gPoint);	
+				return;
 			}
+			
+			for (GraphicPoint gPoint : tempGraphicObject.getGraphicPoints()) {
+				addGraphicPoint(gPoint);
+			}
+			
+			tempGraphicObject = null;
+			setMode(Mode.NONE);
+			
 
 			// controller.log(
 			// SET_LAST_POINT + Point.getUnscaledCoord(x) + COORD_SEPARATOR
 			// + Point.getUnscaledCoord(y), false);
 			// controller.log(DELETE_TEMP_LINE, false);
-			controller.activateStepButton();
-			setMode(Mode.NONE);
+			
+			
 		}
+	}
+
+	private void addGraphicPoint(GraphicPoint gPoint) {
+		add(gPoint);
+		FormPointDesktopMouseListener formPointListener = new FormPointDesktopMouseListener(
+				((Form) tempGraphicObject), gPoint);
+		gPoint.addMouseListener(formPointListener);
+		gPoint.addMouseMotionListener(formPointListener);
 	}
 
 	@Override

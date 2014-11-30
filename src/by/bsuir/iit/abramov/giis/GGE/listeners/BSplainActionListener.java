@@ -15,7 +15,7 @@ public class BSplainActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(final ActionEvent arg0) {
-		controller.ermitForm();
+		controller.bsplain();
 	}
 
 }

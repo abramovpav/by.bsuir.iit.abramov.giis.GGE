@@ -170,4 +170,9 @@ public class GraphicObject implements GraphicObjectInterface {
 	public List<GraphicPoint> getGraphicPoints() {
 		return new ArrayList<GraphicPoint>();
 	}
+
+	@Override
+	public GraphicPoint getLastGraphicPoint() {
+		return getGraphicPoints().get(getGraphicPoints().size() - 1);
+	}
 }

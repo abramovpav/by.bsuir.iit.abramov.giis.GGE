@@ -18,6 +18,8 @@ public interface GraphicObjectInterface {
 	public void prev();
 
 	public List<GraphicPoint> getGraphicPoints();
+	
+	public GraphicPoint getLastGraphicPoint();
 
 	public void draw(Graphics2D g2d);
 }
