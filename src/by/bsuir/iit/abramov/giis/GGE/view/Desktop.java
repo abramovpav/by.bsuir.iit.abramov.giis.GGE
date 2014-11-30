@@ -277,7 +277,11 @@ public class Desktop extends JPanel {
 	public void updateGraphics() {
 		java.awt.Point centerPoint = getCenterPoint();
 		for (GraphicObjectInterface object : graphicObjects) {
-			// object.updateBounds(centerPoint);
+//			object.updateBounds(centerPoint);
+			for (GraphicPoint gPoint: object.getGraphicPoints()) {
+				gPoint.updateLocation();
+				gPoint.repaint();
+			}
 		}
 	}
 

@@ -61,7 +61,8 @@ public class FormPointDesktopMouseListener implements MouseListener, MouseMotion
 
 	@Override
 	public void mouseReleased(final MouseEvent e) {
-
+		
+		form.generate();
 	}
 
 	@Override
@@ -71,7 +72,7 @@ public class FormPointDesktopMouseListener implements MouseListener, MouseMotion
 		pressPoint.x = e.getXOnScreen();
 		pressPoint.y = e.getYOnScreen();
 		point.setLocation(point.getX() + dx, point.getY() + dy);
-		form.generate();
+		point.repaint();
 	}
 
 	@Override

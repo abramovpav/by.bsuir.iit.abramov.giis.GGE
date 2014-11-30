@@ -46,5 +46,13 @@ public class GraphicPoint extends JComponent {
 		g2d.setColor(Color.RED);
 		g2d.fillRect(0, 0, getWidth(), getHeight());
 	}
+	
+	public void updateLocation() {
+		int x = getX();
+		int y = getY();
+		x = x / Config.PREV_SCALE * Config.CURRENT_SCALE;
+		y = y / Config.PREV_SCALE * Config.CURRENT_SCALE;
+		setLocation(x, y);
+	}
 
 }

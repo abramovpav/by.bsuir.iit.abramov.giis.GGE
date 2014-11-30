@@ -15,6 +15,7 @@ public class BSplain extends Form {
 			                                    { -3, 0, 3, 0 },
 			                                    { 1, 4, 1, 0 }				
 			                                  };
+	private Point tmpPoint = new Point();
 
 	public BSplain(final int x, final int y, final DesktopController controller) {
 		super(x, y, controller);
@@ -34,9 +35,6 @@ public class BSplain extends Form {
 	public void generate() {
 		long startTime = System.nanoTime();
 		super.generate();
-		double minX, minY, maxX, maxY;
-		minX = minY = 99999;
-		maxX = maxY = 0;
 		double coordinates[][] = { 
 									{ 0, 0 }, 
 									{ 0, 0 },
@@ -52,7 +50,6 @@ public class BSplain extends Form {
 		graphicPoints.add(getGraphicPoint(0));
 		graphicPoints.addAll(getGraphicPoints());
 		graphicPoints.add(getLastGraphicPoint());
-		
 		for(int index = 0; index < graphicPoints.size() - 3; index++) {
 			GraphicPoint point1 = graphicPoints.get(index);
 			GraphicPoint point2 = graphicPoints.get(index + 1);
@@ -69,7 +66,7 @@ public class BSplain extends Form {
 			
 			coord.set(3, 0, localCoord(convertScreenCoordToLocal(point4.getX(), true)));
 			coord.set(3, 1, localCoord(convertScreenCoordToLocal(point4.getY(), false)));
-			for (double t = 0; t <= 1; t += 0.1) {
+			for (double t = 0; t <= 1; t += 0.01) {
 				step_multiplier.set(0, 0, Math.pow(t, 3));
 				step_multiplier.set(0, 1, Math.pow(t, 2));
 				step_multiplier.set(0, 2, t);
@@ -77,20 +74,12 @@ public class BSplain extends Form {
 				SimpleMatrix res = step_multiplier.mult(multiplier).mult(coord);
 				double x = res.get(0, 0);
 				double y = res.get(0, 1);
-				Point curPoint = new Point((int) x / 6, (int) y / 6);
-				if (y > maxY) {
-					maxY = y;
+				tmpPoint.setX((int) x / 6);
+				tmpPoint.setY((int) y / 6);
+				if (!existPoint(tmpPoint)) {
+					Point curPoint = new Point((int) x / 6, (int) y / 6);
+					addPoint(curPoint);
 				}
-				if (y < minY) {
-					minY = y;
-				}
-				if (x > maxX) {
-					maxX = x;
-				}
-				if (x < minX) {
-					minX = x;
-				}
-				addPoint(curPoint);
 			}
 		}
 

@@ -57,6 +57,10 @@ public class GraphicObject implements GraphicObjectInterface {
 	public void addPoint(final Point point) {
 		points.add(point);
 	}
+	
+	public boolean existPoint(Point point) {
+		return points.contains(point);
+	}
 
 	@Override
 	public void draw(final Graphics2D g2d) {
