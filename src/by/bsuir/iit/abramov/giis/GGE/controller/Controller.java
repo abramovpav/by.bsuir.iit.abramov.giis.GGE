@@ -22,6 +22,10 @@ public class Controller {
 	public void bsplain() {
 		window.setMode(Mode.BSPLAIN);
 	}
+	
+	public void bezierForm() {
+		window.setMode(Mode.BEZIER_FORM);
+	}
 
 	public void exit() {
 		window.setVisible(false);

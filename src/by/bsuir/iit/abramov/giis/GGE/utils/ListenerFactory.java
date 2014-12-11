@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.listeners.AboutListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.BSplainActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.BezierFormActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.FormActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LastActionListener;
@@ -52,6 +53,8 @@ public class ListenerFactory {
 			return new FormActionListener(controller);
 		case BSPLAIN:
 			return new BSplainActionListener(controller);
+		case BEZIER_FORM:
+			return new BezierFormActionListener(controller);
 		default:
 			return null;
 		}

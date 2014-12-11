@@ -5,7 +5,8 @@ public enum EMenuItem {
 	NEW("New...", true, true), OPEN("Open"), CLOSE("Close"), EXIT("Exit"), LINE_DDA("LineDDA", true), 
 	LINE_WY("LineWy", true), LINE_BREZENHEM("LineBrezenhem", true), NONE("Empty", true), 
 	LOG("Show log", true), ABOUT("About"), NEXT("Next", true), PREV("Prev", true), 
-	LAST("Last", true), ERMIT_FORM("ErmitForm", true), BSPLAIN("BSplain", true);
+	LAST("Last", true), ERMIT_FORM("ErmitForm", true), BSPLAIN("BSplain", true),  
+	BEZIER_FORM("BezierForm", true);
 
 	private String	name	= "DEFAULT";
 	private boolean	tool	= false;

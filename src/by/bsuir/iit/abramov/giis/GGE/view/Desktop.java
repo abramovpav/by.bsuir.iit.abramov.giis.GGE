@@ -15,6 +15,7 @@ import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.BSplain;
+import by.bsuir.iit.abramov.giis.GGE.graphic.forms.BezierForm;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.ErmitForm;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.Form;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.GraphicPoint;
@@ -190,17 +191,30 @@ public class Desktop extends JPanel {
 				GraphicPoint gPoint = tempGraphicObject.getLastGraphicPoint();
 				addGraphicPoint(gPoint);
 				break;
+			case BEZIER_FORM:
+				tempGraphicObject = new BezierForm(x, y, controller);
+				gPoint = tempGraphicObject.getLastGraphicPoint();
+				addGraphicPoint(gPoint);
+				break;
 			}
 		} else {
 			last();
 			((Form) tempGraphicObject).addBasePoint(x, y);
 
 			graphicObjects.add(tempGraphicObject);
-			tempGraphicObject.generate();
+			if (mode != Mode.BEZIER_FORM) {
+				tempGraphicObject.generate();
+			}
 			controller.activateStepButton();
-			if (mode == Mode.BSPLAIN) {
+			if (mode != Mode.ERMIT_FORM) {
 				GraphicPoint gPoint = tempGraphicObject.getLastGraphicPoint();
 				addGraphicPoint(gPoint);	
+				if (mode == Mode.BEZIER_FORM && tempGraphicObject.getGraphicPoints().size() >= 4) {
+					tempGraphicObject.generate();
+					setMode(Mode.NONE);
+					tempGraphicObject = null;
+					return;					
+				}
 				return;
 			}
 			
@@ -258,6 +272,9 @@ public class Desktop extends JPanel {
 			addFormMouseListeners();
 			break;
 		case BSPLAIN:
+			addFormMouseListeners();
+			break;
+		case BEZIER_FORM:
 			addFormMouseListeners();
 			break;
 		}
