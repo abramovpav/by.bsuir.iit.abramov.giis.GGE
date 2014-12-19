@@ -6,6 +6,7 @@ import by.bsuir.iit.abramov.giis.GGE.controller.Controller;
 import by.bsuir.iit.abramov.giis.GGE.listeners.AboutListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.BSplainActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.BezierFormActionListener;
+import by.bsuir.iit.abramov.giis.GGE.listeners.CircleActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.ExitMenuListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.FormActionListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.LastActionListener;
@@ -55,6 +56,8 @@ public class ListenerFactory {
 			return new BSplainActionListener(controller);
 		case BEZIER_FORM:
 			return new BezierFormActionListener(controller);
+		case CIRCLE:
+			return new CircleActionListener(controller);
 		default:
 			return null;
 		}

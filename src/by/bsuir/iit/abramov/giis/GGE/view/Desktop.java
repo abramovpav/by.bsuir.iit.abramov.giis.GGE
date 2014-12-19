@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import by.bsuir.iit.abramov.giis.GGE.controller.DesktopController;
 import by.bsuir.iit.abramov.giis.GGE.graphic.GraphicObjectInterface;
 import by.bsuir.iit.abramov.giis.GGE.graphic.Point;
+import by.bsuir.iit.abramov.giis.GGE.graphic.curve.Circle;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.BSplain;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.BezierForm;
 import by.bsuir.iit.abramov.giis.GGE.graphic.forms.ErmitForm;
@@ -23,6 +24,7 @@ import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line;
 import by.bsuir.iit.abramov.giis.GGE.graphic.line.LineDDA;
 import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line_Brezenhem;
 import by.bsuir.iit.abramov.giis.GGE.graphic.line.Line_Wy;
+import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.CircleDesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.DesktopWheelMouseListener;
 import by.bsuir.iit.abramov.giis.GGE.listeners.mouse.FormDesktopMouseListener;
@@ -61,9 +63,48 @@ public class Desktop extends JPanel {
 	private void addLineMouseListeners() {
 		addMouseListener(new LineDesktopMouseListener(controller, this));
 	}
+	
+	private void addCircleListeners() {
+		addMouseListener(new CircleDesktopMouseListener(controller, this));
+	}
 
 	private void addFormMouseListeners() {
 		addMouseListener(new FormDesktopMouseListener(controller, this));
+	}
+	
+	public void setCirclePoint(final int x, final int y) {
+		if (tempGraphicObject == null) {
+			controller.log(
+					CREATE_TEMP_LINE + Point.getUnscaledCoord(x) + COORD_SEPARATOR
+					+ Point.getUnscaledCoord(y), false);
+			switch (mode) {
+			case CIRCLE:
+				System.out.println("circle");
+				tempGraphicObject = new Circle(x, y, controller);
+				break;
+			}
+		} else {
+			last();
+			Point start = ((Circle) tempGraphicObject).getStartPoint();
+			((Circle) tempGraphicObject).setRadius((int)
+					Math.hypot(
+					Math.abs(Point.getUnscaledCoord(x) - start.getX()), 
+					Math.abs(Point.getUnscaledCoord(y) - start.getY())
+					));
+
+			graphicObjects.add(tempGraphicObject);
+
+			tempGraphicObject.generate();
+			tempGraphicObject = null;
+
+			controller.log(
+					SET_LAST_POINT + Point.getUnscaledCoord(x) + COORD_SEPARATOR
+					+ Point.getUnscaledCoord(y), false);
+			controller.log(DELETE_TEMP_LINE, false);
+			controller.activateStepButton();
+			setMode(Mode.NONE);
+			repaint();
+		}
 	}
 
 	public void cancelTempObject() {
@@ -277,6 +318,8 @@ public class Desktop extends JPanel {
 		case BEZIER_FORM:
 			addFormMouseListeners();
 			break;
+		case CIRCLE:
+			addCircleListeners();
 		}
 	}
 

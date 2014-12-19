@@ -82,4 +82,8 @@ public class Controller {
 	public void updateStatusBar(final int x, final int y) {
 		window.updateStatusBar(x, y);
 	}
+	
+	public void circle() {
+		window.setMode(Mode.CIRCLE);
+	}
 }

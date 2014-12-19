@@ -7,7 +7,7 @@ public enum EMenu {
 	FILE("File", EMenuItem.NEW, EMenuItem.OPEN, EMenuItem.CLOSE, EMenuItem.EXIT), EDIT("Edit"), 
 	ACTIONS("Actions", EMenuItem.LINE_DDA, EMenuItem.LINE_BREZENHEM, EMenuItem.LINE_WY, 
 			EMenuItem.NONE, EMenuItem.LOG, EMenuItem.ERMIT_FORM, EMenuItem.BSPLAIN,
-			EMenuItem.BEZIER_FORM), 
+			EMenuItem.BEZIER_FORM, EMenuItem.CIRCLE), 
 	ALGORITHM("Algorithm",EMenuItem.NEXT, EMenuItem.PREV, EMenuItem.LAST),
 	ABOUT("About", EMenuItem.ABOUT);
 
